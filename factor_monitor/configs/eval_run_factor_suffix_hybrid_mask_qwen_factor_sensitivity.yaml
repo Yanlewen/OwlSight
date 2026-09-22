@@ -1,0 +1,13 @@
+extends: eval_run_factor_suffix_hybrid_mask_qwen.yaml
+
+monitor:
+  backend_options:
+    evaluation_scope:
+      mode: diagnostic
+      factor_interventions: [matched, shuffled, constant]
+      mixed_labels_only: false
+      intervention_seed: 0
+      native_checkpoint_threshold: 0.16776334721819922
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_factor_suffix_screen/diagnostics/factor_sensitivity/mask_qwen3_8b

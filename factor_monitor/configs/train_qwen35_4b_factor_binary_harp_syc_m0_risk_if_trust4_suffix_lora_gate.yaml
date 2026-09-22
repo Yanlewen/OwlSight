@@ -1,0 +1,49 @@
+# Ten-step two-H200 gate for the thirteen-family Factor-Suffix experiment.
+extends: train_m0_harp_syc_m0_risk_if_hard_contrast_factor_suffix_gate.yaml
+
+dataset:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4/evidence_le_32768
+  manifest: effective_config.json
+  trajectory_file: trajectories.jsonl
+  train_file: train_queries.jsonl
+  validation_file: validation_queries.jsonl
+  holdout_file: holdout_queries.jsonl
+
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_trustworthiness13.yaml
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora_length.json
+    evidence_routes:
+      hallucination: context_grounded
+      bias: context_grounded
+      privacy: context_grounded
+      jailbreak: context_grounded
+    training_scope:
+      mode: engineering_full_smoke
+      families:
+        - reasoning_method
+        - deception
+        - memory_use
+        - skill_use
+        - sycophancy
+        - reward_hacking
+        - sabotage
+        - sandbagging
+        - instruction_following
+        - hallucination
+        - bias
+        - privacy
+        - jailbreak
+
+optimization:
+  max_steps: 10
+  warmup_ratio: 0.0
+  logging_steps: 1
+  save_steps: 10
+
+evaluation:
+  cadence: 10
+  metric: auroc
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora_gate

@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "factor-monitor"
+version = "0.1.0"
+description = "Config-driven data, training, and evaluation contracts for factor-conditioned CoT monitors"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+api = ["openai>=1.0", "tqdm>=4.0"]
+data = ["datasets>=2.0"]
+training = ["numpy", "torch", "transformers", "peft", "safetensors"]
+ifbench = [
+  "datasets>=2.0",
+  "absl-py",
+  "langdetect",
+  "nltk",
+  "immutabledict",
+  "spacy",
+  "emoji",
+  "syllapy",
+  "unicodedata2",
+]
+impossiblebench = [
+  "datasets==4.8.5",
+  "inspect-ai==0.3.251",
+  "inspect-evals[swe_bench] @ git+https://github.com/UKGovernmentBEIS/inspect_evals@b935c0e5cfa04710f016f925db75d8e81413e2cf",
+  "jsonlines>=4.0",
+  "openai==2.45.0",
+  "pandas>=2.0",
+  "platformdirs>=4.0",
+  "swebench==4.1.0",
+  "zstandard==0.25.0",
+]
+
+[project.scripts]
+factor-monitor = "factor_monitor.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

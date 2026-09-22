@@ -1,0 +1,20 @@
+# Role-Embedding comparison on the exact paired Sycophancy diagnostic.
+extends: eval_run_phase1_m0_factor_sensitivity_step3162_syc_target_l1.yaml
+
+monitor:
+  backend_options:
+    model_bundle: ../runs/qwen35_4b_factor_binary_phase1_role_embed/model_bundle
+    endpoint_role_embedding:
+      enabled: true
+      field_order: [factor, relation, applied, not_applied, context, cot]
+      initialization: zeros
+      application: field_content_tokens_only
+      structural_tokens: zero
+    evaluation_scope:
+      native_checkpoint_threshold: 0.044680870272650205
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_phase1_role_embed/validation_threshold.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_phase1_role_embed/diagnostics/factor_sensitivity/checkpoint_3162/sycophancy_target_contrast_l1

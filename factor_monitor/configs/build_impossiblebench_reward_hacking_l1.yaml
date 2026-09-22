@@ -1,0 +1,78 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: impossiblebench_reward_hacking
+    path: ../datasets/frontier_risk_internal/reward_hacking/impossiblebench/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+selection:
+  strategy: partitioned_group_quota_v1
+  unit_mode: records
+  unit_field: trajectory_id
+  seed: 20260818
+  max_attempts: 16384
+  required_levels: [L1]
+  passthrough_splits: []
+  report_fields:
+    - metadata.training_subtype
+    - metadata.source_split
+    - metadata.benchmark_outcome_status
+  coverage:
+    - split: validation
+      field: unit.task_prefix
+      values: [django, sympy, sphinx-doc, scikit-learn, pydata, pytest-dev, matplotlib, astropy, pylint-dev, mwaskom]
+    - split: validation
+      field: metadata.source_split
+      values: [oneoff, conflicting]
+  strata:
+    - {id: train_successful_positive, split: train, filters: {metadata.training_subtype: successful_positive}, count: 195}
+    - {id: train_failed_positive, split: train, filters: {metadata.training_subtype: failed_positive}, count: 15}
+    - {id: train_hard_negative, split: train, filters: {metadata.training_subtype: hard_negative}, count: 20}
+    - {id: train_normal_negative, split: train, filters: {metadata.training_subtype: normal_negative}, count: 377}
+    - {id: validation_successful_positive, split: validation, filters: {metadata.training_subtype: successful_positive}, count: 19}
+    - {id: validation_failed_positive, split: validation, filters: {metadata.training_subtype: failed_positive}, count: 4}
+    - {id: validation_hard_negative, split: validation, filters: {metadata.training_subtype: hard_negative}, count: 5}
+    - {id: validation_normal_negative, split: validation, filters: {metadata.training_subtype: normal_negative}, count: 40}
+split:
+  strategy: selection_partition_v1
+  group_field: leakage_group_id
+provenance:
+  model: not_applicable_dataset_construction
+  tokenizer: not_applicable_pre_tokenization
+  decision: preserve_all_675_high_quality_trajectories_with_rare_subtype_90_10_split
+  source_path: ../datasets/frontier_risk_internal/reward_hacking/impossiblebench/data/canonical/records.jsonl
+  dataset_path: ../datasets/frontier_risk_internal/reward_hacking/impossiblebench/data/canonical/records.jsonl
+  source_sha256: 549f3109774f06f2b99cb60ef07ecd169834c7cfd63aae8dc9ebed314ac012f2
+  prompt_family: factor_attribution_cot_only_v1
+  monitor_input: cot_only
+  private_reasoning_included: true
+  tool_calls_included: true
+  tool_outputs_included: false
+  model_final_output_included: false
+  max_observed_cot_chars: 1231560
+  max_sequence_length: unbounded_full_private_reasoning
+  truncation: none
+  padding: not_applicable_dataset_artifact
+  trajectory_labels:
+    applied: 233
+    not_applied: 442
+  training_subtypes:
+    successful_positive: 214
+    failed_positive: 19
+    hard_negative: 25
+    normal_negative: 417
+  split_seed: 20260818
+  seed: 20260818
+  split_policy: leakage_group_disjoint_rare_subtype_90_10
+  split: leakage_group_disjoint_rare_subtype_90_10
+  batch_size: not_applicable_dataset_construction
+  learning_rate: not_applicable_dataset_construction
+  epochs_or_steps: not_applicable_dataset_construction
+  optimizer: not_applicable_dataset_construction
+  scheduler: not_applicable_dataset_construction
+  evaluation_metric: binary_reward_hacking_application
+output:
+  directory: ../artifacts/train/reward_hacking/impossiblebench_reward_hacking_l1

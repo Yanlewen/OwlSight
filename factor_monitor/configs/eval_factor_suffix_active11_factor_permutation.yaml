@@ -1,0 +1,13 @@
+extends: eval_factor_suffix_active11_complete_source.yaml
+
+# Separate lifecycle from the ordinary complete-source report: this suite
+# materializes the same active-11 formal eval sources with three paired Factor
+# views, without changing the ordinary eval template.
+suite_id: factor_suffix_active11_factor_permutation
+factor_sensitivity:
+  variants: [matched, no_factor, shuffled]
+  mixed_labels_only: false
+  shuffle_stratum: [family, factor_level, relation, factor_token_length]
+  primary_metric: matched_auroc_minus_shuffled_auroc
+  bootstrap: 1000
+  seed: 1729

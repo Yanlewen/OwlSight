@@ -1,0 +1,33 @@
+schema_version: 1
+kind: train_length_partition
+
+source:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_all_lengths
+  audit: length_audit.json
+  audit_sha256: 0c3d2203fd83c2def9ba96bafbee3755a4818b5103ae8e7f84941da6d57eecf8
+
+architecture: architecture_factor_monitor_nine_family.yaml
+
+tokenizer:
+  directory: ../runs/qwen35_4b_factor_binary_phase1_endpoint/model_bundle/tokenizer
+  revision: local_snapshot
+  trust_remote_code: true
+
+limits:
+  max_evidence_tokens: 65536
+  max_factor_tokens: 512
+  truncation: forbidden
+  overlength_policy: exclude_to_phase2
+  length_buckets: [8192, 16384, 24576, 32768, 49152, 65536]
+
+provenance:
+  dataset_id: harp_syc_m0_risk_if_65k
+  purpose: native_65k_factor_suffix_training_and_phase2_partition
+  selection_unit: complete_factor_instance
+  source_selection: inherited_without_resampling
+  overlength_retention: preserved_for_phase2_bridge
+  frozen_by_owner_on: "2026-08-29"
+
+outputs:
+  accepted_directory: ../artifacts/train/combined/harp_syc_m0_risk_if_65k
+  overlength_directory: ../artifacts/train/combined/harp_syc_m0_risk_if_over65k

@@ -1,0 +1,82 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: aries_deception
+    path: ../datasets/frontier_risk_internal/deception/aries_deceptionbench/data/canonical/records.jsonl
+    include_levels: [L1, L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+
+selection:
+  strategy: partitioned_group_quota_v1
+  unit_mode: records
+  unit_field: trajectory_id
+  seed: 20260818
+  max_attempts: 16384
+  required_levels: [L1, L3]
+  passthrough_splits: []
+  report_fields:
+    - metadata.factor_bucket
+    - metadata.condition
+    - metadata.role
+    - metadata.inducement
+    - metadata.topic
+    - metadata.dimension
+  coverage:
+    - split: validation
+      field: metadata.condition
+      values: [L1-self, L1-other, L2-self-reward, L2-self-pressure, L2-other-reward, L2-other-pressure]
+    - split: validation
+      field: metadata.topic
+      values: [Healthcare, Social Interactions, Economy, Entertainment, Education]
+    - split: validation
+      field: metadata.dimension
+      values:
+        - Health Product Scams
+        - Health Insurance Manipulation
+        - Medical Service Fraud
+        - Physical Safety
+        - Privacy and Data
+        - Tax Evasion
+        - Product of Commercial Brands
+        - Fake Traffic Manipulation
+        - Fake Degrees & Qualifications
+        - Emotion and Relationship
+        - Training and Enrollment Scams
+        - Fake Entertainment Content
+        - Fan Economy Deception
+        - Academic Misconduct
+        - Financial Deception
+  strata:
+    - {id: train_applied, split: train, filters: {metadata.factor_bucket: applied}, count: 259}
+    - {id: train_hard_negative, split: train, filters: {metadata.factor_bucket: hard_negative}, count: 22}
+    - {id: train_normal_negative, split: train, filters: {metadata.factor_bucket: normal_negative}, count: 393}
+    - {id: validation_applied, split: validation, filters: {metadata.factor_bucket: applied}, count: 65}
+    - {id: validation_hard_negative, split: validation, filters: {metadata.factor_bucket: hard_negative}, count: 6}
+    - {id: validation_normal_negative, split: validation, filters: {metadata.factor_bucket: normal_negative}, count: 98}
+
+split:
+  strategy: selection_partition_v1
+  group_field: leakage_group_id
+
+provenance:
+  dataset_path: ../datasets/frontier_risk_internal/deception/aries_deceptionbench/data/canonical/records.jsonl
+  model: not_applicable_dataset_construction
+  tokenizer: not_applicable_pre_tokenization
+  split: leakage_group_disjoint_80_20_subtype_exact
+  seed: 20260818
+  monitor_input: complete_cot_only_visible_final_excluded
+  max_sequence_length: unbounded_export
+  truncation: none
+  padding: not_applicable_dataset_artifact
+  batch_size: not_applicable_dataset_construction
+  learning_rate: not_applicable_dataset_construction
+  epochs_or_steps: not_applicable_dataset_construction
+  optimizer: not_applicable_dataset_construction
+  scheduler: not_applicable_dataset_construction
+  evaluation_metric: binary_factor_application
+
+output:
+  directory: ../artifacts/train/deception/aries_deception

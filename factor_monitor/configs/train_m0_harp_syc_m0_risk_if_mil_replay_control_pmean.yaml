@@ -1,0 +1,10 @@
+# Replay-only control for the winning pmean formal candidate.
+extends: train_m0_harp_syc_m0_risk_if_mil_pmean.yaml
+
+monitor:
+  backend_options:
+    long_cot_mil:
+      replay_only: true
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_mil_replay_control_pmean

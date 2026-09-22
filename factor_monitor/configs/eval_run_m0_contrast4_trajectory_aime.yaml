@@ -1,0 +1,11 @@
+extends: eval_run_phase1_m0_openai_process_aime.yaml
+
+monitor:
+  backend_options:
+    model_bundle: ../runs/qwen35_4b_factor_binary_contrast4_trajectory/model_bundle
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_contrast4_trajectory/validation_threshold.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_contrast4_trajectory/process/openai_process_aime/inference

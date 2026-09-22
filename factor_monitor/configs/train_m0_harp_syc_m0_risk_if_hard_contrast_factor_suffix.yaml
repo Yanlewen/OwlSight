@@ -1,0 +1,12 @@
+# Formal 5,370-step run for the controlled nine-family IF-only replacement.
+extends: train_m0_harp_syc_m0_risk_if_factor_suffix.yaml
+
+dataset:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_hard_contrast
+
+monitor:
+  backend_options:
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_nine_family_if_hard_factor_suffix_length.json
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_nine_family_if_hard_factor_suffix

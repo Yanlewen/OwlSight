@@ -1,0 +1,46 @@
+# 1,054-step screen: direct one-token A/B SFT with no custom classification head.
+extends: train_m0_harp_syc_m0_risk_if_hard_contrast_factor_suffix.yaml
+
+monitor:
+  backend_options:
+    model_variant: causal_lm_choice
+    endpoint_encoding_contract_id: endpoint_factor_suffix_contract_v1
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_factor9_suffix_choice_length.json
+    endpoint_max_padded_tokens_per_backbone_forward: 33024
+    choice_contract_id: factor_suffix_ab_forced_choice_v1
+    chat_template: tokenizer_native
+    chat_template_kwargs:
+      enable_thinking: false
+    new_module_learning_rate: null
+    batching:
+      training_unit: factor_instance_contrast
+      trajectories_per_microbatch: 2
+    loss_aggregation: factor_instance_uniform
+    training_scope:
+      mode: phase1_full
+
+runtime:
+  max_sequence_length: 33024
+  expected_world_size: 2
+
+optimization:
+  objective: factor_choice_sft
+  batch_size: 2
+  eval_batch_size: 1
+  gradient_accumulation_steps: 1
+  learning_rate: 0.00005
+  epochs: null
+  max_steps: 1054
+  warmup_ratio: 0.03
+  logging_steps: 10
+  save_steps: 1054
+  resume_from_checkpoint: null
+
+evaluation:
+  metric: gmean2
+  cadence: 1054
+  threshold_policy: fixed_choice_0.5
+  early_stopping_patience: null
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_factor9_suffix_lora

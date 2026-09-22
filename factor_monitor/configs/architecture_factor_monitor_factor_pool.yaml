@@ -1,0 +1,6 @@
+extends: architecture_factor_monitor.yaml
+
+architecture_id: factor_monitor_phase1_factor_pool
+
+factor_encoder:
+  mode: field_mean_pool

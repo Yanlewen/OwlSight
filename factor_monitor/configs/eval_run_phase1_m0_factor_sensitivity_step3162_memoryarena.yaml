@@ -1,0 +1,13 @@
+extends: eval_run_phase1_m0_memoryarena.yaml
+
+monitor:
+  backend_options:
+    evaluation_scope:
+      mode: diagnostic
+      factor_interventions: [matched, shuffled, constant]
+      mixed_labels_only: true
+      intervention_seed: 0
+      native_checkpoint_threshold: 0.9759464471055739
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_phase1_endpoint/diagnostics/factor_sensitivity/checkpoint_3162/memoryarena

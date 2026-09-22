@@ -1,0 +1,15 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: jailbreakbench
+    path: ../datasets/trustworthiness_external/jailbreak/jailbreakbench/data/canonical/records.jsonl
+    include_levels: [L1, L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+evaluation:
+  benchmark: jailbreakbench
+  metric_adapter: binary_factor_application
+output:
+  directory: ../artifacts/eval/jailbreak/jailbreakbench

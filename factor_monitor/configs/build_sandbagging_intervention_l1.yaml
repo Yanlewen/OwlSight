@@ -1,0 +1,33 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: sandbagging_science
+    path: ../datasets/frontier_risk_external/sandbagging/science/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    record_loss_weight_field: metadata.training.legacy_loss_weight
+    factor_instance_id_field: metadata.causal.triplet_group_id
+  - mixture_id: sandbagging_mmlu_pro
+    path: ../datasets/frontier_risk_external/sandbagging/mmlu_pro/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    record_loss_weight_field: metadata.training.legacy_loss_weight
+    factor_instance_id_field: metadata.causal.triplet_group_id
+  - mixture_id: sandbagging_cybermetric
+    path: ../datasets/frontier_risk_external/sandbagging/cybermetric/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    record_loss_weight_field: metadata.training.legacy_loss_weight
+    factor_instance_id_field: metadata.causal.triplet_group_id
+split:
+  strategy: metadata_partition_v1
+  field: metadata.source_partition
+  train_value: train
+  validation_value: validation
+  holdout_value: holdout
+output:
+  directory: ../artifacts/train/sandbagging/intervention_science_cyber_mmlupro_l1

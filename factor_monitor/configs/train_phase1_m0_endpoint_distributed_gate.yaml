@@ -1,0 +1,17 @@
+# Two-H200 M0 synchronized-bucket/chunked-forward gate; engineering-only.
+extends: train_phase1_m0_endpoint_engineering_gate.yaml
+
+monitor:
+  backend_options:
+    batching:
+      trajectories_per_microbatch: 2
+      distributed_unused_route_policy: sampler_guaranteed_per_synchronized_step
+
+runtime:
+  expected_world_size: 2
+
+optimization:
+  batch_size: 2
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_phase1_endpoint_ddp_gate

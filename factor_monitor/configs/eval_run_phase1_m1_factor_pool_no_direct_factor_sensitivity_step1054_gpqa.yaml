@@ -1,0 +1,14 @@
+# A2 scientific diagnostic: reuse the frozen A1 GPQA Factor-intervention
+# protocol and change only the A2 architecture/model bundle, native threshold,
+# and owned output.
+extends: eval_run_phase1_m1_factor_pool_sensitivity_step1054_gpqa.yaml
+
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_factor_pool_no_direct_factor.yaml
+    model_bundle: ../runs/qwen35_4b_factor_binary_phase1_no_factor_bypass/checkpoint-1054/model_bundle
+    evaluation_scope:
+      native_checkpoint_threshold: 0.5207400457362243
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_phase1_no_factor_bypass/diagnostics/factor_sensitivity/checkpoint_1054/process_gpqa

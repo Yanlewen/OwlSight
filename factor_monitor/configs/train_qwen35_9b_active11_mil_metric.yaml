@@ -1,0 +1,18 @@
+# Three-epoch active-11 all-length metric-weighted Joint MIL training on
+# Qwen3.5-9B.  All model, dataset, architecture, and resource settings are
+# inherited from the validated 9B gate; only the formal run schedule changes.
+extends: train_qwen35_9b_active11_mil_gate.yaml
+
+optimization:
+  epochs: 3
+  max_steps: null
+  warmup_ratio: 0.03
+  logging_steps: 10
+  save_steps: auto
+
+evaluation:
+  cadence: auto
+  during_training: false
+
+output:
+  directory: ../runs/qwen35_9b_active11_mil_metric

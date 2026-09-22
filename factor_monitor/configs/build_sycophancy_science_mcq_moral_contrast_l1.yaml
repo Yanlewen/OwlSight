@@ -1,0 +1,89 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+
+sources:
+  - mixture_id: science_mcq_te_l1
+    path: ../datasets/frontier_risk_external/sycophancy/science_mcq_te/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+  - mixture_id: moral_stories_independent_te_l1
+    path: ../datasets/frontier_risk_external/sycophancy/moral_stories_independent_te/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+
+selection:
+  strategy: partitioned_group_quota_v1
+  unit_mode: sycophancy_mixed_contrast
+  unit_field: metadata.causal.triplet_group_id
+  seed: 20260818
+  max_attempts: 64
+  required_levels: [L1]
+  passthrough_splits: []
+  report_fields:
+    - metadata.source_component
+    - metadata.intervention.cue_style
+    - metadata.original_source_partition
+  coverage:
+    - {split: train, field: metadata.intervention.cue_style, values: [direct, encoded, first_person, right, wrong]}
+    - {split: validation, field: metadata.intervention.cue_style, values: [direct, encoded, first_person, right, wrong]}
+  strata:
+    - {id: train_science_direct_factor, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, unit.contrast_axis: factor}, count: 81}
+    - {id: train_science_direct_hard, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, unit.contrast_axis: hard}, count: 41}
+    - {id: train_science_direct_simple, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, unit.contrast_axis: simple}, count: 40}
+    - {id: train_science_encoded_factor, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, unit.contrast_axis: factor}, count: 26}
+    - {id: train_science_encoded_hard, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, unit.contrast_axis: hard}, count: 12}
+    - {id: train_science_encoded_simple, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, unit.contrast_axis: simple}, count: 13}
+    - {id: train_moral_first_factor, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, unit.contrast_axis: factor}, count: 28}
+    - {id: train_moral_first_hard, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, unit.contrast_axis: hard}, count: 14}
+    - {id: train_moral_first_simple, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, unit.contrast_axis: simple}, count: 13}
+    - {id: train_moral_right_factor, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, unit.contrast_axis: factor}, count: 66}
+    - {id: train_moral_right_hard, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, unit.contrast_axis: hard}, count: 33}
+    - {id: train_moral_right_simple, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, unit.contrast_axis: simple}, count: 33}
+    - {id: train_moral_wrong_factor, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, unit.contrast_axis: factor}, count: 49}
+    - {id: train_moral_wrong_hard, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, unit.contrast_axis: hard}, count: 25}
+    - {id: train_moral_wrong_simple, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, unit.contrast_axis: simple}, count: 26}
+    - {id: validation_science_direct_factor, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, unit.contrast_axis: factor}, count: 21}
+    - {id: validation_science_direct_hard, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, unit.contrast_axis: hard}, count: 10}
+    - {id: validation_science_direct_simple, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, unit.contrast_axis: simple}, count: 10}
+    - {id: validation_science_encoded_factor, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, unit.contrast_axis: factor}, count: 4}
+    - {id: validation_science_encoded_hard, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, unit.contrast_axis: hard}, count: 2}
+    - {id: validation_science_encoded_simple, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, unit.contrast_axis: simple}, count: 3}
+    - {id: validation_moral_first_factor, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, unit.contrast_axis: factor}, count: 5}
+    - {id: validation_moral_first_hard, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, unit.contrast_axis: hard}, count: 3}
+    - {id: validation_moral_first_simple, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, unit.contrast_axis: simple}, count: 2}
+    - {id: validation_moral_right_factor, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, unit.contrast_axis: factor}, count: 11}
+    - {id: validation_moral_right_hard, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, unit.contrast_axis: hard}, count: 8}
+    - {id: validation_moral_right_simple, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, unit.contrast_axis: simple}, count: 3}
+    - {id: validation_moral_wrong_factor, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, unit.contrast_axis: factor}, count: 9}
+    - {id: validation_moral_wrong_hard, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, unit.contrast_axis: hard}, count: 2}
+    - {id: validation_moral_wrong_simple, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, unit.contrast_axis: simple}, count: 7}
+
+split:
+  strategy: metadata_partition_v1
+  field: metadata.source_partition
+  train_value: train
+  validation_value: validation
+  holdout_value: unused_holdout
+
+provenance:
+  purpose: target_specific_and_causal_sycophancy_l1_contrast
+  source_datasets: [science_mcq_te, moral_stories_independent_te]
+  model: DeepSeek-R1-0528-Qwen3-8B_source_generation
+  tokenizer: DeepSeek-R1-0528-Qwen3-8B_source_generation
+  split: source_train_vs_source_validation_plus_test
+  max_sequence_length: unbounded_complete_cot
+  truncation: none
+  padding: not_applicable_pre_tokenization
+  batch_size: not_applicable_dataset_construction
+  learning_rate: not_applicable_dataset_construction
+  epochs_or_steps: not_applicable_dataset_construction
+  optimizer: not_applicable_dataset_construction
+  scheduler: not_applicable_dataset_construction
+  seed: 20260818
+  evaluation_metric: within_pair_sycophancy_l1_ranking
+
+output:
+  directory: ../artifacts/train/sycophancy/science_mcq_moral_contrast_l1

@@ -1,0 +1,22 @@
+# Formal active-11 Weighted-1 Factor-Suffix run on Qwen3.5-9B.
+# Reuses the validated two-H200 gate exactly and changes only the formal
+# training/evaluation cadence.
+extends: train_qwen35_9b_active11_weighted1_gate.yaml
+
+monitor:
+  backend_options:
+    training_scope:
+      mode: smoke_subset
+
+optimization:
+  max_steps: 7182
+  warmup_ratio: 0.03
+  logging_steps: 10
+  save_steps: 2394
+
+evaluation:
+  cadence: 2394
+  metric: auroc
+
+output:
+  directory: ../runs/qwen35_9b_active11_weighted1

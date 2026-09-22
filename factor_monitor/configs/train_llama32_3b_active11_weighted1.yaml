@@ -1,0 +1,22 @@
+# Formal active-11 Weighted-1 Factor-Suffix run on Llama-3.2-3B.
+# Reuses the validated Llama two-H200 gate and changes only the formal
+# training/evaluation cadence.
+extends: train_llama32_3b_active11_weighted1_gate.yaml
+
+monitor:
+  backend_options:
+    training_scope:
+      mode: smoke_subset
+
+optimization:
+  max_steps: 7182
+  warmup_ratio: 0.03
+  logging_steps: 10
+  save_steps: 2394
+
+evaluation:
+  cadence: 2394
+  metric: auroc
+
+output:
+  directory: ../runs/llama32_3b_active11_weighted1

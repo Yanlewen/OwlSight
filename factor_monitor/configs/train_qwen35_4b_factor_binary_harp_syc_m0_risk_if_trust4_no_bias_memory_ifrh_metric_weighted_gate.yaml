@@ -1,0 +1,53 @@
+# Ten-step gate for the metric-driven 11-family Factor-Suffix experiment.
+# Bias and memory-use remain excluded from the training scope.
+extends: train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_gate.yaml
+
+monitor:
+  backend_options:
+    metric_driven_weighting:
+      enabled: true
+      score_source: factor_monitor/runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh/checkpoint-7182
+      formula:
+        auroc_weight: 0.7
+        gmean2_weight: 0.3
+        min_multiplier: 0.5
+        max_multiplier: 2.0
+        sensitivity: 1.0
+      # IFBench is intentionally omitted until the corrected final-outcome
+      # evaluation finishes; the resolver assigns it the neutral priority.
+      # BBG and MemoryArena are excluded because bias and memory-use are not
+      # part of this 11-family training scope.
+      metrics:
+        reasoning_method:
+          L1: {auroc: 0.912023329150294, gmean2: 0.5820234192843439}
+          L3: {auroc: 0.9099491193288782, gmean2: 0.5507769145394007}
+        deception:
+          L1: {auroc: 0.8798911403775078, gmean2: 0.580845683167021}
+          L3: {auroc: 0.8625082265992252, gmean2: 0.529835430329501}
+        skill_use:
+          L1: {auroc: 0.9940466575905116, gmean2: 0.9239218219996769}
+          L3: {auroc: 0.9928236841498027, gmean2: 0.9303828137619125}
+        sycophancy:
+          L1: {auroc: 0.9697010791159328, gmean2: 0.7467770788851058}
+          L3: {auroc: 0.9411968376709562, gmean2: 0.7139477176986555}
+        reward_hacking:
+          L1: {auroc: 0.2932551319648094, gmean2: 0.06506598240469208}
+          L3: {auroc: 0.733847318134519, gmean2: 0.352946741084098}
+        sabotage:
+          L1: {auroc: 0.999776885319054, gmean2: 0.891566265060241}
+          L3: {auroc: 0.9834895136099956, gmean2: 0.590361445783132}
+        sandbagging:
+          L1: {auroc: 0.995342819803736, gmean2: 0.7885365981727167}
+          L3: {auroc: 0.9867562805568196, gmean2: 0.7626967596644146}
+        hallucination:
+          L1: {auroc: 0.9785849089917487, gmean2: 0.7873218723348399}
+          L3: {auroc: 0.9317349833442541, gmean2: 0.32946631344619315}
+        privacy:
+          L1: {auroc: 0.9355606230996709, gmean2: 0.747042775625807}
+          L3: {auroc: 0.9053896455495856, gmean2: 0.6849514765296347}
+        jailbreak:
+          L1: {auroc: 0.9816177986721102, gmean2: 0.8841601715534662}
+          L3: {auroc: 0.9771279228009403, gmean2: 0.8930780650748484}
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted_gate

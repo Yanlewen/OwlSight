@@ -1,0 +1,12 @@
+extends: eval_run_phase1_m1_base.yaml
+
+dataset:
+  directory: ../artifacts/eval/sycophancy/sycobench_600/official_behavior
+  trajectory_file: trajectories.jsonl
+  query_file: eval_queries.jsonl
+
+evaluation:
+  metric: auroc
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_phase1/sycophancy/sycobench_official_behavior/inference

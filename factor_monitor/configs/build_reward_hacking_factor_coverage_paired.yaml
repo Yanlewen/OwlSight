@@ -1,0 +1,38 @@
+schema_version: 1
+kind: train_composite_dataset
+components:
+  - component_id: reward_hacking_factor_coverage_l1
+    directory: ../artifacts/train/reward_hacking/combined_factor_coverage_l1
+    split_selection:
+      train: {}
+      validation: {}
+      holdout: {}
+  - component_id: reward_hacking_factor_coverage_l3
+    directory: ../artifacts/train/reward_hacking/combined_factor_coverage_l3
+    split_selection:
+      train:
+        include_levels: [L3]
+      validation:
+        include_levels: [L3]
+      holdout:
+        include_levels: [L3]
+factor_instance_level_sets:
+  - [L1]
+  - [L3]
+trajectory_id_collision_policy: reject
+required_families:
+  - reward_hacking
+provenance:
+  dataset_id: reward_hacking_factor_coverage_paired
+  definition: frozen Reward Hacking L3 coverage pool plus task-specific Factor-conditional L1 records
+  composition: same_trajectory_views_with_independent_l1_factor_labels_and_l3_behavior_labels
+  l1_policy: up_to_1200_grounded_task_factors_with_factor_specific_behavior_labels
+  l3_policy: frozen_1000_pool_plus_200_canonical_extension
+  label_boundary: operative_attempt_regardless_of_success
+  visibility_scope: assistant_private_reasoning_steps_only
+  truncation: none
+  model_final_output_included: false
+  tool_outputs_included: false
+  pending_l1_candidates_excluded: true
+output:
+  directory: ../artifacts/train/reward_hacking/combined_factor_coverage_paired

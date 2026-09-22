@@ -1,0 +1,14 @@
+# Ten-step gate for the active-11 Weighted-1 run with Reward Hacking
+# L1/L3 loss mass balanced against the materialized 32k training counts.
+extends: train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted_gate.yaml
+
+monitor:
+  backend_options:
+    metric_driven_weighting:
+      level_loss_overrides:
+        reward_hacking:
+          L1: 1.53
+          L3: 0.47
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted_rh_level_balanced_gate

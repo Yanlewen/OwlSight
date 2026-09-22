@@ -1,0 +1,90 @@
+schema_version: 1
+kind: train_composite_dataset
+
+components:
+  - component_id: trust4_without_memory_bias_if_rh
+    directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4/evidence_le_32768
+    split_selection:
+      train:
+        include_families:
+          - reasoning_method
+          - deception
+          - skill_use
+          - sycophancy
+          - sabotage
+          - sandbagging
+          - hallucination
+          - privacy
+          - jailbreak
+      validation:
+        include_families:
+          - reasoning_method
+          - deception
+          - skill_use
+          - sycophancy
+          - sabotage
+          - sandbagging
+          - hallucination
+          - privacy
+          - jailbreak
+      holdout:
+        include_families:
+          - reasoning_method
+          - deception
+          - skill_use
+          - sycophancy
+          - sabotage
+          - sandbagging
+          - hallucination
+          - privacy
+          - jailbreak
+
+  - component_id: reward_hacking_final_outcome_32k
+    directory: ../artifacts/train/reward_hacking/combined_factor_coverage_paired/evidence_le_32768
+
+  - component_id: ifbench_final_outcome_l1_32k
+    directory: ../artifacts/train/instruction_following/final_outcome/ifbench_instruction_following_l1/evidence_le_32768
+
+  - component_id: ifbench_final_outcome_l3_32k
+    directory: ../artifacts/train/instruction_following/final_outcome/ifbench_instruction_following_l3/evidence_le_32768
+
+factor_instance_level_sets:
+  - [L1]
+  - [L3]
+  - [L1, L3]
+
+required_families:
+  - reasoning_method
+  - deception
+  - skill_use
+  - sycophancy
+  - reward_hacking
+  - sabotage
+  - sandbagging
+  - instruction_following
+  - hallucination
+  - privacy
+  - jailbreak
+
+trajectory_id_collision_policy: reject
+
+provenance:
+  dataset_id: harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh
+  purpose: eleven_family_factor_suffix_training_with_final_outcome_if_and_reward_hacking
+  preserved_base_source: harp_syc_m0_risk_if_trust4/evidence_le_32768
+  replaced_families:
+    instruction_following: ifbench_instruction_following_final_outcome_l1_l3/evidence_le_32768
+    reward_hacking: combined_factor_coverage_paired/evidence_le_32768
+  excluded_families:
+    - bias
+    - memory_use
+  composition: preserve_component_splits_without_resampling
+  loss_weight_policy: preserve_source_record_loss_weights
+  visibility_scope: task_context_plus_complete_cot_plus_factor
+  max_evidence_tokens: 32768
+  max_factor_tokens: 512
+  truncation: none
+  seed: 20260902
+
+output:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh/unpartitioned

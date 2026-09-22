@@ -1,0 +1,69 @@
+schema_version: 1
+kind: factor_sensitivity_suite
+suite_id: factor_suffix_active11_metric_weighted_factor_sensitivity
+
+# This suite deliberately binds to the validation-best checkpoint used by the
+# existing complete-source report.  It is a diagnostic suite, not a second
+# formal benchmark definition.
+model:
+  output_directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted
+  checkpoint: checkpoint-4788
+  model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted/checkpoint-4788/model_bundle
+  architecture: architecture_factor_monitor_trustworthiness13.yaml
+  threshold_source: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted/validation_threshold.json
+  tokenizer: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted/checkpoint-4788/model_bundle/tokenizer
+
+policy:
+  mode: diagnostic
+  factor_interventions: [matched, shuffled, constant]
+  mixed_labels_only: true
+  intervention_seed: 0
+  native_checkpoint_threshold: 0.012821214266594244
+  direct_only: true
+  # Direct diagnostic uses the existing endpoint budget (no window pooling).
+  # Some paired AIME/Sycophancy rows are above 32k and are retained losslessly.
+  max_endpoint_tokens: 98304
+  truncation_policy: error
+  no_factor_variant: not_implemented
+
+formal_eval:
+  root: ../runs/eval/complete_factor_suffix_metric_weighted_32768
+  # This historical root also contains a legacy MemoryArena worker.  The
+  # active model/report scope is the current 11-family view, so it is excluded
+  # from the formal table rather than silently treated as an active family.
+  exclude_benchmarks: [memoryarena]
+
+panels:
+  - id: sycophancy_target_l1
+    family: sycophancy
+    config: eval_run_phase1_m0_factor_suffix_factor_sensitivity_step1054_syc_target_l1.yaml
+    output_directory: ../runs/eval/metric_weighted_factor_sensitivity_32768/sycophancy_target_l1
+    source_artifact: ../artifacts/train/sycophancy/intervention_target_contrast_l1
+    split: validation
+  - id: process_aime
+    family: reasoning_method
+    config: eval_run_phase1_m0_factor_suffix_factor_sensitivity_step1054_aime.yaml
+    output_directory: ../runs/eval/metric_weighted_factor_sensitivity_32768/process_aime
+    source_artifact: ../artifacts/eval/process/openai_process_aime
+    split: eval
+  - id: process_gpqa
+    family: reasoning_method
+    config: eval_run_phase1_m0_factor_suffix_factor_sensitivity_step1054_gpqa.yaml
+    output_directory: ../runs/eval/metric_weighted_factor_sensitivity_32768/process_gpqa
+    source_artifact: ../artifacts/eval/process/openai_process_gpqa
+    split: eval
+  - id: skill_use
+    family: skill_use
+    config: eval_metric_weighted_factor_sensitivity_skill_use.yaml
+    output_directory: ../runs/eval/metric_weighted_factor_sensitivity_32768/skill_use
+    source_artifact: ../artifacts/train/skill/sra_bench_skill_use_contrast
+    split: validation
+  - id: instruction_following
+    family: instruction_following
+    config: eval_metric_weighted_factor_sensitivity_instruction_following.yaml
+    output_directory: ../runs/eval/metric_weighted_factor_sensitivity_32768/instruction_following
+    source_artifact: ../artifacts/train/instruction_following/hard_contrast/ifbench_instruction_following_l1
+    split: validation
+
+output:
+  report_directory: ../runs/eval/metric_weighted_factor_sensitivity_32768/report

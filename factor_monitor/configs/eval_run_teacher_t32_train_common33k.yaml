@@ -1,0 +1,14 @@
+# T32 scoring over every frozen all-length training window for distillation.
+extends: eval_run_teacher_t32_validation_common33k.yaml
+
+dataset:
+  query_file: train_queries.jsonl
+
+monitor:
+  backend_options:
+    evaluation_scope:
+      long_cot_windowing:
+        frozen_window_manifest: ../runs/qwen35_4b_factor9_alllen_mil_joint_pmean/mil_train_window_manifest.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix/teacher_window_common33k/train/inference

@@ -1,0 +1,87 @@
+# Ten-step gate for the current eleven-family full-data 16k Joint MIL run.
+# Short trajectories use one native 16k view; overlength trajectories use
+# lossless 16k sliding windows and are pooled per Factor instance.
+extends: train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_gate.yaml
+
+monitor:
+  backend_options:
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k_length.json
+    endpoint_max_padded_tokens_per_backbone_forward: 16384
+    new_module_learning_rate: 0.0001
+    sequence:
+      max_factor_tokens: 512
+      length_buckets: [8192, 16384]
+      overlength_policy: window_complete_no_truncation
+    batching:
+      training_unit: long_cot_mil
+      trajectories_per_microbatch: 1
+      max_queries_per_trajectory: null
+      mixed_route_policy: route_masked_vectorized
+      distributed_unused_route_policy: sampler_guaranteed_per_synchronized_step
+    loss_aggregation: mil_factor_instance_uniform
+    long_cot_mil:
+      enabled: true
+      training_schedule: full_epoch_joint
+      trigger_endpoint_tokens: 16384
+      max_endpoint_tokens: 16384
+      cot_overlap_tokens: 6144
+      context_policy: repeat_full_when_feasible_else_window_context
+      overlap_fallback_policy: half_field_capacity_when_needed
+      coverage_policy: complete_no_truncation
+      selection_unit: trajectory_any_query_over_trigger
+      exact_max_windows: 4
+      active_windows: 4
+      exploitation_windows: 2
+      exploration_windows: 2
+      initial_cache: position_stratified_no_model
+      cache_refresh: epoch_boundary
+      pooling: top2_probability_mean
+      long_short_ratio: natural
+      long_exposures: 3
+      long_sampling: exhaustive_without_replacement
+      expected_long_units: 433
+      expected_short_units: 7613
+      sampled_long_units_per_exposure: 433
+      optimizer_steps_per_epoch: 2012
+      short_replay_sampling: exhaustive_without_replacement
+      replay_only: false
+      evidence_audit_max_failure_ratio: 0.1
+      short_validation_auroc_floor: 0.9621829368533024
+
+runtime:
+  expected_world_size: 2
+  max_sequence_length: 16384
+  padding_policy: dynamic_right
+  truncation_policy: error
+  seed: 0
+
+optimization:
+  batch_size: 1
+  eval_batch_size: 1
+  gradient_accumulation_steps: 2
+  learning_rate: 0.00005
+  epochs: null
+  max_steps: 10
+  optimizer: adamw_torch
+  scheduler: linear
+  checkpoint_policy: steps
+  weight_decay: 0.0
+  warmup_ratio: 0.0
+  max_grad_norm: 1.0
+  mixed_precision: bf16
+  logging_steps: 1
+  save_steps: 10
+  save_total_limit: null
+  resume_from_checkpoint: null
+  gradient_checkpointing: true
+  gradient_checkpointing_use_reentrant: false
+
+evaluation:
+  metric: auroc
+  cadence: 10
+  during_training: false
+  threshold_policy: select_on_validation
+  early_stopping_patience: null
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k_mil_singleton_gate

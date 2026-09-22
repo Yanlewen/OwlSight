@@ -1,0 +1,15 @@
+# Architecture screen: zero-initialized endpoint residuals from layers L-4 and L-8.
+extends: train_m0_harp_syc_pair_m0_rest_control_screen.yaml
+
+monitor:
+  backend_options:
+    endpoint_layer_mixed:
+      enabled: true
+      layers_below_final: [4, 8]
+      combination: zero_initialized_logit_residual
+      normalization: separate_layernorm
+      heads: separate_linear
+      residual_initialization: zeros
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_layer_mixed_endpoint_screen

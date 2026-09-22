@@ -1,0 +1,11 @@
+# P1 treatment: P0 with only the sampling/loss aggregation unit changed.
+extends: train_m0_contrast4_trajectory.yaml
+
+monitor:
+  backend_options:
+    batching:
+      training_unit: factor_instance_contrast
+    loss_aggregation: factor_instance_uniform
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_contrast4_factor_instance

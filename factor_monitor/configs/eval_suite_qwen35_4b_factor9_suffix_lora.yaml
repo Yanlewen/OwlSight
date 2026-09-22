@@ -1,0 +1,24 @@
+# Existing 13-unit nine-family suite for the direct A/B SFT LoRA adapter.
+extends: eval_suite_qwen35_4b_zero_shot_factor9_suffix.yaml
+
+model:
+  adapter:
+    path: ../runs/qwen35_4b_factor_binary_factor9_suffix_lora/model_bundle/backbone
+    name: factor9-choice-sft
+    id: 1
+    rank: 16
+
+runtime:
+  # Current vLLM nightly crashes while creating a dummy Qwen3.5 LoRA for
+  # CUDA-graph profiling. Eager mode bypasses that runtime-only code path.
+  enforce_eager: true
+  natural_label_audit_queries: 128
+
+evaluation:
+  threshold_policy: fixed_choice_0.5
+
+cluster:
+  job_name: fm-factor9-choice-eval
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_factor9_suffix_lora

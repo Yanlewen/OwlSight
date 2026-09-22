@@ -1,0 +1,24 @@
+# Preserve the M0 endpoint architecture and register four additional families.
+extends: architecture_factor_monitor_nine_family.yaml
+
+evidence_routes:
+  family_mapping:
+    hallucination: context_grounded
+    bias: context_grounded
+    privacy: context_grounded
+    jailbreak: context_grounded
+
+phase1_families:
+  - reasoning_method
+  - deception
+  - memory_use
+  - skill_use
+  - sycophancy
+  - reward_hacking
+  - sabotage
+  - sandbagging
+  - instruction_following
+  - hallucination
+  - bias
+  - privacy
+  - jailbreak

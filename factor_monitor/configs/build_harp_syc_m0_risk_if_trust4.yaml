@@ -1,0 +1,46 @@
+schema_version: 1
+kind: train_composite_dataset
+
+components:
+  - component_id: harp_syc_m0_risk_if_hard_contrast
+    directory: ../artifacts/train/combined/harp_syc_m0_risk_if_hard_contrast
+  - component_id: trustworthiness4
+    directory: ../artifacts/train/combined/trustworthiness4
+
+factor_instance_level_sets:
+  - [L1]
+  - [L3]
+  - [L1, L3]
+
+required_families:
+  - reasoning_method
+  - deception
+  - memory_use
+  - skill_use
+  - sycophancy
+  - reward_hacking
+  - sabotage
+  - sandbagging
+  - instruction_following
+  - hallucination
+  - bias
+  - privacy
+  - jailbreak
+
+trajectory_id_collision_policy: namespace_cross_family
+
+provenance:
+  dataset_id: harp_syc_m0_risk_if_trust4
+  purpose: thirteen_family_factor_suffix_training
+  preserved_nine_family_source: harp_syc_m0_risk_if_hard_contrast
+  added_component: trustworthiness4
+  composition: preserve_frozen_component_splits_without_resampling
+  loss_weight_policy: preserve_source_record_loss_weights
+  visibility_scope: task_context_plus_complete_cot_plus_factor
+  max_evidence_tokens: 32768
+  max_factor_tokens: 512
+  truncation: none
+  seed: 20260901
+
+output:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4/unpartitioned

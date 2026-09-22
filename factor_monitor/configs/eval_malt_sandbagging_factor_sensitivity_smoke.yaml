@@ -1,0 +1,18 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+
+sources:
+  - mixture_id: malt_sandbagging_factor_sensitivity_smoke
+    path: ../datasets/frontier_risk_external/sandbagging/malt_sandbagging/data/intermediate/factor_sensitivity/smoke/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+
+evaluation:
+  benchmark: malt_sandbagging_factor_sensitivity_smoke
+  metric_adapter: within_trajectory_l1_target_contrast
+
+output:
+  directory: ../artifacts/eval/sandbagging/malt_factor_sensitivity/smoke

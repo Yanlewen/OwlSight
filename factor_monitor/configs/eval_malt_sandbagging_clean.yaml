@@ -1,0 +1,15 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: malt_sandbagging_clean
+    path: ../datasets/frontier_risk_external/sandbagging/malt_sandbagging/data/canonical/records.jsonl
+    include_levels: [L1, L3]
+    factor_instance_id_field: trajectory_id
+    sampling_weight: 1.0
+    loss_weight: 1.0
+evaluation:
+  benchmark: malt_sandbagging_clean
+  metric_adapter: binary_factor_application
+output:
+  directory: ../artifacts/eval/sandbagging/malt_sandbagging_clean

@@ -1,0 +1,30 @@
+extends: build_ifbench_instruction_following_hard_contrast_l1.yaml
+
+sources:
+  - mixture_id: ifbench_ifrlvr_single_turn
+    path: ../datasets/capability_external/instruction_following/ifbench/data/canonical/runs/ifrlvr_train/records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+  - mixture_id: ifbench_ifrlvr_rewrite
+    path: ../datasets/capability_external/instruction_following/ifbench/data/canonical/runs/ifrlvr_rewrite_train/records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+
+selection:
+  required_levels: [L3]
+  preferred_unit_files:
+    - split: train
+      path: ../artifacts/train/instruction_following/hard_contrast/ifbench_instruction_following_l1/train_queries.jsonl
+      field: trajectory_id
+      require_all: true
+    - split: validation
+      path: ../artifacts/train/instruction_following/hard_contrast/ifbench_instruction_following_l1/validation_queries.jsonl
+      field: trajectory_id
+      require_all: true
+
+output:
+  directory: ../artifacts/train/instruction_following/hard_contrast/ifbench_instruction_following_l3

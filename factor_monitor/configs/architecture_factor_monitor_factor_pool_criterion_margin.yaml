@@ -1,0 +1,11 @@
+# A3: score applied and not-applied Evidence-conditioned criterion states with
+# one shared function, then use their signed margin as the direct-route logit.
+extends: architecture_factor_monitor_factor_pool.yaml
+
+architecture_id: factor_monitor_phase1_factor_pool_criterion_margin
+
+matchers:
+  direct:
+    mode: criterion_margin
+    include_raw_factor: false
+    input_dim: 832

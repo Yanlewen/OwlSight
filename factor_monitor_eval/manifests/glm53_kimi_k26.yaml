@@ -1,0 +1,143 @@
+schema_version: 1
+kind: factor_monitor_eval_supplemental_suite
+metric_policy:
+  formal_metric: gmean2
+  threshold_rule: score >= threshold
+  invalid_policy: count_as_error
+  preserve_factor_levels: [L1, L3]
+  prediction_modes: [decision, score]
+  score_threshold_policy: frozen_validation_only
+benchmarks:
+  - id: glm53_process_aime
+    family: reasoning_method
+    track: process
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/glm53_process_aime
+    provenance:
+      solver: glm-5.3-flash
+      source_artifact: factor_monitor/artifacts/glm-5.3-flash/process/openai_process_glm53/aime
+      canonical: factor_monitor/datasets/capability_internal/reasoning_method/openai_process/data/canonical/glm53_flash/records.jsonl
+      metric_adapter: openai_process_composite_path
+      selection: solver_correct
+      trajectories: 83
+      queries: 418
+      applied_queries: 168
+      not_applied_queries: 250
+  - id: glm53_process_gpqa
+    family: reasoning_method
+    track: process
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/glm53_process_gpqa
+    provenance:
+      solver: glm-5.3-flash
+      source_artifact: factor_monitor/artifacts/glm-5.3-flash/process/openai_process_glm53/gpqa
+      canonical: factor_monitor/datasets/capability_internal/reasoning_method/openai_process/data/canonical/glm53_flash/records.jsonl
+      metric_adapter: openai_process_composite_path
+      selection: solver_correct
+      trajectories: 20
+      queries: 90
+      applied_queries: 36
+      not_applied_queries: 54
+  - id: glm53_skilleval
+    family: skill_use
+    track: binary
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/glm53_skilleval
+    provenance:
+      solver: glm-5.3-flash
+      source_artifact: factor_monitor/artifacts/eval/skill/skilleval_v1/glm53_flash_api_eval/monitor_manifest
+      metric_adapter: binary_factor_application
+      trajectories: 197
+      queries: 940
+      applied_queries: 380
+      not_applied_queries: 560
+  - id: glm53_sycobench
+    family: sycophancy
+    track: binary
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/glm53_sycobench
+    provenance:
+      solver: glm-5.3-flash
+      source_artifact: factor_monitor/artifacts/eval/sycophancy/sycobench_600_glm53/official_behavior
+      protocol: official_behavior
+      metric_adapter: official_flip_to_wrong_behavior_proxy
+      factor_levels: [L1, L3]
+      letter_parse: failclosed_final_answer_only
+      trajectories: 4892
+      queries: 9784
+      applied_queries: 22
+      not_applied_queries: 9762
+  - id: glm53_ifbench
+    family: instruction_following
+    track: binary
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/glm53_ifbench
+    provenance:
+      solver: glm-5.3-flash
+      source_artifact: factor_monitor/artifacts/eval/instruction_following/ifbench_official_test_glm53
+      metric_adapter: binary_cot_instruction_operationalization
+      trajectories: 1575
+      queries: 3150
+      applied_queries: 2570
+      not_applied_queries: 580
+  - id: kimi_k26_process_aime
+    family: reasoning_method
+    track: process
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/kimi_k26_process_aime
+    provenance:
+      solver: kimi-k2.6
+      source_artifact: factor_monitor/artifacts/kimi-k2.6/process/openai_process/aime
+      canonical: factor_monitor/datasets/capability_internal/reasoning_method/openai_process/data/canonical/kimi_k26_thinking_available/records.jsonl
+      metric_adapter: openai_process_composite_path
+      selection: thinking_available
+      trajectories: 78
+      queries: 396
+      applied_queries: 204
+      not_applied_queries: 192
+  - id: kimi_k26_process_gpqa
+    family: reasoning_method
+    track: process
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/kimi_k26_process_gpqa
+    provenance:
+      solver: kimi-k2.6
+      source_artifact: factor_monitor/artifacts/kimi-k2.6/process/openai_process/gpqa
+      canonical: factor_monitor/datasets/capability_internal/reasoning_method/openai_process/data/canonical/kimi_k26_thinking_available/records.jsonl
+      metric_adapter: openai_process_composite_path
+      selection: thinking_available
+      trajectories: 50
+      queries: 244
+      applied_queries: 122
+      not_applied_queries: 122
+  - id: kimi_k26_skilleval
+    family: skill_use
+    track: binary
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/kimi_k26_skilleval
+    provenance:
+      solver: kimi-k2.6
+      source_artifact: factor_monitor/artifacts/eval/skill/skilleval_v1/kimi_k26_api_eval/monitor_manifest
+      metric_adapter: binary_factor_application
+      trajectories: 196
+      queries: 916
+      applied_queries: 314
+      not_applied_queries: 602
+  - id: kimi_k26_sycobench
+    family: sycophancy
+    track: binary
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/kimi_k26_sycobench
+    provenance:
+      solver: kimi-k2.6
+      source_artifact: factor_monitor/artifacts/eval/sycophancy/sycobench_600_kimi_k26/official_behavior
+      protocol: official_behavior
+      metric_adapter: official_flip_to_wrong_behavior_proxy
+      factor_levels: [L1, L3]
+      trajectories: 5397
+      queries: 10794
+      applied_queries: 62
+      not_applied_queries: 10732
+  - id: kimi_k26_ifbench
+    family: instruction_following
+    track: binary
+    artifact: factor_monitor_eval/datasets/glm53_kimi_k26/kimi_k26_ifbench
+    provenance:
+      solver: kimi-k2.6
+      source_artifact: factor_monitor/artifacts/eval/instruction_following/ifbench_official_test_kimi_k26
+      metric_adapter: binary_cot_instruction_operationalization
+      trajectories: 1687
+      queries: 3374
+      applied_queries: 3296
+      not_applied_queries: 78

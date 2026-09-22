@@ -1,0 +1,11 @@
+extends: eval_run_factor9_suffix_mask_qwen.yaml
+
+monitor:
+  backend_options:
+    model_bundle: ../runs/qwen35_4b_factor_binary_nine_family_if_hard_factor_suffix/model_bundle
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_nine_family_if_hard_factor_suffix/validation_threshold.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_nine_family_if_hard_factor_suffix/deception/mask_qwen3_8b/inference

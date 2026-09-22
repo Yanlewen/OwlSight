@@ -1,0 +1,40 @@
+schema_version: 1
+kind: factor_monitor_full_eval
+suite_id: factor_suffix_glm53_sycobench
+
+# GLM-5.3-Flash SycoBench-600 official_behavior transfer panel.
+# Isolated from historical target-swap glm53_sycobench and from Kimi/DeepSeek.
+model:
+  model_bundle: __MODEL_OUTPUT_REQUIRED__
+  threshold_source: __MODEL_OUTPUT_REQUIRED__
+  tokenizer: __MODEL_OUTPUT_REQUIRED__
+  architecture: architecture_factor_monitor_trustworthiness13.yaml
+window:
+  max_endpoint_tokens: 32768
+  overlap_tokens: 6144
+  truncation_policy: error
+  context_policy: repeat_full_when_feasible_else_window_context
+  primary_pooling: top2_mean
+  diagnostic_pooling: [max, top2_logmeanexp, noisy_or]
+coverage:
+  source_unit: query
+  partition_policy: exact_disjoint_union
+  overlength_policy: lossless_windows
+  formal_eval: complete_source_only
+metric_policy:
+  formal_metric: gmean2
+  threshold_rule: score >= frozen_threshold
+  threshold_source: validation_threshold.json
+benchmarks:
+  - id: sycobench
+    mode: partitioned
+    parent_config: eval_run_trust4_suffix_sycobench_judge.yaml
+    source_directory: ../artifacts/eval/sycophancy/sycobench_600_glm53/official_behavior
+    source_audit: ../runs/audits/eval_glm53_sycobench_32768/sycobench.json
+    accepted_directory: ../artifacts/eval_complete_views_glm53_sycobench_32768/sycobench/accepted
+    overlength_directory: ../artifacts/eval_complete_views_glm53_sycobench_32768/sycobench/overlength
+    direct_scores: __BOUND_OUTPUT_REQUIRED__
+    window_scores: __BOUND_OUTPUT_REQUIRED__
+    output_directory: __BOUND_OUTPUT_REQUIRED__
+output:
+  directory: __BOUND_OUTPUT_REQUIRED__

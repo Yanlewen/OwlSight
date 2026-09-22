@@ -1,0 +1,11 @@
+extends: eval_run_hybrid_step2108_mem2act_validation.yaml
+
+monitor:
+  backend_options:
+    model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest/checkpoint-3162/model_bundle
+
+evaluation:
+  threshold_source: validation_threshold_harp_syc_pair_m0_rest_step3162.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_pair_m0_rest/checkpoint_diagnostics/checkpoint_3162/memory/mem2act_validation

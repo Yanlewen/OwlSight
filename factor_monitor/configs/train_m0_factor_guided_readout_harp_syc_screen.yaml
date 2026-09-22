@@ -1,0 +1,21 @@
+# Architecture screen: frozen hybrid/P1 data with Factor-guided evidence readout.
+extends: train_m0_harp_syc_pair_m0_rest.yaml
+
+monitor:
+  backend_options:
+    endpoint_factor_guided_readout:
+      enabled: true
+      readout_dim: 256
+      factor_fields: [factor]
+      evidence_fields: [context, cot]
+      attention: scaled_dot_product_softmax
+      interaction_features: [hadamard, absolute_difference]
+      interaction_hidden_dim: 256
+      dropout: 0.0
+      output_initialization: zeros
+
+optimization:
+  max_steps: 1054
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_guided_readout_screen

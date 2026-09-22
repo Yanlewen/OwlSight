@@ -1,0 +1,13 @@
+extends: eval_run_factor9_suffix_sycobench_judge.yaml
+
+dataset:
+  directory: ../artifacts/eval/sycophancy/sycobench_600_target_swap/formal
+  trajectory_file: trajectories.jsonl
+  query_file: eval_queries.jsonl
+
+monitor:
+  backend_options:
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix_glm53_eval_audits/sycophancy_sycobench_target_swap.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix/sycophancy/sycobench_target_swap_glm53/inference

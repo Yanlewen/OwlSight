@@ -1,0 +1,31 @@
+extends: eval_run_factor9_if_hard_mask_qwen.yaml
+dataset:
+  directory: ../artifacts/eval/jailbreak/jailbreakbench
+  trajectory_file: trajectories.jsonl
+  query_file: eval_queries.jsonl
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_trustworthiness13.yaml
+    evidence_routes:
+      reasoning_method: cot_direct
+      deception: cot_direct
+      memory_use: context_grounded
+      skill_use: context_grounded
+      sycophancy: context_grounded
+      reward_hacking: cot_direct
+      sabotage: cot_direct
+      sandbagging: context_grounded
+      instruction_following: context_grounded
+      hallucination: context_grounded
+      bias: context_grounded
+      privacy: context_grounded
+      jailbreak: context_grounded
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora_eval_jailbreakbench_length.json
+    model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora/model_bundle
+evaluation:
+  metric: auroc
+  threshold_source: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora/validation_threshold.json
+runtime:
+  batch_size: 4
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora/jailbreak/jailbreakbench/inference

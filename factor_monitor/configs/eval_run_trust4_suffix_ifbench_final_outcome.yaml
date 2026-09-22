@@ -1,0 +1,16 @@
+extends: eval_run_trust4_suffix_ifbench.yaml
+
+dataset:
+  directory: ../artifacts/eval/instruction_following/ifbench_official_test_outcome/monitor_manifest
+  trajectory_file: trajectories.jsonl
+  query_file: eval_queries.jsonl
+
+monitor:
+  backend_options:
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_eval_audits/ifbench_final_outcome.json
+
+evaluation:
+  threshold_source: ../artifacts/eval/thresholds/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_checkpoint-7182/validation_threshold.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh/checkpoint-7182/ifbench_final_outcome

@@ -1,0 +1,8 @@
+extends: eval_run_trust4_suffix_openai_wmdp.yaml
+monitor:
+  backend_options:
+    model_bundle: ${REPO_ROOT}/factor_monitor/runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k/model_bundle
+evaluation:
+  threshold_source: ${REPO_ROOT}/factor_monitor/runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k/validation_threshold.json
+output:
+  directory: ${REPO_ROOT}/factor_monitor/runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k/sandbagging/openai_intervention_wmdp/inference

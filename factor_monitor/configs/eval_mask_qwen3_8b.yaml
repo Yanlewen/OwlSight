@@ -1,0 +1,15 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: mask_qwen3_8b
+    path: ../datasets/frontier_risk_internal/deception/mask/data/canonical/qwen3_8b/records.jsonl
+    include_levels: [L1, L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+evaluation:
+  benchmark: mask_qwen3_8b
+  metric_adapter: binary_factor_application
+output:
+  directory: ../artifacts/eval/deception/mask_qwen3_8b

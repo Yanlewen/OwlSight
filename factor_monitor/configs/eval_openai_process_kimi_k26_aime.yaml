@@ -1,0 +1,17 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: openai_process_kimi_k26_aime
+    path: ../datasets/capability_internal/reasoning_method/openai_process/data/canonical/kimi_k26_thinking_available/records.jsonl
+    include_levels: [L1, L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+    filters:
+      metadata.benchmark_source: aime
+evaluation:
+  benchmark: openai_process_kimi_k26_aime
+  metric_adapter: openai_process_composite_path
+output:
+  directory: ../artifacts/kimi-k2.6/process/openai_process/aime

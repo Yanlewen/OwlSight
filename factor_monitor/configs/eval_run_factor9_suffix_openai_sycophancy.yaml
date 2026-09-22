@@ -1,0 +1,17 @@
+extends: eval_run_factor_suffix_hybrid_openai_sycophancy.yaml
+
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_nine_family.yaml
+    evidence_routes:
+      reward_hacking: cot_direct
+      sabotage: cot_direct
+      sandbagging: context_grounded
+      instruction_following: context_grounded
+    model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix/model_bundle
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix/validation_threshold.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix/sycophancy/openai_intervention/inference

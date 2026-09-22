@@ -1,0 +1,28 @@
+# Architecture screen: original M0 data with Factor-guided evidence readout.
+extends: train_phase1_m0_endpoint.yaml
+
+monitor:
+  backend_options:
+    endpoint_factor_guided_readout:
+      enabled: true
+      readout_dim: 256
+      factor_fields: [factor]
+      evidence_fields: [context, cot]
+      attention: scaled_dot_product_softmax
+      interaction_features: [hadamard, absolute_difference]
+      interaction_hidden_dim: 256
+      dropout: 0.0
+      output_initialization: zeros
+    batching:
+      trajectories_per_microbatch: 2
+      distributed_unused_route_policy: sampler_guaranteed_per_synchronized_step
+
+runtime:
+  expected_world_size: 2
+
+optimization:
+  batch_size: 2
+  max_steps: 1054
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_phase1_guided_readout_screen

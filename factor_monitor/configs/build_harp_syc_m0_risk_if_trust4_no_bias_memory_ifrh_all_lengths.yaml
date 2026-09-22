@@ -1,0 +1,137 @@
+schema_version: 1
+kind: train_composite_dataset
+
+components:
+  - component_id: factor9_native_all_lengths_active_families
+    directory: ../artifacts/train/combined/harp_syc_m0_risk_if_65k
+    split_selection:
+      train:
+        include_families:
+          - reasoning_method
+          - deception
+          - skill_use
+          - sycophancy
+          - sabotage
+          - sandbagging
+      validation:
+        include_families:
+          - reasoning_method
+          - deception
+          - skill_use
+          - sycophancy
+          - sabotage
+          - sandbagging
+      holdout:
+        include_families:
+          - reasoning_method
+          - deception
+          - skill_use
+          - sycophancy
+          - sabotage
+          - sandbagging
+
+  - component_id: trustworthiness4_active_families
+    directory: ../artifacts/train/combined/trustworthiness4
+    split_selection:
+      train:
+        include_families:
+          - hallucination
+          - privacy
+          - jailbreak
+      validation:
+        include_families:
+          - hallucination
+          - privacy
+          - jailbreak
+      holdout:
+        include_families:
+          - hallucination
+          - privacy
+          - jailbreak
+
+  - component_id: reward_hacking_current_accepted
+    directory: ../artifacts/train/reward_hacking/combined_factor_coverage_paired/evidence_le_32768
+
+  - component_id: reward_hacking_current_overlength
+    directory: ../artifacts/train/reward_hacking/combined_factor_coverage_paired/evidence_gt_32768
+
+  - component_id: ifbench_current_l1_accepted
+    directory: ../artifacts/train/instruction_following/final_outcome/ifbench_instruction_following_l1/evidence_le_32768
+    split_selection:
+      train:
+        include_levels: [L1]
+      validation:
+        include_levels: [L1]
+      holdout:
+        include_levels: [L1]
+
+  - component_id: ifbench_current_l1_overlength
+    directory: ../artifacts/train/instruction_following/final_outcome/ifbench_instruction_following_l1/evidence_gt_32768
+    split_selection:
+      train:
+        include_levels: [L1]
+      validation:
+        include_levels: [L1]
+      holdout:
+        include_levels: [L1]
+
+  - component_id: ifbench_current_l3_accepted
+    directory: ../artifacts/train/instruction_following/final_outcome/ifbench_instruction_following_l3/evidence_le_32768
+    split_selection:
+      train:
+        include_levels: [L3]
+      validation:
+        include_levels: [L3]
+      holdout:
+        include_levels: [L3]
+
+  - component_id: ifbench_current_l3_overlength
+    directory: ../artifacts/train/instruction_following/final_outcome/ifbench_instruction_following_l3/evidence_gt_32768
+    split_selection:
+      train:
+        include_levels: [L3]
+      validation:
+        include_levels: [L3]
+      holdout:
+        include_levels: [L3]
+
+factor_instance_level_sets:
+  - [L1]
+  - [L3]
+  - [L1, L3]
+
+required_families:
+  - reasoning_method
+  - deception
+  - skill_use
+  - sycophancy
+  - reward_hacking
+  - sabotage
+  - sandbagging
+  - instruction_following
+  - hallucination
+  - privacy
+  - jailbreak
+
+trajectory_id_collision_policy: namespace_cross_family
+
+provenance:
+  dataset_id: harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_all_lengths
+  purpose: current_active11_all_lengths_mil_source
+  source_selection: current_active11_canonical_components_without_resampling
+  native_long_source: harp_syc_m0_risk_if_65k_filtered_active_families
+  trustworthiness_source: trustworthiness4_filtered_active_families
+  replaced_families:
+    instruction_following: ifbench_instruction_following_final_outcome_l1_l3
+    reward_hacking: combined_factor_coverage_paired
+  excluded_families:
+    - bias
+    - memory_use
+  loss_weight_policy: preserve_source_record_loss_weights
+  visibility_scope: task_context_plus_complete_cot_plus_factor
+  truncation: none
+  max_source_evidence_tokens: 65536
+  seed: 20260905
+
+output:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_all_lengths

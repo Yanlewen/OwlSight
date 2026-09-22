@@ -1,0 +1,18 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+
+sources:
+  - mixture_id: sycobench_600_target_swap_formal
+    path: ../datasets/frontier_risk_external/sycophancy/sycobench_600_target_swap/data/canonical/formal/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+
+evaluation:
+  benchmark: sycobench_600_target_swap_formal
+  metric_adapter: within_trajectory_l1_target_contrast
+
+output:
+  directory: ../artifacts/eval/sycophancy/sycobench_600_target_swap/formal

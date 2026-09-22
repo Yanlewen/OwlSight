@@ -1,0 +1,19 @@
+# Four-H200 fallback gate for active-11 Weighted-1.  The contrast sampler
+# requires two trajectory slots per rank, so this preserves the method's
+# native batch semantics after the two-card batch-one gate is rejected.
+extends: train_qwen35_9b_active11_weighted1_gate.yaml
+
+runtime:
+  expected_world_size: 4
+
+monitor:
+  backend_options:
+    batching:
+      trajectories_per_microbatch: 2
+
+optimization:
+  batch_size: 2
+  gradient_accumulation_steps: 1
+
+output:
+  directory: ../runs/qwen35_9b_active11_weighted1_4gpu_gate

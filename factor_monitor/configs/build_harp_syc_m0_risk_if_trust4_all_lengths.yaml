@@ -1,0 +1,44 @@
+schema_version: 1
+kind: train_composite_dataset
+
+components:
+  - component_id: frozen_factor9_all_lengths
+    directory: ../artifacts/train/combined/harp_syc_m0_risk_if_all_lengths
+  - component_id: trustworthiness4
+    directory: ../artifacts/train/combined/trustworthiness4
+
+factor_instance_level_sets:
+  - [L1]
+  - [L3]
+  - [L1, L3]
+
+required_families:
+  - reasoning_method
+  - deception
+  - memory_use
+  - skill_use
+  - sycophancy
+  - reward_hacking
+  - sabotage
+  - sandbagging
+  - instruction_following
+  - hallucination
+  - bias
+  - privacy
+  - jailbreak
+
+trajectory_id_collision_policy: namespace_cross_family
+
+provenance:
+  dataset_id: harp_syc_m0_risk_if_trust4_all_lengths
+  purpose: thirteen_family_joint_mil_current_data_baseline
+  nine_family_source: harp_syc_m0_risk_if_all_lengths
+  added_component: trustworthiness4
+  reward_hacking_generation: frozen_pre_refresh
+  composition: preserve_frozen_nine_family_all_lengths_plus_trustworthiness4
+  loss_weight_policy: preserve_source_record_loss_weights
+  truncation: none
+  seed: 0
+
+output:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4_all_lengths

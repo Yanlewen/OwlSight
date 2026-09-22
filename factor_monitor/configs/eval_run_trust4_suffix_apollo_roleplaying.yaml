@@ -1,0 +1,13 @@
+extends: eval_run_trust4_suffix_mask_qwen.yaml
+
+dataset:
+  directory: ../artifacts/eval/deception/apollo_roleplaying
+  trajectory_file: trajectories.jsonl
+  query_file: eval_queries.jsonl
+
+monitor:
+  backend_options:
+    endpoint_length_audit: ../artifacts/eval/deception/apollo_roleplaying/length_audit.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora/deception/apollo_roleplaying/inference

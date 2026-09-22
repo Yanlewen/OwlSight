@@ -1,0 +1,24 @@
+# Frozen-M0 inference over the training-side validation split only.
+# Scores are consumed by calibrate_phase1_m0_stratified.yaml; no model fitting occurs.
+extends: eval_run_phase1_m0_base.yaml
+
+dataset:
+  directory: ../artifacts/train/phase1/phase1_accepted
+  trajectory_file: trajectories.jsonl
+  query_file: validation_queries.jsonl
+
+monitor:
+  backend_options:
+    endpoint_length_audit: ../runs/audits/qwen35_4b_factor_binary_phase1_endpoint_length.json
+    endpoint_max_padded_tokens_per_backbone_forward: 33024
+    sequence:
+      length_buckets: [8192, 16384, 24576, 32768, 33024]
+
+runtime:
+  max_sequence_length: 33024
+
+evaluation:
+  metric: auroc
+
+output:
+  directory: ../runs/calibration/qwen35_4b_factor_binary_phase1_endpoint/validation_inference

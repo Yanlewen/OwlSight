@@ -1,0 +1,18 @@
+# Engineering-only one-trajectory H200 gate selected from the frozen MemoryArena artifact.
+extends: eval_run_phase1_m1_memoryarena.yaml
+
+monitor:
+  backend_options:
+    evaluation_scope:
+      mode: smoke_reload
+      trajectory_selection: longest_evidence
+      max_trajectories: 1
+
+evaluation:
+  reporting_dimensions:
+    factor_scope:
+      required: false
+      values: [task_complete, dependency_atomic]
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_phase1/gates/memoryarena_long_context

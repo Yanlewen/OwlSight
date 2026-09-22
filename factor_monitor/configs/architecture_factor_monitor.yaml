@@ -1,0 +1,94 @@
+schema_version: 1
+kind: factor_monitor_architecture
+architecture_id: factor_monitor_phase1
+
+backbone:
+  family: Qwen3.5-4B
+  hidden_size: 2560
+
+encoding:
+  factor_contract: factor_encoding_contract_v1
+  evidence_contract: evidence_encoding_contract_v1
+
+reader:
+  dim: 768
+
+factor_encoder:
+  num_queries: 3
+  num_layers: 2
+  num_attention_heads: 12
+  head_dim: 64
+  ffn_dim: 3072
+  activation: gelu
+  dropout: 0.1
+
+context_locator:
+  num_queries: 1
+  num_latents: 1
+  query_self_attention: false
+  num_layers: 2
+  num_attention_heads: 12
+  head_dim: 64
+  ffn_dim: 3072
+  activation: gelu
+  dropout: 0.1
+
+context_latent_aggregator:
+  mode: index_zero
+  required_num_latents: 1
+
+cot_locator:
+  num_queries: 3
+  num_latents: 3
+  query_self_attention: true
+  cross_query_record_self_attention: false
+  num_layers: 2
+  num_attention_heads: 12
+  head_dim: 64
+  ffn_dim: 3072
+  activation: gelu
+  dropout: 0.1
+
+grounded_query_fusion:
+  input_dim: 1536
+  hidden_dim: 1536
+  output_dim: 768
+  activation: gelu
+  dropout: 0.1
+  residual: query
+
+relation_embedding:
+  values: [Intrinsic, Extrinsic]
+  dim: 64
+
+matchers:
+  direct:
+    input_dim: 4672
+    hidden_dims: [1536, 512]
+    output_dim: 1
+    activation: gelu
+    dropout: 0.1
+  grounded:
+    input_dim: 5440
+    hidden_dims: [1536, 512]
+    output_dim: 1
+    activation: gelu
+    dropout: 0.1
+
+evidence_routes:
+  values: [cot_direct, context_grounded]
+  family_mapping:
+    reasoning_method: cot_direct
+    deception: cot_direct
+    memory_use: context_grounded
+    skill_use: context_grounded
+    sycophancy: context_grounded
+
+factor_levels: [L1, L3]
+phase1_families:
+  - reasoning_method
+  - deception
+  - memory_use
+  - skill_use
+  - sycophancy
+

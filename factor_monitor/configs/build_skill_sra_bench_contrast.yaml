@@ -1,0 +1,66 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+
+sources:
+  - mixture_id: sra_bench_skill_factor_contrast
+    path: ../datasets/capability_internal/skill_use/sra_bench/data/intermediate/train_scale/matched_distractor_contrast/training_candidate/records.jsonl
+    include_levels: [L1, L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+
+selection:
+  strategy: partitioned_group_quota_v1
+  unit_mode: factor_contrast
+  unit_field: metadata.factor_instance_id
+  seed: 20260818
+  max_attempts: 4096
+  required_levels: [L1, L3]
+  passthrough_splits: []
+  report_fields:
+    - metadata.factor_contrast.role
+    - metadata.factor_contrast.factor_scope
+    - metadata.factor_contrast.selection_tier
+    - metadata.factor_contrast.negative_type
+    - metadata.source_partition
+    - metadata.benchmark_source
+  coverage: []
+  strata:
+    - {id: train_bigcodebench, split: train, filters: {metadata.benchmark_source: bigcodebench}, count: 125}
+    - {id: train_logicbench, split: train, filters: {metadata.benchmark_source: logicbench}, count: 125}
+    - {id: train_medcalcbench, split: train, filters: {metadata.benchmark_source: medcalcbench}, count: 125}
+    - {id: train_toolqa, split: train, filters: {metadata.benchmark_source: toolqa}, count: 125}
+    - {id: validation_bigcodebench, split: validation, filters: {metadata.benchmark_source: bigcodebench}, count: 25}
+    - {id: validation_logicbench, split: validation, filters: {metadata.benchmark_source: logicbench}, count: 25}
+    - {id: validation_medcalcbench, split: validation, filters: {metadata.benchmark_source: medcalcbench}, count: 25}
+    - {id: validation_toolqa, split: validation, filters: {metadata.benchmark_source: toolqa}, count: 25}
+
+split:
+  strategy: metadata_partition_v1
+  field: metadata.source_partition
+  train_value: train
+  validation_value: validation
+  holdout_value: test
+
+provenance:
+  source_processing_config: ../datasets/capability_internal/skill_use/sra_bench/processing/train_scale.yaml
+  dataset_path: ../datasets/capability_internal/skill_use/sra_bench/data/intermediate/train_scale/matched_distractor_contrast/training_candidate/records.jsonl
+  generation_model: ${BASE_MODEL_ROOT}/models--deepseek-ai--DeepSeek-R1-0528-Qwen3-8B
+  model: ${BASE_MODEL_ROOT}/models--deepseek-ai--DeepSeek-R1-0528-Qwen3-8B
+  tokenizer: ${BASE_MODEL_ROOT}/models--deepseek-ai--DeepSeek-R1-0528-Qwen3-8B
+  judge_model: deepseek-v4-flash
+  split: frozen_task_disjoint_train_validation
+  max_sequence_length: unbounded_complete_cot
+  truncation: prohibited
+  padding: not_applicable_pre_tokenization
+  batch_size: not_applicable_dataset_construction
+  learning_rate: not_applicable_dataset_construction
+  epochs_or_steps: not_applicable_dataset_construction
+  optimizer: not_applicable_dataset_construction
+  scheduler: not_applicable_dataset_construction
+  seed: 20260818
+  evaluation_metric: within_trajectory_skill_factor_contrast
+
+output:
+  directory: ../artifacts/train/skill/sra_bench_skill_use_contrast

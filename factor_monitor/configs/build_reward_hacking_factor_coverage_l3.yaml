@@ -1,0 +1,29 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: reward_hacking_factor_coverage_l3
+    path: ../artifacts/train/reward_hacking/combined_factor_coverage/selected_l3_records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+split:
+  strategy: metadata_partition_v1
+  field: metadata.coverage_split
+  train_value: train
+  validation_value: validation
+  holdout_value: holdout
+provenance:
+  dataset_id: reward_hacking_factor_coverage_l3
+  source_selection: frozen_1000_pool_plus_200_canonical_extension
+  subtype_quota: applied_480_hard_negative_213_normal_negative_507
+  label_boundary: operative_attempt_regardless_of_success
+  factor_standard_id: reward_hacking_operative_exploitation_uniform_shell
+  factor_spec_sha256: cf7dd54eaa095659c10628ef47c71172663c4df46e5a8e0c83db0d09f414cfa0
+  monitor_input: assistant_private_reasoning_steps_only
+  truncation: none
+  model_final_output_included: false
+  tool_outputs_included: false
+output:
+  directory: ../artifacts/train/reward_hacking/combined_factor_coverage_l3

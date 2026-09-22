@@ -1,0 +1,17 @@
+extends: eval_run_trust4_suffix_sycobench_judge.yaml
+dataset:
+  directory: ${REPO_ROOT}/factor_monitor/artifacts/eval_16k_suffix_views_query_final/sycobench_judge/accepted
+  trajectory_file: trajectories.jsonl
+  query_file: eval_queries.jsonl
+monitor:
+  backend_options:
+    model_bundle: ${REPO_ROOT}/factor_monitor/runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k/model_bundle
+    endpoint_length_audit: ${REPO_ROOT}/factor_monitor/artifacts/eval_16k_suffix_views_query_final/sycobench_judge/accepted/length_audit.json
+    sequence:
+      length_buckets: [8192, 16384]
+evaluation:
+  threshold_source: ${REPO_ROOT}/factor_monitor/runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k/validation_threshold.json
+runtime:
+  max_sequence_length: 16384
+output:
+  directory: ${REPO_ROOT}/factor_monitor/runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_16k/sycophancy/sycobench_judge_influence/inference

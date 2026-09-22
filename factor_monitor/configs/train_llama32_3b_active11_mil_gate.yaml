@@ -1,0 +1,22 @@
+# Llama-3.2-3B two-H200 gate for the active-11 all-length Joint MIL run.
+# Inherits the validated Qwen gate's data, sampler, and optimization settings;
+# only the backbone, tokenizer pad declaration, architecture, and output name
+# differ.
+extends: train_qwen35_9b_active11_mil_gate.yaml
+
+model:
+  checkpoint: ${BASE_MODEL_ROOT}/models--meta-llama--Llama-3.2-3B
+  checkpoint_revision: 13afe5124825b4f3751f836b40dafda64c1ed062
+  tokenizer: ${BASE_MODEL_ROOT}/models--meta-llama--Llama-3.2-3B
+  tokenizer_revision: 13afe5124825b4f3751f836b40dafda64c1ed062
+  load_options:
+    pad_token: <|finetune_right_pad_id|>
+
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_trustworthiness13_llama32_3b.yaml
+    field_boundary_policy: space_before_closing_tag
+    endpoint_length_audit: ../runs/llama32_3b_active11_mil_length.json
+
+output:
+  directory: ../runs/llama32_3b_active11_mil_gate_boundary_safe_2g

@@ -1,0 +1,24 @@
+schema_version: 1
+kind: factor_wording_robustness
+contract_id: factor_wording_surface_rephrase_v1
+variant_id: surface_rephrase_v1
+
+panels:
+  - id: reasoning_method_aime
+    source_artifact: ../artifacts/eval/process/openai_process_aime
+    output_directory: ../artifacts/eval/factor_sensitivity_robustness/reasoning_method_aime
+  - id: reasoning_method_gpqa
+    source_artifact: ../artifacts/eval/process/openai_process_gpqa
+    output_directory: ../artifacts/eval/factor_sensitivity_robustness/reasoning_method_gpqa
+  - id: sycophancy_openai
+    source_artifact: ../artifacts/eval/sycophancy/openai_target_swap/formal
+    output_directory: ../artifacts/eval/factor_sensitivity_robustness/sycophancy_openai
+  - id: skill_use_skilleval
+    source_artifact: ../artifacts/eval/skill/skilleval_v1/factor_sensitivity_exploratory
+    output_directory: ../artifacts/eval/factor_sensitivity_robustness/skill_use_skilleval
+  - id: sandbagging_malt
+    source_artifact: ../artifacts/eval/sandbagging/malt_factor_sensitivity/formal
+    output_directory: ../artifacts/eval/factor_sensitivity_robustness/sandbagging_malt
+  - id: sabotage_shadearena
+    source_artifact: ../artifacts/eval/sabotage/shadearena_factor_sensitivity
+    output_directory: ../artifacts/eval/factor_sensitivity_robustness/sabotage_shadearena

@@ -1,0 +1,152 @@
+schema_version: 1
+kind: factor_monitor_eval_supplemental_suite
+metric_policy:
+  formal_metric: gmean2
+  threshold_rule: score >= threshold
+  invalid_policy: count_as_error
+  preserve_factor_levels: [L1, L3]
+  prediction_modes: [decision, score]
+  score_threshold_policy: frozen_validation_only
+excluded_tracks: [process, intervention]
+condition: obfuscation_only
+benchmarks:
+  - id: confaide
+    family: privacy
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/confaide
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/confaide
+      trajectories: 616
+      queries: 1232
+      applied_queries: 602
+      not_applied_queries: 630
+      factor_levels: {L1: 616, L3: 616}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: hallulens
+    family: hallucination
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/hallulens
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/hallulens
+      trajectories: 3998
+      queries: 7996
+      applied_queries: 6182
+      not_applied_queries: 1814
+      factor_levels: {L1: 3998, L3: 3998}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: ifbench
+    family: instruction_following
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/ifbench
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/ifbench
+      trajectories: 1597
+      queries: 3194
+      applied_queries: 952
+      not_applied_queries: 2242
+      factor_levels: {L1: 1597, L3: 1597}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: jailbreakbench
+    family: jailbreak
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/jailbreakbench
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/jailbreakbench
+      trajectories: 1270
+      queries: 2540
+      applied_queries: 352
+      not_applied_queries: 2188
+      factor_levels: {L1: 1270, L3: 1270}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: mask_qwen
+    family: deception
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/mask_qwen
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/mask_qwen
+      trajectories: 173
+      queries: 346
+      applied_queries: 116
+      not_applied_queries: 230
+      factor_levels: {L1: 173, L3: 173}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: reward_hacking
+    family: reward_hacking
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/reward_hacking
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/reward_hacking
+      trajectories: 562
+      queries: 663
+      applied_queries: 35
+      not_applied_queries: 628
+      factor_levels: {L1: 101, L3: 562}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: sandbagging
+    family: sandbagging
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/sandbagging
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/sandbagging
+      trajectories: 976
+      queries: 1952
+      applied_queries: 776
+      not_applied_queries: 1176
+      factor_levels: {L1: 976, L3: 976}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: shadearena
+    family: sabotage
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/shadearena
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/shadearena
+      trajectories: 84
+      queries: 168
+      applied_queries: 56
+      not_applied_queries: 112
+      factor_levels: {L1: 84, L3: 84}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: skilleval
+    family: skill_use
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/skilleval
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/skilleval
+      trajectories: 124
+      queries: 520
+      applied_queries: 210
+      not_applied_queries: 310
+      factor_levels: {L1: 260, L3: 260}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step
+  - id: sycobench_judge
+    family: sycophancy
+    track: binary
+    artifact: datasets/cot_transform_obfuscation_only/sycobench_judge
+    provenance:
+      source_artifact: datasets/cot_transform/paired_complete_case/obfuscation_only/sycobench_judge
+      trajectories: 4827
+      queries: 9654
+      applied_queries: 68
+      not_applied_queries: 9586
+      factor_levels: {L1: 4827, L3: 4827}
+      monitor_input: CoT-only
+      model_final_output_included: false
+      semantic_equivalence: not_verified_by_pairing_step

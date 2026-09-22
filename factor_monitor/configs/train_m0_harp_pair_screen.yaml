@@ -1,0 +1,20 @@
+# Data screen: replace only M0 Reasoning with the latest paired HARP rows.
+extends: train_m0_harp_syc_pair_m0_rest.yaml
+
+dataset:
+  directory: ../artifacts/train/combined/harp_pair_m0_others
+  manifest: effective_config.json
+  trajectory_file: trajectories.jsonl
+  train_file: train_queries.jsonl
+  validation_file: validation_queries.jsonl
+  holdout_file: holdout_queries.jsonl
+
+monitor:
+  backend_options:
+    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_pair_screen_endpoint_length.json
+
+optimization:
+  max_steps: 1054
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_pair_screen

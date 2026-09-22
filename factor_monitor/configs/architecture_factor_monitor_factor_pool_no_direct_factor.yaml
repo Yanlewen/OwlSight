@@ -1,0 +1,10 @@
+# A2: retain A1 Factor pooling and require cot_direct decisions to use Factor
+# only through the Factor-conditioned CoTLocator.
+extends: architecture_factor_monitor_factor_pool.yaml
+
+architecture_id: factor_monitor_phase1_factor_pool_no_direct_factor
+
+matchers:
+  direct:
+    include_raw_factor: false
+    input_dim: 2368

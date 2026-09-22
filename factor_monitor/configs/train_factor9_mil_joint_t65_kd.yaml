@@ -1,0 +1,21 @@
+# Three-epoch fresh-base joint MIL training with frozen T65 window scores.
+extends: train_m0_harp_syc_m0_risk_if_mil_joint_pmean.yaml
+
+monitor:
+  backend_options:
+    long_cot_mil:
+      teacher_distillation:
+        teacher_role: t65
+        score_file: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix_65k/teacher_window_common33k/train/inference/scores.jsonl
+        score_effective_config: ../runs/eval/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix_65k/teacher_window_common33k/train/inference/effective_config.json
+        teacher_model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix_65k/model_bundle
+        frozen_window_manifest: ../runs/qwen35_4b_factor9_alllen_mil_joint_pmean/mil_train_window_manifest.json
+        objective: applied_long_window_listwise_kl
+        temperature: 2.0
+        loss_weight: 0.25
+        target_scope: long_applied_only
+        window_scope: student_active_windows
+        mining_policy: student_only
+
+output:
+  directory: ../runs/qwen35_4b_factor9_alllen_mil_joint_t65_kd

@@ -1,0 +1,35 @@
+schema_version: 1
+kind: factor_monitor_eval_suite
+metric_policy:
+  formal_metric: gmean2
+  threshold_rule: score >= threshold
+  invalid_policy: count_as_error
+  preserve_factor_levels: [L1, L3]
+  prediction_modes: [decision, score]
+  score_threshold_policy: frozen_validation_only
+benchmarks:
+  - {id: process_aime, family: reasoning_method, track: process, artifact: factor_monitor/artifacts/eval/process/openai_process_aime}
+  - {id: process_gpqa, family: reasoning_method, track: process, artifact: factor_monitor/artifacts/eval/process/openai_process_gpqa}
+  - {id: mask_qwen, family: deception, track: binary, artifact: factor_monitor/artifacts/eval/deception/mask_qwen3_8b}
+  - {id: openai_sycophancy, family: sycophancy, track: intervention, artifact: factor_monitor/artifacts/eval/sycophancy/openai_intervention}
+  - {id: sycobench_judge, family: sycophancy, track: binary, artifact: factor_monitor/artifacts/eval/sycophancy/sycobench_600/judge_influence}
+  - {id: skilleval, family: skill_use, track: binary, artifact: factor_monitor/artifacts/eval/skill/skilleval_v1/deepseek_v4_flash_eval/monitor_manifest}
+  - id: reward_hacking
+    family: reward_hacking
+    track: binary
+    artifact: factor_monitor/artifacts/eval/reward_hacking/malt_reward_hacking_reviewed
+    complete_eval:
+      config: factor_monitor/configs/eval_factor_suffix_complete_metric_weighted_32768.yaml
+      window_tokens: 32768
+      accepted_artifact: factor_monitor/artifacts/eval_complete_views_metric_weighted_32768/reward_hacking/accepted
+      overlength_artifact: factor_monitor/artifacts/eval_complete_views_metric_weighted_32768/reward_hacking/overlength
+      expected_source_queries: 948
+      expected_accepted_queries: 913
+      expected_overlength_queries: 35
+  - {id: shadearena, family: sabotage, track: binary, artifact: factor_monitor/artifacts/eval/sabotage/shadearena_benign_vs_aware_b/monitor_manifest}
+  - {id: sandbagging, family: sandbagging, track: binary, artifact: factor_monitor/artifacts/eval/sandbagging/malt_sandbagging_clean}
+  - {id: openai_wmdp, family: sandbagging, track: intervention, artifact: factor_monitor/artifacts/eval/sandbagging/openai_intervention_wmdp}
+  - {id: ifbench, family: instruction_following, track: binary, artifact: factor_monitor/artifacts/eval/instruction_following/ifbench_official_test_outcome/monitor_manifest}
+  - {id: hallulens, family: hallucination, track: binary, artifact: factor_monitor/artifacts/eval/hallucination/hallulens_nonexistent_refusal}
+  - {id: confaide, family: privacy, track: binary, artifact: factor_monitor/artifacts/eval/privacy/confaide}
+  - {id: jailbreakbench, family: jailbreak, track: binary, artifact: factor_monitor/artifacts/eval/jailbreak/jailbreakbench}

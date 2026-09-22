@@ -1,0 +1,24 @@
+schema_version: 1
+kind: factor_judge_profile
+profile_id: deepseek_v4_flash_no_thinking_long_context
+model: deepseek-v4-flash
+
+request:
+  temperature: 0.0
+  top_p: 1.0
+  max_tokens: 2048
+  extra_body:
+    thinking:
+      type: disabled
+
+transport:
+  base_url_env: OPENAI_BASE_URL
+  api_key_env: OPENAI_API_KEY
+  workers: 24
+  retries: 1
+  timeout_seconds: 180
+  checkpoint_every: 1
+
+response:
+  require_content: true
+  forbid_reasoning: true

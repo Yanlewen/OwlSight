@@ -1,0 +1,22 @@
+extends: eval_run_phase1_m0_openai_process_gpqa.yaml
+
+monitor:
+  backend_options:
+    model_bundle: ../runs/qwen35_4b_factor_binary_phase1_guided_readout_screen/model_bundle
+    endpoint_factor_guided_readout:
+      enabled: true
+      readout_dim: 256
+      factor_fields: [factor]
+      evidence_fields: [context, cot]
+      attention: scaled_dot_product_softmax
+      interaction_features: [hadamard, absolute_difference]
+      interaction_hidden_dim: 256
+      dropout: 0.0
+      output_initialization: zeros
+
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_phase1_guided_readout_screen/validation_threshold.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_phase1_guided_readout_screen/process/openai_process_gpqa/inference

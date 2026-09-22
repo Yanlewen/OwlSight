@@ -1,0 +1,21 @@
+# Ten-step engineering gate for the thirteen-family all-length Joint MIL run.
+extends: train_factor13_mil_joint.yaml
+
+monitor:
+  backend_options:
+    training_scope:
+      mode: engineering_full_smoke
+
+optimization:
+  epochs: null
+  max_steps: 10
+  warmup_ratio: 0.0
+  logging_steps: 1
+  save_steps: 10
+
+evaluation:
+  cadence: 10
+  during_training: false
+
+output:
+  directory: ../runs/qwen35_4b_factor13_mil_joint_gate

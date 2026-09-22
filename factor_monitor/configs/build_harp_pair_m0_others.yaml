@@ -1,0 +1,50 @@
+schema_version: 1
+kind: train_composite_dataset
+
+components:
+  - component_id: latest_harp_pair
+    directory: ../artifacts/train/combined/pair_0827/evidence_le_32768
+    split_selection:
+      train:
+        include_families: [reasoning_method]
+      validation:
+        include_families: [reasoning_method]
+  - component_id: phase1_m0_others_and_holdout
+    directory: ../artifacts/train/phase1/phase1_accepted
+    split_selection:
+      train:
+        include_families: [deception, memory_use, skill_use, sycophancy]
+      validation:
+        include_families: [deception, memory_use, skill_use, sycophancy]
+      holdout: {}
+
+factor_instance_level_sets:
+  - [L1]
+  - [L3]
+  - [L1, L3]
+
+required_families:
+  - reasoning_method
+  - deception
+  - memory_use
+  - skill_use
+  - sycophancy
+
+provenance:
+  dataset_id: harp_pair_m0_others
+  purpose: isolate_latest_harp_pair_replacement_with_all_other_phase1_m0_families
+  baseline: qwen35_4b_factor_binary_phase1_endpoint
+  intended_delta:
+    reasoning_method: replace_with_pair_0827
+    deception: preserve_phase1_m0_accepted
+    memory_use: preserve_phase1_m0_accepted
+    skill_use: preserve_phase1_m0_accepted
+    sycophancy: preserve_phase1_m0_accepted
+  source_selection: frozen_family_filter_without_resampling
+  holdout: inherited_unchanged_from_phase1_accepted
+  visibility_scope: task_context_plus_complete_cot
+  truncation: none
+  seed: 20260827
+
+output:
+  directory: ../artifacts/train/combined/harp_pair_m0_others

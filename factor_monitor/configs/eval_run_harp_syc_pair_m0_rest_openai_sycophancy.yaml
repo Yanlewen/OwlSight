@@ -1,0 +1,11 @@
+extends: eval_run_m0_contrast4_factor_instance_openai_sycophancy.yaml
+
+monitor:
+  backend_options:
+    model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest/model_bundle
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest/validation_threshold.json
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_pair_m0_rest/sycophancy/openai_intervention/inference

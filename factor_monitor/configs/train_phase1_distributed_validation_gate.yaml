@@ -1,0 +1,7 @@
+# Reusable four-GPU regression gate for Phase-1 distributed validation.
+# It inherits the existing ten-step engineering smoke unchanged and owns a
+# disposable output path so the preserved single-GPU smoke is never overwritten.
+extends: train_phase1_engineering_smoke.yaml
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_phase1_ddp_gate

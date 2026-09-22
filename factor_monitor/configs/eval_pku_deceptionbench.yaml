@@ -1,0 +1,15 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: pku_deceptionbench_qwen3_8b
+    path: ../datasets/frontier_risk_internal/deception/pku_deceptionbench/data/canonical/qwen3_8b/records.jsonl
+    include_levels: [L1, L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+evaluation:
+  benchmark: pku_deceptionbench
+  metric_adapter: binary_factor_application
+output:
+  directory: ../artifacts/eval/deception/pku_deceptionbench

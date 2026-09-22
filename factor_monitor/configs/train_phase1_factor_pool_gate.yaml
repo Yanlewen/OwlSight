@@ -1,0 +1,16 @@
+# A1 engineering gate: replace only the learned-query Factor Encoder with
+# deterministic field-wise mean pooling. All other M1 settings are inherited.
+extends: train_phase1_engineering_smoke.yaml
+
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_factor_pool.yaml
+    batching:
+      trajectories_per_microbatch: 2
+
+optimization:
+  batch_size: 2
+  eval_batch_size: 2
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_phase1_factor_pool_gate

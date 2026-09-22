@@ -1,0 +1,97 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+
+sources:
+  - mixture_id: science_mcq_te_l3
+    path: ../datasets/frontier_risk_external/sycophancy/science_mcq_te/data/canonical/records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+  - mixture_id: moral_stories_independent_te_l3
+    path: ../datasets/frontier_risk_external/sycophancy/moral_stories_independent_te/data/canonical/records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+
+selection:
+  strategy: partitioned_group_quota_v1
+  unit_mode: records
+  unit_field: metadata.source_record_id
+  seed: 20260818
+  max_attempts: 4096
+  required_levels: [L3]
+  passthrough_splits: []
+  preferred_unit_files:
+    - split: train
+      path: ../artifacts/train/sycophancy/science_mcq_moral_contrast_l1/train_queries.jsonl
+      field: metadata.source_record_id
+    - split: validation
+      path: ../artifacts/train/sycophancy/science_mcq_moral_contrast_l1/validation_queries.jsonl
+      field: metadata.source_record_id
+  report_fields:
+    - metadata.source_component
+    - metadata.intervention.cue_style
+    - metadata.causal.training_role
+    - metadata.original_source_partition
+  coverage:
+    - {split: train, field: metadata.intervention.cue_style, values: [direct, encoded, first_person, right, wrong]}
+    - {split: validation, field: metadata.intervention.cue_style, values: [direct, encoded, first_person, right, wrong]}
+  strata:
+    - {id: train_science_direct_applied, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, metadata.causal.training_role: applied}, count: 162}
+    - {id: train_science_encoded_applied, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, metadata.causal.training_role: applied}, count: 51}
+    - {id: train_moral_first_applied, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, metadata.causal.training_role: applied}, count: 55}
+    - {id: train_moral_right_applied, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, metadata.causal.training_role: applied}, count: 132}
+    - {id: train_moral_wrong_applied, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, metadata.causal.training_role: applied}, count: 100}
+    - {id: train_science_direct_hard, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, metadata.causal.training_role: hard}, count: 84}
+    - {id: train_science_encoded_hard, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, metadata.causal.training_role: hard}, count: 26}
+    - {id: train_moral_first_hard, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, metadata.causal.training_role: hard}, count: 27}
+    - {id: train_moral_right_hard, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, metadata.causal.training_role: hard}, count: 64}
+    - {id: train_moral_wrong_hard, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, metadata.causal.training_role: hard}, count: 49}
+    - {id: train_science_direct_simple, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, metadata.causal.training_role: simple}, count: 84}
+    - {id: train_science_encoded_simple, split: train, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, metadata.causal.training_role: simple}, count: 26}
+    - {id: train_moral_first_simple, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, metadata.causal.training_role: simple}, count: 27}
+    - {id: train_moral_right_simple, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, metadata.causal.training_role: simple}, count: 64}
+    - {id: train_moral_wrong_simple, split: train, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, metadata.causal.training_role: simple}, count: 49}
+    - {id: validation_science_direct_applied, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, metadata.causal.training_role: applied}, count: 41}
+    - {id: validation_science_encoded_applied, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, metadata.causal.training_role: applied}, count: 9}
+    - {id: validation_moral_first_applied, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, metadata.causal.training_role: applied}, count: 10}
+    - {id: validation_moral_right_applied, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, metadata.causal.training_role: applied}, count: 22}
+    - {id: validation_moral_wrong_applied, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, metadata.causal.training_role: applied}, count: 18}
+    - {id: validation_science_direct_hard, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, metadata.causal.training_role: hard}, count: 19}
+    - {id: validation_science_encoded_hard, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, metadata.causal.training_role: hard}, count: 3}
+    - {id: validation_moral_first_hard, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, metadata.causal.training_role: hard}, count: 6}
+    - {id: validation_moral_right_hard, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, metadata.causal.training_role: hard}, count: 18}
+    - {id: validation_moral_wrong_hard, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, metadata.causal.training_role: hard}, count: 4}
+    - {id: validation_science_direct_simple, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: direct, metadata.causal.training_role: simple}, count: 18}
+    - {id: validation_science_encoded_simple, split: validation, filters: {source: science_mcq_te, metadata.intervention.cue_style: encoded, metadata.causal.training_role: simple}, count: 4}
+    - {id: validation_moral_first_simple, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: first_person, metadata.causal.training_role: simple}, count: 6}
+    - {id: validation_moral_right_simple, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: right, metadata.causal.training_role: simple}, count: 12}
+    - {id: validation_moral_wrong_simple, split: validation, filters: {source: moral_stories_independent_te, metadata.intervention.cue_style: wrong, metadata.causal.training_role: simple}, count: 10}
+
+split:
+  strategy: metadata_partition_v1
+  field: metadata.source_partition
+  train_value: train
+  validation_value: validation
+  holdout_value: unused_holdout
+
+provenance:
+  purpose: generic_sycophancy_l3_causal_balance
+  source_datasets: [science_mcq_te, moral_stories_independent_te]
+  model: DeepSeek-R1-0528-Qwen3-8B_source_generation
+  tokenizer: DeepSeek-R1-0528-Qwen3-8B_source_generation
+  split: source_train_vs_source_validation_plus_test
+  max_sequence_length: unbounded_complete_cot
+  truncation: none
+  padding: not_applicable_pre_tokenization
+  batch_size: not_applicable_dataset_construction
+  learning_rate: not_applicable_dataset_construction
+  epochs_or_steps: not_applicable_dataset_construction
+  optimizer: not_applicable_dataset_construction
+  scheduler: not_applicable_dataset_construction
+  seed: 20260818
+  evaluation_metric: binary_sycophancy_l3_attribution
+
+output:
+  directory: ../artifacts/train/sycophancy/science_mcq_moral_causal_l3

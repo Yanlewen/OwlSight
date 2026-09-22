@@ -1,0 +1,26 @@
+# Qwen3.5-9B two-H200 gate for the active-11 Weighted-1 run.
+# The factor-instance contrast sampler requires two trajectory slots per rank,
+# so this uses the native per-rank batch-two/global-batch-four semantics.
+extends: train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_weighted_gate.yaml
+
+model:
+  checkpoint: ${BASE_MODEL_ROOT}/models--Qwen--Qwen3.5-9B
+  checkpoint_revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a
+  tokenizer: ${BASE_MODEL_ROOT}/models--Qwen--Qwen3.5-9B
+  tokenizer_revision: c202236235762e1c871ad0ccb60c8ee5ba337b9a
+
+runtime:
+  expected_world_size: 2
+
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_trustworthiness13_qwen35_9b.yaml
+    batching:
+      trajectories_per_microbatch: 2
+
+optimization:
+  batch_size: 2
+  gradient_accumulation_steps: 1
+
+output:
+  directory: ../runs/qwen35_9b_active11_weighted1_gate_2g

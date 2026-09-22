@@ -1,0 +1,46 @@
+schema_version: 1
+axes:
+  domain: [capability, frontier_risk, trustworthiness]
+  locus: [external, internal]
+relations: [Extrinsic, Intrinsic]
+cells:
+  capability_external:
+    domain: capability
+    locus: external
+    families:
+      instruction_following: {relation: Extrinsic}
+  capability_internal:
+    domain: capability
+    locus: internal
+    families:
+      reasoning_method: {relation: Intrinsic}
+      planning: {relation: Intrinsic}
+      memory_use: {relation: Intrinsic}
+      tool_use: {relation: Intrinsic}
+      skill_use: {relation: Intrinsic}
+  frontier_risk_external:
+    domain: frontier_risk
+    locus: external
+    families:
+      sycophancy: {relation: Extrinsic}
+      sandbagging: {relation: Extrinsic}
+  frontier_risk_internal:
+    domain: frontier_risk
+    locus: internal
+    families:
+      deception: {relation: Intrinsic}
+      reward_hacking: {relation: Intrinsic}
+      sabotage: {relation: Intrinsic}
+      scheming: {relation: Intrinsic}
+  trustworthiness_external:
+    domain: trustworthiness
+    locus: external
+    families:
+      jailbreak: {relation: Extrinsic}
+  trustworthiness_internal:
+    domain: trustworthiness
+    locus: internal
+    families:
+      privacy: {relation: Intrinsic}
+      bias: {relation: Intrinsic}
+      hallucination: {relation: Intrinsic}

@@ -1,0 +1,10 @@
+# Llama-3.2-3B variant of the reusable active-11 complete-source suite.
+# Materialization still binds the model bundle, tokenizer, threshold, and
+# isolated output root; the backbone-width architecture and tokenizer-facing
+# boundary policy are explicit for Llama.
+extends: eval_factor_suffix_active11_complete_source.yaml
+
+model:
+  architecture: architecture_factor_monitor_trustworthiness13_llama32_3b.yaml
+  field_boundary_policy: space_before_closing_tag
+  pad_token: <|finetune_right_pad_id|>

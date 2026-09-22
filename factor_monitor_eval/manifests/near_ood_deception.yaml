@@ -1,0 +1,34 @@
+schema_version: 1
+kind: factor_monitor_eval_supplemental_suite
+metric_policy:
+  formal_metric: gmean2
+  threshold_rule: score >= threshold
+  invalid_policy: count_as_error
+  preserve_factor_levels: [L1, L3]
+  prediction_modes: [decision, score]
+  score_threshold_policy: frozen_validation_only
+benchmarks:
+  - id: pku_deceptionbench
+    family: deception
+    track: binary
+    artifact: factor_monitor_eval/datasets/near_ood_deception/pku_deceptionbench
+    provenance:
+      source_artifact: factor_monitor/artifacts/eval/deception/pku_deceptionbench
+      trajectories: 390
+      queries: 780
+      applied_queries: 144
+      not_applied_queries: 636
+      relation: Intrinsic
+      max_tokens: 7807
+  - id: apollo_roleplaying
+    family: deception
+    track: binary
+    artifact: factor_monitor_eval/datasets/near_ood_deception/apollo_roleplaying
+    provenance:
+      source_artifact: factor_monitor/artifacts/eval/deception/apollo_roleplaying
+      trajectories: 1108
+      queries: 2216
+      applied_queries: 1558
+      not_applied_queries: 658
+      relation: Intrinsic
+      max_tokens: 3399

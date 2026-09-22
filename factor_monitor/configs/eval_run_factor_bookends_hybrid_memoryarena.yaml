@@ -1,0 +1,16 @@
+extends: eval_run_harp_syc_pair_m0_rest_memoryarena.yaml
+
+monitor:
+  backend_options:
+    endpoint_encoding_contract_id: endpoint_factor_bookends_contract_v1
+    endpoint_length_audit: ../runs/audits/eval/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_factor_bookends_screen/memory_memoryarena.json
+    model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_factor_bookends_screen/model_bundle
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_factor_bookends_screen/validation_threshold.json
+
+runtime:
+  batch_size: 2
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_factor_bookends_screen/memory/memoryarena/inference

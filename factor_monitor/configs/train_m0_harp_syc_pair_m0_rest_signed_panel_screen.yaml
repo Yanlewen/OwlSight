@@ -1,0 +1,16 @@
+# Architecture screen: signed applied-minus-not-applied criterion panel.
+extends: train_m0_harp_syc_pair_m0_rest_control_screen.yaml
+
+monitor:
+  backend_options:
+    endpoint_signed_criterion_panel:
+      enabled: true
+      projection_dim: 256
+      pooling: masked_mean
+      fields: [factor, relation, applied, not_applied]
+      score: shared_cosine_difference
+      residual_scale_initialization: zeros
+      dropout: 0.0
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_signed_criterion_panel_screen

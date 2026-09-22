@@ -1,0 +1,18 @@
+schema_version: 1
+kind: eval_dataset
+taxonomy: taxonomy.yaml
+
+sources:
+  - mixture_id: skilleval_v1_glm53_flash
+    path: ../artifacts/glm-5.3-flash/skill/skilleval_v1/glm53_flash_api_eval/records.jsonl
+    include_levels: [L1, L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+
+evaluation:
+  benchmark: skilleval_v1_glm53_flash
+  metric_adapter: binary_factor_application
+
+output:
+  directory: ../artifacts/eval/skill/skilleval_v1/glm53_flash_api_eval/monitor_manifest

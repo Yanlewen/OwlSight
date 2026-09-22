@@ -1,0 +1,10 @@
+# A2 scientific screen: change only the cot_direct matcher's raw-Factor bypass
+# relative to the completed A1 1,054-step screen.
+extends: train_phase1_factor_pool.yaml
+
+monitor:
+  backend_options:
+    architecture_config: architecture_factor_monitor_factor_pool_no_direct_factor.yaml
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_phase1_no_factor_bypass

@@ -1,0 +1,20 @@
+# Reuse the frozen Phase-1 architecture while extending only family metadata.
+extends: architecture_factor_monitor.yaml
+
+evidence_routes:
+  family_mapping:
+    reward_hacking: cot_direct
+    sabotage: cot_direct
+    sandbagging: context_grounded
+    instruction_following: context_grounded
+
+phase1_families:
+  - reasoning_method
+  - deception
+  - memory_use
+  - skill_use
+  - sycophancy
+  - reward_hacking
+  - sabotage
+  - sandbagging
+  - instruction_following

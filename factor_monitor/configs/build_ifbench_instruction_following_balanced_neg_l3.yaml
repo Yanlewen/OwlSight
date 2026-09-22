@@ -1,0 +1,66 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: ifbench_instruction_following_balanced_neg
+    path: ../datasets/capability_external/instruction_following/ifbench/data/canonical/runs/ifrlvr_train/records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: trajectory_id
+selection:
+  strategy: partitioned_group_quota_v1
+  unit_mode: records
+  unit_field: trajectory_id
+  seed: 20260818
+  max_attempts: 4096
+  required_levels: [L3]
+  passthrough_splits: []
+  report_fields:
+    - metadata.cot_evidence_stage
+    - metadata.final_instruction_following_success
+    - metadata.condition
+  coverage: []
+  preferred_unit_files:
+    - split: train
+      path: ../datasets/capability_external/instruction_following/ifbench/data/canonical/runs/ifrlvr_train/training_pools/balanced_neg.jsonl
+      field: trajectory_id
+  strata:
+    - {id: train_positive, split: train, filters: {label: 1}, count: 500}
+    - {id: train_simple_negative, split: train, filters: {metadata.cot_evidence_stage: absent_instruction}, count: 250}
+    - {id: train_hard_planned, split: train, filters: {metadata.cot_evidence_stage: planned_only}, count: 104}
+    - {id: train_hard_partial, split: train, filters: {metadata.cot_evidence_stage: partially_operationalized}, count: 77}
+    - {id: train_hard_noticed, split: train, filters: {metadata.cot_evidence_stage: noticed_only}, count: 44}
+    - {id: train_hard_no_evidence, split: train, filters: {metadata.cot_evidence_stage: no_constraint_evidence}, count: 25}
+    - {id: validation_positive, split: validation, filters: {label: 1}, count: 100}
+    - {id: validation_simple_negative, split: validation, filters: {metadata.cot_evidence_stage: absent_instruction}, count: 50}
+    - {id: validation_hard_planned, split: validation, filters: {metadata.cot_evidence_stage: planned_only}, count: 21}
+    - {id: validation_hard_partial, split: validation, filters: {metadata.cot_evidence_stage: partially_operationalized}, count: 15}
+    - {id: validation_hard_noticed, split: validation, filters: {metadata.cot_evidence_stage: noticed_only}, count: 9}
+    - {id: validation_hard_no_evidence, split: validation, filters: {metadata.cot_evidence_stage: no_constraint_evidence}, count: 5}
+split:
+  strategy: selection_partition_v1
+  group_field: leakage_group_id
+provenance:
+  dataset_path: ../datasets/capability_external/instruction_following/ifbench/data/canonical/runs/ifrlvr_train/records.jsonl
+  split: leakage_group_disjoint_balanced_negative
+  source_recipe: train_positive_500_simple_negative_250_hard_negative_250_validation_100_50_50
+  source_selection_seed: 20260818
+  seed: 20260818
+  generator_model: ${BASE_MODEL_ROOT}/models--deepseek-ai--DeepSeek-R1-0528-Qwen3-8B
+  model: ${BASE_MODEL_ROOT}/models--deepseek-ai--DeepSeek-R1-0528-Qwen3-8B
+  tokenizer: ${BASE_MODEL_ROOT}/models--deepseek-ai--DeepSeek-R1-0528-Qwen3-8B
+  generation_max_tokens: 16384
+  monitor_max_sequence_length: unbounded_export
+  max_sequence_length: unbounded_export
+  truncation_policy: none
+  truncation: none
+  padding_policy: not_applicable
+  padding: not_applicable_dataset_artifact
+  batch_size: not_applicable_dataset_build
+  learning_rate: not_applicable_dataset_build
+  epochs_or_steps: not_applicable_dataset_build
+  evaluation_metric: binary_cot_instruction_operationalization
+  monitor_input: complete_cot_only_visible_final_excluded
+output:
+  directory: ../artifacts/train/instruction_following/balanced_neg/ifbench_instruction_following_l3

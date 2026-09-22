@@ -1,0 +1,21 @@
+extends: eval_run_harp_syc_pair_m0_rest_sycobench_judge.yaml
+
+monitor:
+  backend_options:
+    model_bundle: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_layer_mixed_endpoint_screen/model_bundle
+    endpoint_layer_mixed:
+      enabled: true
+      layers_below_final: [4, 8]
+      combination: zero_initialized_logit_residual
+      normalization: separate_layernorm
+      heads: separate_linear
+      residual_initialization: zeros
+
+evaluation:
+  threshold_source: ../runs/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_layer_mixed_endpoint_screen/validation_threshold.json
+
+runtime:
+  batch_size: 4
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_harp_syc_pair_m0_rest_layer_mixed_endpoint_screen/sycophancy/sycobench_judge_influence/inference

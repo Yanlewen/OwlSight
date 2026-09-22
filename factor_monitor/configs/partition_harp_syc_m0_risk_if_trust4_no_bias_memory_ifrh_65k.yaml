@@ -1,0 +1,36 @@
+schema_version: 1
+kind: train_length_partition
+
+source:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_all_lengths
+  audit: length_audit.json
+  audit_sha256: 6817b85ddda705272c2cb0451bd9ae26f6dcfbf8b5b930ee2001f23a3ff410dc
+
+architecture: architecture_factor_monitor_trustworthiness13.yaml
+
+tokenizer:
+  directory: ${BASE_MODEL_ROOT}/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  revision: local_snapshot
+  trust_remote_code: true
+
+limits:
+  encoding: endpoint_early_fusion
+  endpoint_contract_id: endpoint_factor_suffix_contract_v1
+  partition_unit: query
+  max_sequence_tokens: 65536
+  truncation: forbidden
+  overlength_policy: exclude_to_phase2
+  length_buckets: [8192, 16384, 24576, 32768, 49152, 65536]
+
+provenance:
+  dataset_id: harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_65k
+  purpose: active11_factor_suffix_mil_training_phase1_partition
+  selection_unit: complete_factor_instance
+  source_selection: inherited_without_resampling
+  overlength_retention: preserved_for_phase2
+  tokenizer_vocabulary_sha256: 467543819daf0b32f85b6b8e9097aa1ac1675affa59836c26acbc4a22eb83f0f
+  seed: 20260905
+
+outputs:
+  accepted_directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_65k
+  overlength_directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_over65k

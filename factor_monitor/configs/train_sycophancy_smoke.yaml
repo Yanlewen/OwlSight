@@ -1,0 +1,96 @@
+# Engineering smoke only: this config is not a frozen scientific experiment.
+schema_version: 1
+kind: train_run
+
+dataset:
+  directory: ../artifacts/train/phase1/phase1_harp_syc_science_moral_contrast
+  manifest: effective_config.json
+  trajectory_file: trajectories.jsonl
+  train_file: train_queries.jsonl
+  validation_file: validation_queries.jsonl
+  holdout_file: holdout_queries.jsonl
+
+model:
+  checkpoint: ${BASE_MODEL_ROOT}/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  checkpoint_revision: 851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  tokenizer: ${BASE_MODEL_ROOT}/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  tokenizer_revision: 851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+  load_options:
+    trust_remote_code: true
+    local_files_only: true
+    attn_implementation: sdpa
+    torch_dtype: bfloat16
+    device_map: null
+
+monitor:
+  backend: factor_monitor_binary
+  backend_options:
+    architecture_config: architecture_factor_monitor.yaml
+    factor_encoding_contract_id: factor_encoding_contract_v1
+    evidence_encoding_contract_id: evidence_encoding_contract_v1
+    evidence_routes:
+      reasoning_method: cot_direct
+      deception: cot_direct
+      memory_use: context_grounded
+      skill_use: context_grounded
+      sycophancy: context_grounded
+    training_scope:
+      mode: smoke_subset
+      families: [sycophancy]
+    sequence:
+      max_factor_tokens: 1024
+      length_buckets: [8192, 16384, 32768, 49152, 65536]
+      overlength_policy: exclude_to_phase2
+    batching:
+      training_unit: trajectory
+      trajectories_per_microbatch: 1
+      max_queries_per_trajectory: null
+      mixed_route_policy: route_masked_vectorized
+      distributed_unused_route_policy: find_unused_parameters_true
+    repository_policy: allow_dirty_with_recorded_diff
+    lora:
+      target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+      rank: 16
+      alpha: 32
+      dropout: 0.05
+      bias: none
+    new_module_learning_rate: 0.0001
+    label_weighting: none
+    loss_aggregation: trajectory_hierarchical
+
+runtime:
+  max_sequence_length: 65536
+  truncation_policy: error
+  padding_policy: dynamic_right
+  seed: 0
+
+optimization:
+  strategy: lora
+  objective: factor_binary
+  batch_size: 1
+  eval_batch_size: 1
+  gradient_accumulation_steps: 1
+  gradient_checkpointing: true
+  gradient_checkpointing_use_reentrant: false
+  learning_rate: 0.00005
+  epochs: null
+  max_steps: 10
+  optimizer: adamw_torch
+  scheduler: linear
+  checkpoint_policy: steps
+  weight_decay: 0.0
+  warmup_ratio: 0.0
+  max_grad_norm: 1.0
+  mixed_precision: bf16
+  logging_steps: 1
+  save_steps: 10
+  resume_from_checkpoint: null
+
+evaluation:
+  metric: auroc
+  cadence: 10
+  threshold_policy: select_on_validation
+  early_stopping_patience: null
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_sycophancy_smoke

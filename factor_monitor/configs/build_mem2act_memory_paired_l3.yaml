@@ -1,0 +1,29 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: mem2act_memory_paired_l3
+    path: ../datasets/capability_internal/memory_use/mem2actbench/data/intermediate/qwen3_8b_memory_contrast_mem2act/judge/paired_training_candidate_records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+split:
+  strategy: unsplit_pool_v1
+provenance:
+  dataset_path: ../datasets/capability_internal/memory_use/mem2actbench/data/intermediate/qwen3_8b_memory_contrast_mem2act/judge/paired_training_candidate_records.jsonl
+  model: not_applicable_dataset_construction
+  tokenizer: not_applicable_pre_tokenization
+  split: unsplit_candidate
+  max_sequence_length: 65536_full_source_context
+  truncation: none
+  padding: not_applicable_dataset_artifact
+  batch_size: not_applicable_dataset_construction
+  learning_rate: not_applicable_dataset_construction
+  epochs_or_steps: one_deterministic_build_pass
+  optimizer: not_applicable_dataset_construction
+  scheduler: not_applicable_dataset_construction
+  seed: 20260821
+  evaluation_metric: binary_atomic_memory_application
+output:
+  directory: ../artifacts/train/memory/paired/mem2act_memory_paired_l3

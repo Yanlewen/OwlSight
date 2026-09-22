@@ -1,0 +1,19 @@
+# One complete long-data exposure for pooling selection.
+extends: train_m0_harp_syc_m0_risk_if_mil_pmean_gate.yaml
+
+monitor:
+  backend_options:
+    training_scope:
+      mode: phase1_full
+
+optimization:
+  max_steps: 144
+  warmup_ratio: 0.03
+  logging_steps: 10
+  save_steps: 144
+
+evaluation:
+  cadence: 144
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_mil_pmean_screen

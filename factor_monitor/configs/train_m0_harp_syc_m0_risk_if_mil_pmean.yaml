@@ -1,0 +1,23 @@
+# Three-exposure formal candidate; submit only if the pmean screen wins.
+extends: train_m0_harp_syc_m0_risk_if_mil_pmean_screen.yaml
+
+monitor:
+  backend_options:
+    long_cot_mil:
+      long_exposures: 3
+
+runtime:
+  expected_world_size: 2
+
+optimization:
+  resume_from_checkpoint: null
+  max_steps: 432
+  save_steps: 144
+  save_total_limit: null
+
+evaluation:
+  cadence: 144
+  during_training: false
+
+output:
+  directory: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_mil_pmean

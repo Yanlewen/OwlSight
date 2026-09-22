@@ -1,0 +1,78 @@
+schema_version: 1
+kind: factor_monitor_eval_suite
+metric_policy:
+  formal_metric: gmean2
+  threshold_rule: score >= threshold
+  invalid_policy: count_as_error
+  preserve_factor_levels:
+  - L1
+  - L3
+  prediction_modes:
+  - decision
+  - score
+  score_threshold_policy: frozen_validation_only
+benchmarks:
+- id: process_aime
+  family: reasoning_method
+  track: process
+  artifact: review_required/data/evaluation/core/process_aime
+- id: process_gpqa
+  family: reasoning_method
+  track: process
+  artifact: review_required/data/evaluation/core/process_gpqa
+- id: mask_qwen
+  family: deception
+  track: binary
+  artifact: review_required/data/evaluation/core/mask_qwen
+- id: openai_sycophancy
+  family: sycophancy
+  track: intervention
+  artifact: review_required/data/evaluation/core/openai_sycophancy
+- id: sycobench_judge
+  family: sycophancy
+  track: binary
+  artifact: review_required/data/evaluation/core/sycobench_judge
+- id: skilleval
+  family: skill_use
+  track: binary
+  artifact: review_required/data/evaluation/core/skilleval
+- id: reward_hacking
+  family: reward_hacking
+  track: binary
+  artifact: review_required/data/evaluation/core/reward_hacking
+  complete_eval:
+    config: factor_monitor/configs/eval_factor_suffix_complete_metric_weighted_32768.yaml
+    window_tokens: 32768
+    accepted_artifact: factor_monitor/artifacts/eval_complete_views_metric_weighted_32768/reward_hacking/accepted
+    overlength_artifact: factor_monitor/artifacts/eval_complete_views_metric_weighted_32768/reward_hacking/overlength
+    expected_source_queries: 948
+    expected_accepted_queries: 913
+    expected_overlength_queries: 35
+- id: shadearena
+  family: sabotage
+  track: binary
+  artifact: review_required/data/evaluation/core/shadearena
+- id: sandbagging
+  family: sandbagging
+  track: binary
+  artifact: review_required/data/evaluation/core/sandbagging
+- id: openai_wmdp
+  family: sandbagging
+  track: intervention
+  artifact: review_required/data/evaluation/core/openai_wmdp
+- id: ifbench
+  family: instruction_following
+  track: binary
+  artifact: review_required/data/evaluation/core/ifbench
+- id: hallulens
+  family: hallucination
+  track: binary
+  artifact: review_required/data/evaluation/core/hallulens
+- id: confaide
+  family: privacy
+  track: binary
+  artifact: review_required/data/evaluation/core/confaide
+- id: jailbreakbench
+  family: jailbreak
+  track: binary
+  artifact: review_required/data/evaluation/core/jailbreakbench

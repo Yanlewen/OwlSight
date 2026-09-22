@@ -1,0 +1,48 @@
+schema_version: 1
+kind: factor_monitor_full_eval
+suite_id: cot_transform_process_compression_only
+
+# Paired complete-case Process AIME/GPQA for the CoT transform experiment.
+# Query-level labels are unchanged across conditions; only model_cot differs.
+# Evidence spans are not recomputed; score-process uses label_id + score.
+model:
+  model_bundle: __MODEL_OUTPUT_REQUIRED__
+  threshold_source: __MODEL_OUTPUT_REQUIRED__
+  tokenizer: __MODEL_OUTPUT_REQUIRED__
+  architecture: architecture_factor_monitor_trustworthiness13.yaml
+
+window:
+  max_endpoint_tokens: 33024
+  overlap_tokens: 6144
+  truncation_policy: error
+  context_policy: repeat_full_when_feasible_else_window_context
+  primary_pooling: top2_mean
+  diagnostic_pooling: [max, top2_logmeanexp, noisy_or]
+
+coverage:
+  source_unit: query
+  partition_policy: exact_disjoint_union
+  overlength_policy: lossless_windows
+  formal_eval: complete_source_only
+
+metric_policy:
+  formal_metric: gmean2
+  threshold_rule: score >= frozen_threshold
+  threshold_source: validation_threshold.json
+
+benchmarks:
+  - &partitioned
+    id: aime
+    mode: partitioned
+    parent_config: eval_run_trust4_suffix_{benchmark}.yaml
+    source_directory: ${REPO_ROOT}/factor_monitor_eval/datasets/cot_transform/paired_complete_case/compression_only/process_aime
+    source_audit: ${REPO_ROOT}/factor_monitor/runs/audits/cot_transform_process_compression_only_33024/{benchmark}.json
+    accepted_directory: ${REPO_ROOT}/factor_monitor_eval/datasets/cot_transform/paired_complete_case/partitions/compression_only/{benchmark}/accepted
+    overlength_directory: ${REPO_ROOT}/factor_monitor_eval/datasets/cot_transform/paired_complete_case/partitions/compression_only/{benchmark}/overlength
+    direct_scores: __BOUND_OUTPUT_REQUIRED__
+    window_scores: __BOUND_OUTPUT_REQUIRED__
+    output_directory: __BOUND_OUTPUT_REQUIRED__
+  - {<<: *partitioned, id: gpqa, source_directory: ${REPO_ROOT}/factor_monitor_eval/datasets/cot_transform/paired_complete_case/compression_only/process_gpqa}
+
+output:
+  directory: __BOUND_OUTPUT_REQUIRED__

@@ -1,0 +1,43 @@
+schema_version: 1
+kind: train_composite_dataset
+
+components:
+  - component_id: harp_syc_m0
+    directory: ../artifacts/train/combined/harp_syc_pair_m0_rest
+  - component_id: risk_if
+    directory: ../artifacts/train/combined/risk_if_pointwise/evidence_le_32768
+
+factor_instance_level_sets:
+  - [L1]
+  - [L3]
+  - [L1, L3]
+
+required_families:
+  - reasoning_method
+  - deception
+  - memory_use
+  - skill_use
+  - sycophancy
+  - reward_hacking
+  - sabotage
+  - sandbagging
+  - instruction_following
+
+trajectory_id_collision_policy: namespace_cross_family
+
+provenance:
+  dataset_id: harp_syc_m0_risk_if
+  purpose: nine_family_factor_suffix_training
+  source_selection: preserve_frozen_component_splits_without_resampling
+  old_five_source: harp_syc_pair_m0_rest
+  new_four_source: risk_if_pointwise_evidence_le_32768
+  collision_policy: namespace_only_identical_cross_family_trajectory_ids
+  loss_weight_policy: preserve_source_record_loss_weights
+  visibility_scope: task_context_plus_complete_cot
+  max_evidence_tokens: 32768
+  max_factor_tokens: 512
+  truncation: none
+  seed: 20260829
+
+output:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if

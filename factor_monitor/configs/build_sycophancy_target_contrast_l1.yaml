@@ -1,0 +1,125 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+
+sources:
+  - mixture_id: sycophancy_science_target_contrast
+    path: ../datasets/frontier_risk_external/sycophancy/science/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+  - mixture_id: sycophancy_mmlu_pro_target_contrast
+    path: ../datasets/frontier_risk_external/sycophancy/mmlu_pro/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+  - mixture_id: sycophancy_cybermetric_target_contrast
+    path: ../datasets/frontier_risk_external/sycophancy/cybermetric/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+  - mixture_id: sycophancy_moral_stories_target_contrast
+    path: ../datasets/frontier_risk_external/sycophancy/moral_stories/data/canonical/records.jsonl
+    include_levels: [L1]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+    factor_instance_id_field: metadata.factor_instance_id
+
+selection:
+  strategy: partitioned_group_quota_v1
+  unit_mode: sycophancy_target_contrast
+  unit_field: metadata.target_contrast.contrast_group_id
+  seed: 20260818
+  max_attempts: 4096
+  required_levels: [L1]
+  passthrough_splits: []
+  report_fields:
+    - metadata.target_contrast.role
+    - metadata.target_contrast.actual_target
+    - metadata.target_contrast.candidate_target
+    - metadata.intervention.cue_family
+    - metadata.target_contrast.actual_target_correctness
+    - metadata.target_contrast.candidate_target_correctness
+    - metadata.target_contrast.alternate_selection_mode
+    - metadata.source_partition
+  coverage: []
+  strata:
+    - {id: train_mmlu_authority_correct, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: correct}, count: 45}
+    - {id: train_mmlu_authority_wrong, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: wrong}, count: 44}
+    - {id: train_mmlu_leaked_correct, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: correct}, count: 42}
+    - {id: train_mmlu_leaked_wrong, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: wrong}, count: 42}
+    - {id: train_mmlu_reward_correct, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: correct}, count: 14}
+    - {id: train_mmlu_reward_wrong, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: wrong}, count: 15}
+    - {id: train_mmlu_user_correct, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: correct}, count: 37}
+    - {id: train_mmlu_user_wrong, split: train, filters: {source: mmlu_pro, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: wrong}, count: 36}
+    - {id: train_moral_first_person_correct, split: train, filters: {source: moral_stories, metadata.intervention.cue_family: moral_first_person, metadata.target_contrast.actual_target_correctness: correct}, count: 1}
+    - {id: train_moral_suggest_right_correct, split: train, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_right, metadata.target_contrast.actual_target_correctness: correct}, count: 30}
+    - {id: train_moral_suggest_right_wrong, split: train, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_right, metadata.target_contrast.actual_target_correctness: wrong}, count: 39}
+    - {id: train_moral_suggest_wrong_correct, split: train, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_wrong, metadata.target_contrast.actual_target_correctness: correct}, count: 19}
+    - {id: train_moral_suggest_wrong_wrong, split: train, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_wrong, metadata.target_contrast.actual_target_correctness: wrong}, count: 24}
+    - {id: train_cyber_authority_correct, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: correct}, count: 10}
+    - {id: train_cyber_authority_wrong, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: wrong}, count: 10}
+    - {id: train_cyber_leaked_correct, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: correct}, count: 8}
+    - {id: train_cyber_leaked_wrong, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: wrong}, count: 8}
+    - {id: train_cyber_reward_correct, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: correct}, count: 4}
+    - {id: train_cyber_reward_wrong, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: wrong}, count: 4}
+    - {id: train_cyber_user_correct, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: correct}, count: 9}
+    - {id: train_cyber_user_wrong, split: train, filters: {source: cybermetric, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: wrong}, count: 10}
+    - {id: train_science_authority_correct, split: train, filters: {source: science, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: correct}, count: 7}
+    - {id: train_science_authority_wrong, split: train, filters: {source: science, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: wrong}, count: 7}
+    - {id: train_science_leaked_correct, split: train, filters: {source: science, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: correct}, count: 9}
+    - {id: train_science_leaked_wrong, split: train, filters: {source: science, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: wrong}, count: 9}
+    - {id: train_science_reward_correct, split: train, filters: {source: science, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: correct}, count: 3}
+    - {id: train_science_reward_wrong, split: train, filters: {source: science, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: wrong}, count: 3}
+    - {id: train_science_user_correct, split: train, filters: {source: science, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: correct}, count: 6}
+    - {id: train_science_user_wrong, split: train, filters: {source: science, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: wrong}, count: 5}
+    - {id: validation_mmlu_authority_correct, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: correct}, count: 9}
+    - {id: validation_mmlu_authority_wrong, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: wrong}, count: 13}
+    - {id: validation_mmlu_leaked_correct, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: correct}, count: 10}
+    - {id: validation_mmlu_leaked_wrong, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: wrong}, count: 12}
+    - {id: validation_mmlu_reward_correct, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: correct}, count: 6}
+    - {id: validation_mmlu_reward_wrong, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: wrong}, count: 1}
+    - {id: validation_mmlu_user_correct, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: correct}, count: 9}
+    - {id: validation_mmlu_user_wrong, split: validation, filters: {source: mmlu_pro, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: wrong}, count: 7}
+    - {id: validation_moral_suggest_right_correct, split: validation, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_right, metadata.target_contrast.actual_target_correctness: correct}, count: 5}
+    - {id: validation_moral_suggest_right_wrong, split: validation, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_right, metadata.target_contrast.actual_target_correctness: wrong}, count: 9}
+    - {id: validation_moral_suggest_wrong_correct, split: validation, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_wrong, metadata.target_contrast.actual_target_correctness: correct}, count: 1}
+    - {id: validation_moral_suggest_wrong_wrong, split: validation, filters: {source: moral_stories, metadata.intervention.cue_family: moral_suggest_wrong, metadata.target_contrast.actual_target_correctness: wrong}, count: 6}
+    - {id: validation_cyber_authority_wrong, split: validation, filters: {source: cybermetric, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: wrong}, count: 2}
+    - {id: validation_cyber_leaked_wrong, split: validation, filters: {source: cybermetric, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: wrong}, count: 1}
+    - {id: validation_cyber_reward_wrong, split: validation, filters: {source: cybermetric, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: wrong}, count: 1}
+    - {id: validation_cyber_user_wrong, split: validation, filters: {source: cybermetric, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: wrong}, count: 1}
+    - {id: validation_science_authority_correct, split: validation, filters: {source: science, metadata.intervention.cue_family: authority_evidence, metadata.target_contrast.actual_target_correctness: correct}, count: 2}
+    - {id: validation_science_leaked_wrong, split: validation, filters: {source: science, metadata.intervention.cue_family: leaked_privileged_answer, metadata.target_contrast.actual_target_correctness: wrong}, count: 1}
+    - {id: validation_science_reward_correct, split: validation, filters: {source: science, metadata.intervention.cue_family: system_reward_artifact, metadata.target_contrast.actual_target_correctness: correct}, count: 1}
+    - {id: validation_science_user_correct, split: validation, filters: {source: science, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: correct}, count: 2}
+    - {id: validation_science_user_wrong, split: validation, filters: {source: science, metadata.intervention.cue_family: user_opinion, metadata.target_contrast.actual_target_correctness: wrong}, count: 1}
+
+split:
+  strategy: metadata_partition_v1
+  field: metadata.source_partition
+  train_value: train
+  validation_value: validation
+  holdout_value: holdout
+
+provenance:
+  dataset_path: ../datasets/frontier_risk_external/sycophancy
+  model: not_applicable_dataset_construction
+  tokenizer: not_applicable_pre_tokenization
+  split: metadata_source_partition_l1_target_contrast
+  max_sequence_length: unbounded_complete_cot
+  truncation: none
+  padding: not_applicable_dataset_artifact
+  batch_size: not_applicable_dataset_construction
+  learning_rate: not_applicable_dataset_construction
+  epochs_or_steps: not_applicable_dataset_construction
+  optimizer: not_applicable_dataset_construction
+  scheduler: not_applicable_dataset_construction
+  seed: 20260818
+  evaluation_metric: within_trajectory_l1_target_contrast
+
+output:
+  directory: ../artifacts/train/sycophancy/intervention_target_contrast_l1

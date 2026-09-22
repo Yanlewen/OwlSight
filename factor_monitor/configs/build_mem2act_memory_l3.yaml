@@ -1,0 +1,13 @@
+schema_version: 1
+kind: train_dataset
+taxonomy: taxonomy.yaml
+sources:
+  - mixture_id: mem2act_memory_use_l3
+    path: ../datasets/capability_internal/memory_use/mem2actbench/data/canonical/records.jsonl
+    include_levels: [L3]
+    sampling_weight: 1.0
+    loss_weight: 1.0
+split:
+  strategy: unsplit_pool_v1
+output:
+  directory: ../artifacts/train/memory/mem2act_memory_use_l3

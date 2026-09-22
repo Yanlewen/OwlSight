@@ -1,0 +1,13 @@
+extends: eval_run_phase1_m1_base.yaml
+
+dataset:
+  directory: ../artifacts/eval/process/openai_process_gpqa
+  trajectory_file: trajectories.jsonl
+  query_file: eval_queries.jsonl
+
+# score-process consumes scores.jsonl afterward for the paper-aligned metrics.
+evaluation:
+  metric: auroc
+
+output:
+  directory: ../runs/eval/qwen35_4b_factor_binary_phase1/process/openai_process_gpqa/inference
