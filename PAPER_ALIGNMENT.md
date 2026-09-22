@@ -2,9 +2,9 @@
 
 ## Frozen model bindings
 
-- Primary: `qwen35_4b_mil11`, checkpoint 4058, non-targeted active-11 run.
-- Scale transfer: `qwen35_9b_mil11`, checkpoint 4058.
-- Backbone transfer: `llama32_3b_mil11`, checkpoint 6087.
+- Primary: `qwen35-4b-factor-monitor`, checkpoint 4058, non-targeted active-11 run.
+- Scale transfer: `qwen35-9b-factor-monitor`, checkpoint 4058.
+- Backbone transfer: `llama32-3b-factor-monitor`, checkpoint 6087.
 
 ## Evaluation counts
 

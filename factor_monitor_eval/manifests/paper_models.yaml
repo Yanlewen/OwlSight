@@ -1,9 +1,9 @@
 schema_version: 1
 kind: factor_monitor_paper_models
 models:
-  - id: qwen35_4b_mil11
+  - id: qwen35-4b-factor-monitor
     bound_suite: factor_monitor/runs/eval/active11_mil_metric_checkpoint4058_complete_source/suite/suite_manifest.json
-  - id: qwen35_9b_mil11
+  - id: qwen35-9b-factor-monitor
     bound_suite: factor_monitor/runs/eval/qwen35_9b_active11_mil_metric_checkpoint4058_complete_source/suite/suite_manifest.json
-  - id: llama32_3b_mil11
+  - id: llama32-3b-factor-monitor
     bound_suite: factor_monitor/configs/bound_eval/llama32_3b_active11_mil_metric_checkpoint-6087/factor_suffix_active11_complete_source/suite.yaml

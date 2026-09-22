@@ -17,9 +17,9 @@
       "sha256": "6cf63d87586c7c25c3ab8e62eef5c75bbaa982b0a6f9c00c59e2720255aac9ec"
     },
     {
-      "bytes": 1542,
+      "bytes": 1569,
       "path": "PAPER_ALIGNMENT.md",
-      "sha256": "aa0af5225fb53ee310211e8e4d8f680c59d7b1314aad4df41c91ee7aeaafd394"
+      "sha256": "b1e60a29d02d3422e493bd38336d396cbb9be5f41812e59b8565b8c89df4a846"
     },
     {
       "bytes": 1314,
@@ -482,9 +482,9 @@
       "sha256": "92da1772f318200b0551cd1d250003d3a400f5ad9692f5072ec83fd3de619eb6"
     },
     {
-      "bytes": 2435,
+      "bytes": 2449,
       "path": "factor_monitor/configs/eval_factor_suffix_kimi_k26_five_panel.yaml",
-      "sha256": "444691fab0293b0709789fcde2a67c253f8b8bebdf3a54dd00c96216a9232b30"
+      "sha256": "870918090c91a62eb23de95575c2ee04db5f5ee64cf0108cebe2f68b0d2cb0d1"
     },
     {
       "bytes": 2276,
@@ -3027,14 +3027,14 @@
       "sha256": "6ef12ed7d841a8c5b5a1435bc188c723738ba2473d974e38a548077183592a99"
     },
     {
-      "bytes": 529,
-      "path": "factor_monitor_eval/manifests/paper_models_mil11.yaml",
-      "sha256": "b6377e6893adb7d72aab134d83db7f70db0d9fb958e4bce0526cbc722f4de9c9"
+      "bytes": 556,
+      "path": "factor_monitor_eval/manifests/paper_models.yaml",
+      "sha256": "da2079a20878e4ea80f8c442914395401c9bcd475ac85a576da301d0c80d964f"
     },
     {
-      "bytes": 558,
+      "bytes": 639,
       "path": "factor_monitor_eval/manifests/paper_models_release.yaml",
-      "sha256": "5db23470effdf3607729db7ce2b3271f644aff9acfd796ecafddb2e27a1aa151"
+      "sha256": "621e241e1483a9deb4d92821a9fc5a07259bd3ebc9537fc156e0c35f0f2f0c1f"
     },
     {
       "bytes": 453,
@@ -3198,5 +3198,5 @@
     }
   ],
   "schema_version": 1,
-  "total_bytes": 2502251
+  "total_bytes": 2502400
 }

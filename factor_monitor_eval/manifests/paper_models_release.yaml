@@ -1,12 +1,12 @@
 schema_version: 1
 kind: factor_monitor_paper_models
 models:
-- id: qwen35_4b_mil11
-  predictions_root: post_review/results/qwen35_4b_mil11/predictions
-  monitor_config_root: post_review/results/qwen35_4b_mil11/monitor_configs
-- id: qwen35_9b_mil11
-  predictions_root: post_review/results/qwen35_9b_mil11/predictions
-  monitor_config_root: post_review/results/qwen35_9b_mil11/monitor_configs
-- id: llama32_3b_mil11
-  predictions_root: post_review/results/llama32_3b_mil11/predictions
-  monitor_config_root: post_review/results/llama32_3b_mil11/monitor_configs
+- id: qwen35-4b-factor-monitor
+  predictions_root: post_review/results/qwen35-4b-factor-monitor/predictions
+  monitor_config_root: post_review/results/qwen35-4b-factor-monitor/monitor_configs
+- id: qwen35-9b-factor-monitor
+  predictions_root: post_review/results/qwen35-9b-factor-monitor/predictions
+  monitor_config_root: post_review/results/qwen35-9b-factor-monitor/monitor_configs
+- id: llama32-3b-factor-monitor
+  predictions_root: post_review/results/llama32-3b-factor-monitor/predictions
+  monitor_config_root: post_review/results/llama32-3b-factor-monitor/monitor_configs

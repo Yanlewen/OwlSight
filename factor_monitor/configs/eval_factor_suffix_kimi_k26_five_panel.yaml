@@ -4,7 +4,7 @@ suite_id: factor_suffix_kimi_k26_five_panel
 
 # Reusable Kimi K2.6 five-panel template.  `full-eval materialize` binds the
 # model bundle, tokenizer, frozen threshold, and isolated output root.
-# Panels match the GLM-5.3-Flash mil-11 suite: Process AIME/GPQA, SkillEval,
+# Panels match the GLM-5.3-Flash paper Factor Monitor suite: Process AIME/GPQA, SkillEval,
 # SycoBench-600, and IFBench.  Source directories are the isolated Kimi
 # artifacts, not GLM or the historical DeepSeek Process copies.
 model:
