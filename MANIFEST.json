@@ -7,9 +7,9 @@
       "sha256": "a6880250f7d01cbbdea6c3a2f7af5a2f7ad7c411dcc81d31a0e8dc734b97b45d"
     },
     {
-      "bytes": 769,
+      "bytes": 1659,
       "path": "DATA_AVAILABILITY.md",
-      "sha256": "c5dad7e9a04fb863684d2ac4a11e3c0526cb98d81b69583c6c70dd0f1e8a37ce"
+      "sha256": "d19cadb9f98c4223a6ad40d969759fb340cdb132b3567d6b4a793e1910736b06"
     },
     {
       "bytes": 9156,
@@ -17,14 +17,9 @@
       "sha256": "6cf63d87586c7c25c3ab8e62eef5c75bbaa982b0a6f9c00c59e2720255aac9ec"
     },
     {
-      "bytes": 1569,
-      "path": "PAPER_ALIGNMENT.md",
-      "sha256": "b1e60a29d02d3422e493bd38336d396cbb9be5f41812e59b8565b8c89df4a846"
-    },
-    {
-      "bytes": 1314,
+      "bytes": 2479,
       "path": "README.md",
-      "sha256": "4c7b06781f3b71a677c2592acf9bb8b5c6a33673da15c2125acb0e4e58f1ac4b"
+      "sha256": "abb1198626a68b0eece391dcb51134ee93b943fe5bb19206950c4bf97995ee1d"
     },
     {
       "bytes": 79688,
@@ -3195,8 +3190,13 @@
       "bytes": 1264,
       "path": "factor_monitor_eval/tests/test_thresholds.py",
       "sha256": "1113544abf38e8ba6504964b066abfda998d100042ff0b89978301d386e3901f"
+    },
+    {
+      "bytes": 36387,
+      "path": "scripts/prepare_public_eval_release.py",
+      "sha256": "54f0d75551cbf87eeea3a277ebba268166fbd150105b0f3ec893678869809227"
     }
   ],
   "schema_version": 1,
-  "total_bytes": 2502400
+  "total_bytes": 2539273
 }
