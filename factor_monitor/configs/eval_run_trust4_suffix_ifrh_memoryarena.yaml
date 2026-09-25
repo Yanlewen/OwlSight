@@ -1,5 +1,0 @@
-extends: eval_run_trust4_suffix_memoryarena.yaml
-
-monitor:
-  backend_options:
-    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_eval_audits/memoryarena.json

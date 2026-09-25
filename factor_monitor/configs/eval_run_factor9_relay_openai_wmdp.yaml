@@ -1,6 +1,0 @@
-extends: eval_run_factor9_suffix_openai_wmdp.yaml
-
-monitor:
-  backend_options:
-    endpoint_encoding_contract_id: endpoint_factor_suffix_relay_contract_v1
-    endpoint_length_audit: ../runs/qwen35_4b_factor_binary_harp_syc_m0_risk_if_factor_suffix_relay_eval_audits/openai_wmdp.json

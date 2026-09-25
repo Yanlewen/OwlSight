@@ -1,6 +1,0 @@
-# Emergency one-GPU fallback for train_phase1.yaml. The only semantic delta is
-# accumulation 4 so the effective global batch remains 4.
-extends: train_phase1.yaml
-
-optimization:
-  gradient_accumulation_steps: 4
