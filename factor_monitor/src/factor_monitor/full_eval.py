@@ -484,9 +484,8 @@ def materialize_bound_suite(
     run_name = root.name if checkpoint is None else f"{root.name}_{binding['checkpoint'].name}"
     default_eval_root = Path(template["config_path"]).resolve().parents[1] / "runs" / "eval" / run_name / template["suite_id"]
     eval_root = (output_root or default_eval_root).resolve()
-    # The rjob source snapshot deliberately excludes ``runs/``.  Keep the
-    # bound manifest under configs so every worker receives the exact same
-    # suite file, while predictions and merged results stay under runs/eval.
+    # Keep the bound manifest under configs so every worker receives the exact
+    # same suite file, while predictions and merged results stay under runs/eval.
     manifest_path = Path(template["config_path"]).resolve().parents[1] / "configs" / "bound_eval" / run_name / template["suite_id"] / "suite.yaml"
     if eval_root.exists() and any(eval_root.iterdir()) and not overwrite:
         raise ConfigurationError(f"eval output root is non-empty: {eval_root}; pass --overwrite")
