@@ -1,0 +1,245 @@
+# Paper training config for Llama-3.2-3B.
+schema_version: 1
+kind: train_run
+dataset:
+  directory: ../artifacts/train/combined/harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_all_lengths
+  manifest: effective_config.json
+  trajectory_file: trajectories.jsonl
+  train_file: train_queries.jsonl
+  validation_file: validation_queries.jsonl
+  holdout_file: holdout_queries.jsonl
+model:
+  checkpoint: ${BASE_MODEL_ROOT}/models--meta-llama--Llama-3.2-3B
+  checkpoint_revision: 13afe5124825b4f3751f836b40dafda64c1ed062
+  tokenizer: ${BASE_MODEL_ROOT}/models--meta-llama--Llama-3.2-3B
+  tokenizer_revision: 13afe5124825b4f3751f836b40dafda64c1ed062
+  load_options:
+    trust_remote_code: true
+    local_files_only: true
+    attn_implementation: sdpa
+    torch_dtype: bfloat16
+    device_map: null
+    pad_token: <|finetune_right_pad_id|>
+monitor:
+  backend: factor_monitor_binary
+  backend_options:
+    architecture_config: architecture_llama32_3b.yaml
+    factor_encoding_contract_id: factor_encoding_contract_v1
+    evidence_encoding_contract_id: evidence_encoding_contract_v1
+    evidence_routes:
+      reasoning_method: cot_direct
+      deception: cot_direct
+      memory_use: context_grounded
+      skill_use: context_grounded
+      sycophancy: context_grounded
+      reward_hacking: cot_direct
+      sabotage: cot_direct
+      sandbagging: context_grounded
+      instruction_following: context_grounded
+      hallucination: context_grounded
+      bias: context_grounded
+      privacy: context_grounded
+      jailbreak: context_grounded
+    training_scope:
+      mode: smoke_subset
+      families:
+      - reasoning_method
+      - deception
+      - skill_use
+      - sycophancy
+      - reward_hacking
+      - sabotage
+      - sandbagging
+      - instruction_following
+      - hallucination
+      - privacy
+      - jailbreak
+    sequence:
+      max_factor_tokens: 512
+      length_buckets:
+      - 8192
+      - 16384
+      - 24576
+      - 32768
+      - 33024
+      overlength_policy: window_complete_no_truncation
+    batching:
+      training_unit: long_cot_mil
+      trajectories_per_microbatch: 1
+      max_queries_per_trajectory: null
+      mixed_route_policy: route_masked_vectorized
+      distributed_unused_route_policy: sampler_guaranteed_per_synchronized_step
+    repository_policy: allow_dirty_with_recorded_diff
+    lora:
+      target_modules:
+      - q_proj
+      - k_proj
+      - v_proj
+      - o_proj
+      - gate_proj
+      - up_proj
+      - down_proj
+      rank: 16
+      alpha: 32
+      dropout: 0.05
+      bias: none
+    new_module_learning_rate: 0.0001
+    label_weighting: record_loss_weight
+    loss_aggregation: mil_factor_instance_uniform
+    model_variant: endpoint_early_fusion
+    endpoint_encoding_contract_id: endpoint_factor_suffix_contract_v1
+    endpoint_length_audit: ../runs/llama32_3b_active11_mil_length.json
+    endpoint_max_padded_tokens_per_backbone_forward: 33024
+    metric_driven_weighting:
+      enabled: true
+      score_source: factor_monitor/runs/eval/complete_factor_suffix_metric_weighted_32768
+      formula:
+        auroc_weight: 0.7
+        gmean2_weight: 0.3
+        min_multiplier: 0.75
+        max_multiplier: 1.5
+        sensitivity: 1.0
+      metrics:
+        reasoning_method:
+          L1:
+            auroc: 0.9183332306537424
+            gmean2: 0.6399520350228951
+          L3:
+            auroc: 0.9157386534722155
+            gmean2: 0.6601825123543342
+        deception:
+          L1:
+            auroc: 0.8825291999429782
+            gmean2: 0.3891334822751529
+          L3:
+            auroc: 0.8948659987452012
+            gmean2: 0.36801030407597957
+        skill_use:
+          L1:
+            auroc: 0.9938211382113821
+            gmean2: 0.8672473867595818
+          L3:
+            auroc: 0.9916144018583043
+            gmean2: 0.8275261324041812
+        sycophancy:
+          L1:
+            auroc: 0.9497720583992152
+            gmean2: 0.8553984650008657
+          L3:
+            auroc: 0.9564948929540077
+            gmean2: 0.8668907611518264
+        reward_hacking:
+          L1:
+            auroc: 0.7332667332667333
+            gmean2: 0.17307692307692307
+          L3:
+            auroc: 0.8307641069559425
+            gmean2: 0.674421924065087
+        sabotage:
+          L1:
+            auroc: 1.0
+            gmean2: 0.7710843373493976
+          L3:
+            auroc: 0.9810352521195894
+            gmean2: 0.5542168674698795
+        sandbagging:
+          L1:
+            auroc: 0.9978230996574964
+            gmean2: 0.9328389128273119
+          L3:
+            auroc: 0.9771365042536736
+            gmean2: 0.7679089327146171
+        instruction_following:
+          L1:
+            auroc: 0.7196834112941496
+            gmean2: 0.4347366280252187
+          L3:
+            auroc: 0.7194444444444444
+            gmean2: 0.4317673378076063
+        hallucination:
+          L1:
+            auroc: 0.9834410960154976
+            gmean2: 0.8864516501833221
+          L3:
+            auroc: 0.9506858657474468
+            gmean2: 0.7552623703557328
+        privacy:
+          L1:
+            auroc: 0.9332333708192762
+            gmean2: 0.7213544920654755
+          L3:
+            auroc: 0.9125119746761631
+            gmean2: 0.677089841309509
+        jailbreak:
+          L1:
+            auroc: 0.9878603241370778
+            gmean2: 0.9158573549424719
+          L3:
+            auroc: 0.9828781599241205
+            gmean2: 0.9079137284011712
+    metric_mil_loss_weighting: factor_instance
+    long_cot_mil:
+      enabled: true
+      training_schedule: full_epoch_joint
+      trigger_endpoint_tokens: 33024
+      max_endpoint_tokens: 33024
+      cot_overlap_tokens: 6144
+      context_policy: repeat_full_when_feasible_else_window_context
+      overlap_fallback_policy: half_field_capacity_when_needed
+      coverage_policy: complete_no_truncation
+      selection_unit: trajectory_any_query_over_trigger
+      exact_max_windows: 4
+      active_windows: 4
+      exploitation_windows: 2
+      exploration_windows: 2
+      initial_cache: position_stratified_no_model
+      cache_refresh: epoch_boundary
+      pooling: top2_probability_mean
+      long_short_ratio: natural
+      long_exposures: 3
+      long_sampling: exhaustive_without_replacement
+      expected_long_units: auto
+      expected_short_units: auto
+      sampled_long_units_per_exposure: auto
+      optimizer_steps_per_epoch: auto
+      short_replay_sampling: exhaustive_without_replacement
+      replay_only: false
+      evidence_audit_max_failure_ratio: 0.1
+      short_validation_auroc_floor: 0.9621829368533024
+    field_boundary_policy: space_before_closing_tag
+runtime:
+  max_sequence_length: 33024
+  truncation_policy: error
+  padding_policy: dynamic_right
+  seed: 0
+  expected_world_size: 2
+optimization:
+  strategy: lora
+  objective: factor_binary
+  batch_size: 1
+  eval_batch_size: 1
+  gradient_accumulation_steps: 2
+  gradient_checkpointing: true
+  gradient_checkpointing_use_reentrant: false
+  learning_rate: 5.0e-05
+  epochs: 3
+  max_steps: null
+  optimizer: adamw_torch
+  scheduler: linear
+  checkpoint_policy: steps
+  weight_decay: 0.0
+  warmup_ratio: 0.03
+  max_grad_norm: 1.0
+  mixed_precision: bf16
+  logging_steps: 10
+  save_steps: auto
+  resume_from_checkpoint: null
+  save_total_limit: null
+evaluation:
+  metric: selection_score
+  cadence: auto
+  threshold_policy: select_on_validation
+  early_stopping_patience: null
+  during_training: false
+output:
+  directory: ../runs/llama32_3b_active11_mil_metric

@@ -1,5 +1,5 @@
 {
-  "file_count": 114,
+  "file_count": 97,
   "files": [
     {
       "bytes": 67,
@@ -22,34 +22,24 @@
       "sha256": "abb1198626a68b0eece391dcb51134ee93b943fe5bb19206950c4bf97995ee1d"
     },
     {
-      "bytes": 79923,
+      "bytes": 79883,
       "path": "factor_monitor/README.md",
-      "sha256": "4acb4fb96780beefea7aa2e348d257109d8123cc805f0dfbf906a59bab01e1ca"
+      "sha256": "c905853ffc6641c23af6c0ac0aeaeca572c7f4f70a5e6d8fba4d4d5919606f36"
     },
     {
-      "bytes": 1696,
-      "path": "factor_monitor/configs/architecture_factor_monitor.yaml",
-      "sha256": "a1144232ab8fe236b051dabef79d126773d93da7acda21c9edc841207fd3040e"
+      "bytes": 2115,
+      "path": "factor_monitor/configs/architecture_llama32_3b.yaml",
+      "sha256": "b345ff9b2b5b5e7cb12209bd15cfec61d2660104278bae2ecea1499df8d3a5a9"
     },
     {
-      "bytes": 461,
-      "path": "factor_monitor/configs/architecture_factor_monitor_nine_family.yaml",
-      "sha256": "acf922f6ddddd610213764fb2d7b3c4cc1a7c43a05dcbcb9b88585eb2ab6b071"
+      "bytes": 2111,
+      "path": "factor_monitor/configs/architecture_qwen35_4b.yaml",
+      "sha256": "857fbdcce0c509552c4a831a4076866b814318831bdc502f9645bb50a20abf82"
     },
     {
-      "bytes": 518,
-      "path": "factor_monitor/configs/architecture_factor_monitor_trustworthiness13.yaml",
-      "sha256": "5b6c198667adcd3d5611298fa5d52b20b806790ebd0369b8fae3b7d74da1a2ca"
-    },
-    {
-      "bytes": 316,
-      "path": "factor_monitor/configs/architecture_factor_monitor_trustworthiness13_llama32_3b.yaml",
-      "sha256": "bb6c370cb35bf54b4c09889d593ae09a7d29d9e5fc78515321d4e6974d217373"
-    },
-    {
-      "bytes": 312,
-      "path": "factor_monitor/configs/architecture_factor_monitor_trustworthiness13_qwen35_9b.yaml",
-      "sha256": "da0784756cdc1f74c8357c8e08a0b576dd5193526554364ec263834f0fe647dc"
+      "bytes": 2111,
+      "path": "factor_monitor/configs/architecture_qwen35_9b.yaml",
+      "sha256": "d35a6c93cad2974555fa8f052d50ce75aac867657f2ec1460695bdb63bccf706"
     },
     {
       "bytes": 1307,
@@ -57,99 +47,19 @@
       "sha256": "e04ad543eb40db7f5c2883923143e2c23816ab94fcf8ad9211fe0b2f6d9a8501"
     },
     {
-      "bytes": 926,
-      "path": "factor_monitor/configs/train_llama32_3b_active11_mil_gate.yaml",
-      "sha256": "02dba5e434006b595ef0c8af1b04075e776b413b79e32e83fb96c076abec6f10"
+      "bytes": 7465,
+      "path": "factor_monitor/configs/train_llama32_3b.yaml",
+      "sha256": "87c8f3976350b33ea0ed2894637fff0ad30e9ab90f1310f288eedd6d28ef0454"
     },
     {
-      "bytes": 448,
-      "path": "factor_monitor/configs/train_llama32_3b_active11_mil_metric.yaml",
-      "sha256": "16efd3391b52581b8fbcfe3fbe999529bdeeaa618fc8afc2397b4e887fc42917"
+      "bytes": 7515,
+      "path": "factor_monitor/configs/train_qwen35_4b.yaml",
+      "sha256": "4b56185fdfa83aa9b0e958aec0f12e6742f1dec099e18b5234ee33a7ea0a1521"
     },
     {
-      "bytes": 332,
-      "path": "factor_monitor/configs/train_m0_contrast4_factor_instance.yaml",
-      "sha256": "939e7d9877ad6580194709be5ed845ee91060daf3be0faf35aaa22a9a5da4ba6"
-    },
-    {
-      "bytes": 885,
-      "path": "factor_monitor/configs/train_m0_contrast4_trajectory.yaml",
-      "sha256": "efb2e09e5b064ad48de17cbbce8513b1254742802d6c51dcd9145a93c126dc65"
-    },
-    {
-      "bytes": 1294,
-      "path": "factor_monitor/configs/train_m0_harp_syc_m0_risk_if_factor_suffix_gate.yaml",
-      "sha256": "0d754e6d02d477e1a1c7fd52f811fb63155bdfd3144d6fd4dfaf582d3f612c3f"
-    },
-    {
-      "bytes": 454,
-      "path": "factor_monitor/configs/train_m0_harp_syc_m0_risk_if_hard_contrast_factor_suffix_gate.yaml",
-      "sha256": "01fd3f898f3a18122b9ecf8e9d8a0911c86f2904ee359e5a9a5176723d37d71b"
-    },
-    {
-      "bytes": 598,
-      "path": "factor_monitor/configs/train_m0_harp_syc_pair_m0_rest.yaml",
-      "sha256": "3d5cacbf62c51312090cddfc23b2c758b4587d33b0d52bb8ca7fc3260060c753"
-    },
-    {
-      "bytes": 457,
-      "path": "factor_monitor/configs/train_m0_harp_syc_pair_m0_rest_factor_suffix_screen.yaml",
-      "sha256": "a300f17e1214c23a93edbe93bf8e328c8dde3bc7f3ab192ea515971c3d40c1f6"
-    },
-    {
-      "bytes": 2999,
-      "path": "factor_monitor/configs/train_phase1_engineering_smoke.yaml",
-      "sha256": "6240e1b7d20856b04f2d13c6ffd8d483d66bd544e5b1323b42796aa9e3ae05e0"
-    },
-    {
-      "bytes": 910,
-      "path": "factor_monitor/configs/train_phase1_m0_endpoint.yaml",
-      "sha256": "7fc6569b9fa6ef9fb60fb931ea386e6335160278c88162a1e06dd5639d0a09de"
-    },
-    {
-      "bytes": 775,
-      "path": "factor_monitor/configs/train_phase1_m0_endpoint_engineering_gate.yaml",
-      "sha256": "e6b8d841745c79adfd4e276b62aae4e148f9ac4563cec68140ba818852ca1406"
-    },
-    {
-      "bytes": 345,
-      "path": "factor_monitor/configs/train_qwen35_4b_active11_mil_metric.yaml",
-      "sha256": "c979a192fa2027a32038ae9f6053e5adc63f38b6da9886471275a856c16f3872"
-    },
-    {
-      "bytes": 3646,
-      "path": "factor_monitor/configs/train_qwen35_4b_active11_mil_metric_gate.yaml",
-      "sha256": "9b88c7c05c0afd108f2e45d3e3df6ab860c32c467dc10e07c607fa4068d807d7"
-    },
-    {
-      "bytes": 1140,
-      "path": "factor_monitor/configs/train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_gate.yaml",
-      "sha256": "d9314b6b6ae12ca89cdc24d2ba5a9c2d5bf0c34e935b52e299e514382ee9971b"
-    },
-    {
-      "bytes": 795,
-      "path": "factor_monitor/configs/train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_gate.yaml",
-      "sha256": "b0d0a4ca61839c0a26042f48839e08b3e146f8c598a71b7ebcb88e803d71bf23"
-    },
-    {
-      "bytes": 2596,
-      "path": "factor_monitor/configs/train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_no_bias_memory_ifrh_metric_current_gate.yaml",
-      "sha256": "3aa00d3b8d0e5a68a01bb52a5d5bff863fbe6e08b2da7a6ad47dc029e189c60e"
-    },
-    {
-      "bytes": 1387,
-      "path": "factor_monitor/configs/train_qwen35_4b_factor_binary_harp_syc_m0_risk_if_trust4_suffix_lora_gate.yaml",
-      "sha256": "209d57c5bea4f508e39435fc9077fb4888afc9c7a913abe5bb1f3babdcdd4b29"
-    },
-    {
-      "bytes": 724,
-      "path": "factor_monitor/configs/train_qwen35_9b_active11_mil_gate.yaml",
-      "sha256": "ec2254696aaf212cec8917d4ddf6047bbe7a758ef91f962232ef38aec2f3e36d"
-    },
-    {
-      "bytes": 493,
-      "path": "factor_monitor/configs/train_qwen35_9b_active11_mil_metric.yaml",
-      "sha256": "389f54cc836b21621a2761c33d5f0b63bff95fe00d11477fdd3515e4fd844ca1"
+      "bytes": 7413,
+      "path": "factor_monitor/configs/train_qwen35_9b.yaml",
+      "sha256": "5d2f822370a2552d746bb3c78898e61b94ade3b27dfdc70b83c9f1aca39fe4ee"
     },
     {
       "bytes": 1085,
@@ -165,6 +75,11 @@
       "bytes": 63,
       "path": "factor_monitor/src/factor_monitor/__main__.py",
       "sha256": "d7815f9da17bcd8e79d1d47170e5795e29cc5837f97d1049664813068a9e563f"
+    },
+    {
+      "bytes": 5900,
+      "path": "factor_monitor/src/factor_monitor/__pycache__/config.cpython-310.pyc",
+      "sha256": "c80c1471e34973aeb2a915e4b788022e101b46ef791f6502e40ec68ea371960e"
     },
     {
       "bytes": 23879,
@@ -573,5 +488,5 @@
     }
   ],
   "schema_version": 1,
-  "total_bytes": 1852219
+  "total_bytes": 1862302
 }

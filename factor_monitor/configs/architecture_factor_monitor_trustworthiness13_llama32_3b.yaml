@@ -1,8 +1,0 @@
-# Llama-3.2-3B variant of the frozen 13-family Phase-1 monitor architecture.
-# Only the registered backbone identity/width changes; monitor head dimensions
-# and family routing are inherited unchanged.
-extends: architecture_factor_monitor_trustworthiness13.yaml
-
-backbone:
-  family: Llama-3.2-3B
-  hidden_size: 3072

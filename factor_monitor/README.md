@@ -1,6 +1,6 @@
 # Factor Monitor Framework
 
-本公开副本的 `configs/` 只保留三份论文训练配置、它们的 `extends` 链、对应架构定义，以及代码会直接读取的 `taxonomy.yaml`。历史 build、eval、partition 和其余训练试验配置已删除。
+本公开副本的 `configs/` 只有三份论文训练配置、三份对应架构定义，以及代码直接读取的 `taxonomy.yaml`。历史实验配置已经合并进这三份训练文件。
 
 `factor_monitor/` 是 Factor-conditioned CoT monitor 的唯一新框架。它严格分离：
 
