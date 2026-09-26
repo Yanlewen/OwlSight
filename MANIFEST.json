@@ -1,5 +1,5 @@
 {
-  "file_count": 97,
+  "file_count": 65,
   "files": [
     {
       "bytes": 67,
@@ -22,9 +22,9 @@
       "sha256": "abb1198626a68b0eece391dcb51134ee93b943fe5bb19206950c4bf97995ee1d"
     },
     {
-      "bytes": 79883,
+      "bytes": 701,
       "path": "factor_monitor/README.md",
-      "sha256": "c905853ffc6641c23af6c0ac0aeaeca572c7f4f70a5e6d8fba4d4d5919606f36"
+      "sha256": "3aac2376a8be77cf5da8744558c251b514ebb7f89c44cc37bda14c9db03b5b60"
     },
     {
       "bytes": 2115,
@@ -77,49 +77,14 @@
       "sha256": "d7815f9da17bcd8e79d1d47170e5795e29cc5837f97d1049664813068a9e563f"
     },
     {
-      "bytes": 5900,
-      "path": "factor_monitor/src/factor_monitor/__pycache__/config.cpython-310.pyc",
-      "sha256": "c80c1471e34973aeb2a915e4b788022e101b46ef791f6502e40ec68ea371960e"
-    },
-    {
-      "bytes": 23879,
-      "path": "factor_monitor/src/factor_monitor/audit.py",
-      "sha256": "3861f81f93dde2ce659c21620f88e01c7d4d2773ec36ec3f652d5ad221df36a0"
-    },
-    {
-      "bytes": 187538,
-      "path": "factor_monitor/src/factor_monitor/build.py",
-      "sha256": "1c749bab6dfc5df4a1fc53c0b8e6cd0dc8423c287a69b52c1786627594f09aff"
-    },
-    {
-      "bytes": 12093,
-      "path": "factor_monitor/src/factor_monitor/bundle.py",
-      "sha256": "99a907373950c27cc7f868329dcb36fa6c27477a3dce6ff7d6362921f935cb9a"
-    },
-    {
-      "bytes": 27438,
+      "bytes": 19274,
       "path": "factor_monitor/src/factor_monitor/cli.py",
-      "sha256": "9e99fa0ef4cb7316cd223656e1707b59b1672a9fe9d2642db870a19aea25d5a2"
+      "sha256": "dbd3c32ff9686cfa04349b79949acb10f23ab731744b0429cedd536975992b32"
     },
     {
       "bytes": 6472,
       "path": "factor_monitor/src/factor_monitor/config.py",
       "sha256": "2a23237db1e02a25f8eeff94d0f8edf00d6cf4ea7fc14dee2956dd53205073a0"
-    },
-    {
-      "bytes": 3541,
-      "path": "factor_monitor/src/factor_monitor/cot_format.py",
-      "sha256": "af5b2e169b46e865aae4bd411e1f9f8aafe91fa9ccf240e1c57a0c2428a05891"
-    },
-    {
-      "bytes": 27604,
-      "path": "factor_monitor/src/factor_monitor/data_ops.py",
-      "sha256": "7b2c85d89089ca8c741ecd1a040b1a8dac88eba9c09d8abffa49b45f3d69df3f"
-    },
-    {
-      "bytes": 17083,
-      "path": "factor_monitor/src/factor_monitor/deception.py",
-      "sha256": "2d2f84134872655563ed6c2a7cdf2e361b817f166d46048020a70409da287696"
     },
     {
       "bytes": 320,
@@ -137,11 +102,6 @@
       "sha256": "69327736bed2016b3150536eec24ef322cadd3bc357687671bba30d22ebfc260"
     },
     {
-      "bytes": 30590,
-      "path": "factor_monitor/src/factor_monitor/final_monitor_import.py",
-      "sha256": "bd4c6970078b1971fa301c39e0aeff51c850137e4537ce65fcfec28540bcd6b8"
-    },
-    {
       "bytes": 49713,
       "path": "factor_monitor/src/factor_monitor/full_eval.py",
       "sha256": "5a37530b74c0dc87d8ab7aa1b361ecefe9341a6d2741ea3cf5122a6c0bc507d3"
@@ -157,29 +117,9 @@
       "sha256": "954c0c10cc4c0326763539429dbfb7dbb6fb39e3e6bf46e1426e7b0836132d36"
     },
     {
-      "bytes": 36522,
-      "path": "factor_monitor/src/factor_monitor/malt.py",
-      "sha256": "9b76c58747cc6aeaf580324df269d49e5389b5a3363e68a6298c9f18ba08b1a1"
-    },
-    {
-      "bytes": 3795,
-      "path": "factor_monitor/src/factor_monitor/memory_use.py",
-      "sha256": "0cce98dd3ddb89af1011f9f869a5552344639cde0fe92cc7aed2487393c987dd"
-    },
-    {
       "bytes": 8673,
       "path": "factor_monitor/src/factor_monitor/metrics.py",
       "sha256": "0bb30c2841c8810d944c47e140d50dd0105af85c55b77e2e0b38a2881526802f"
-    },
-    {
-      "bytes": 47204,
-      "path": "factor_monitor/src/factor_monitor/migrate.py",
-      "sha256": "10ce6a8ccbb684bb4cc405ef0e3f2043896f8118cd8198c8ab6501000bdb8321"
-    },
-    {
-      "bytes": 40676,
-      "path": "factor_monitor/src/factor_monitor/near_ood_deception.py",
-      "sha256": "2b1c97c26a37eca9d012de25e5a84cf10216b6fc4f839c114318c37c798c7624"
     },
     {
       "bytes": 51395,
@@ -192,24 +132,9 @@
       "sha256": "e71383c4e225b2e35c750548360cf8a4d3fbbf7da5a45b56c120f491c6f1e254"
     },
     {
-      "bytes": 17199,
-      "path": "factor_monitor/src/factor_monitor/processing.py",
-      "sha256": "689011b0c73bde9f461507ea8eac6b1ac2dc67cb43365efe3863223198ba36f1"
-    },
-    {
       "bytes": 6464,
       "path": "factor_monitor/src/factor_monitor/prompt_contract.py",
       "sha256": "000b2bd7fc856fa9ee84f7e09d2c05f845b02ff13415d96531fcbf9b98e849f7"
-    },
-    {
-      "bytes": 28208,
-      "path": "factor_monitor/src/factor_monitor/reward_hacking.py",
-      "sha256": "5fe9f6a2a272766681e8c968e67f3153780f8857b9988e5522a8b4294133efd4"
-    },
-    {
-      "bytes": 45273,
-      "path": "factor_monitor/src/factor_monitor/reward_hacking_traces.py",
-      "sha256": "3a4ef68f20819c5daaaed175687eccf9964916dcc97ff6364a42875584a63e1c"
     },
     {
       "bytes": 45186,
@@ -220,21 +145,6 @@
       "bytes": 10813,
       "path": "factor_monitor/src/factor_monitor/schema.py",
       "sha256": "ba63b8f0ec01b4998ffd74c132bcd296573de0918bdd2dd011fc1884aefdd8a7"
-    },
-    {
-      "bytes": 28814,
-      "path": "factor_monitor/src/factor_monitor/stratified_calibration.py",
-      "sha256": "575e2ebbce38bff13b4622dd9f931e1807e64942c936c0648b866d19ed82f247"
-    },
-    {
-      "bytes": 22119,
-      "path": "factor_monitor/src/factor_monitor/sycophancy_te.py",
-      "sha256": "497bde572972aedd437c1fd6169304417bfa948532d55ba51e38e42564833047"
-    },
-    {
-      "bytes": 30404,
-      "path": "factor_monitor/src/factor_monitor/threshold_diagnostics.py",
-      "sha256": "74bf45327918a3ec93d8899435e6905e76c8356c7009c9a16e1f8a05d5b8895e"
     },
     {
       "bytes": 1524,
@@ -275,11 +185,6 @@
       "bytes": 26952,
       "path": "factor_monitor/src/factor_monitor/training/objective.py",
       "sha256": "a70814a5e3c866273bd475e8496e501a1ca5b849ad9f9b83188646f613c409f2"
-    },
-    {
-      "bytes": 45632,
-      "path": "factor_monitor/src/factor_monitor/vllm_baseline.py",
-      "sha256": "ab92ec0b19ad799eb0687598ebd198f6f8c0c9194dca6988756a411663559e9b"
     },
     {
       "bytes": 5472,
@@ -335,56 +240,6 @@
       "bytes": 30,
       "path": "factor_monitor_eval/src/factor_monitor_eval/__main__.py",
       "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
-    },
-    {
-      "bytes": 507,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/__init__.cpython-310.pyc",
-      "sha256": "1969f4dd22a44d61623bdf47e4770af8cca18dc8e0082899c981907e20a48071"
-    },
-    {
-      "bytes": 1366,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/adapters.cpython-310.pyc",
-      "sha256": "8f0fc1b71cf4c0ac044dd1edca879cf08d65348588a9c8ace52220f62c10ace2"
-    },
-    {
-      "bytes": 7176,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/infer.cpython-310.pyc",
-      "sha256": "1f97c0942ca82a29ca67a11450524c1066f52c556365778f49e1edb3ecf8ceab"
-    },
-    {
-      "bytes": 3479,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/io.cpython-310.pyc",
-      "sha256": "b557c5c1205e4a0f2842606bcb12f368f539d7f2b215000b36562910c9feabe6"
-    },
-    {
-      "bytes": 5490,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/manifest.cpython-310.pyc",
-      "sha256": "cc1046168e8185540b3f83cccc17f63d3fa2b138c3e528025c1ca3ed0fbe59df"
-    },
-    {
-      "bytes": 5416,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/metrics.cpython-310.pyc",
-      "sha256": "11db0d88c46100a7c25307e84be395d00976ba347ef677fa95e361b9a4c1fd85"
-    },
-    {
-      "bytes": 6926,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/providers.cpython-310.pyc",
-      "sha256": "84c1a95e335eadb990ad19965d4db0b63348818f534740bd6bc0b96dbfbe19b5"
-    },
-    {
-      "bytes": 5248,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/scoring.cpython-310.pyc",
-      "sha256": "efbe4afa3f6dbb2a815bd91fe8863935eb3ecb89619db29296c30f71892d5f37"
-    },
-    {
-      "bytes": 4992,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/smoke.cpython-310.pyc",
-      "sha256": "c6f60554562abee7517ce956172b8590e3a8820fbee7d88fd4840bc93c9c8f3b"
-    },
-    {
-      "bytes": 3280,
-      "path": "factor_monitor_eval/src/factor_monitor_eval/__pycache__/thresholds.cpython-310.pyc",
-      "sha256": "ccedcf53e768bbf6750579a6f5497adf779dcd1bc5bfff8a77cce442646c1f83"
     },
     {
       "bytes": 1196,
@@ -452,21 +307,6 @@
       "sha256": "96398f74d86efeef969038aa15de30086d34a11f5e599e5f1aade05f5420e159"
     },
     {
-      "bytes": 1481,
-      "path": "factor_monitor_eval/tests/__pycache__/test_metrics.cpython-310.pyc",
-      "sha256": "0ead649245a94cbe5db007c3a9323a1ee36a078d95ee820ada01afda740deca5"
-    },
-    {
-      "bytes": 6654,
-      "path": "factor_monitor_eval/tests/__pycache__/test_scoring.cpython-310.pyc",
-      "sha256": "206bb435c1924ad90405c02a55778676d541e422c8fbd6413df24321a1733923"
-    },
-    {
-      "bytes": 1689,
-      "path": "factor_monitor_eval/tests/__pycache__/test_thresholds.cpython-310.pyc",
-      "sha256": "aa94b5a795de15ef0494aca9cd422957a4a8bdfa48348c3a046aae8a774df57a"
-    },
-    {
       "bytes": 1252,
       "path": "factor_monitor_eval/tests/test_metrics.py",
       "sha256": "12137773da2fcb89e73eac7f6411c42898f75d09dd29a802f3b88a10aae2ef40"
@@ -488,5 +328,5 @@
     }
   ],
   "schema_version": 1,
-  "total_bytes": 1862302
+  "total_bytes": 1067178
 }

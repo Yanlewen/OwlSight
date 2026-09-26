@@ -1,4 +1,4 @@
-"""Command line entrypoint for the unified factor-monitor framework."""
+"""Command line entrypoint for paper training and evaluation."""
 
 from __future__ import annotations
 
@@ -7,10 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .bundle import validate_dataset_bundle
-from .build import build_dataset
 from .config import file_sha256
-from .data_ops import run_judge_batch
 from .eval import score_binary_artifact
 from .full_eval import (
     audit_coverage,
@@ -22,15 +19,11 @@ from .full_eval import (
 )
 from .io import read_jsonl, write_json
 from .metrics import score_summary, select_balanced_threshold
-from .migrate import migrate_legacy, migrate_relations
 from .openai_intervention import score_artifact
 from .process_eval import score_process_artifact
 from .prompt_contract import contract_spec
-from .processing import resolve_vllm_job, run_dataset_stage
 from .runtime import resolve_run_config, run_from_config
 from .schema import CanonicalRecord, Taxonomy, validate_record_collection
-from .stratified_calibration import run_stratified_calibration
-from .threshold_diagnostics import run_threshold_decomposition
 from .training.encoding import FIELD_BOUNDARY_POLICIES, set_field_boundary_policy
 
 
@@ -45,10 +38,6 @@ def _validate_source(args: argparse.Namespace) -> None:
         for row in read_jsonl(args.input)
     ]
     _print(validate_record_collection(records))
-
-
-def _build(args: argparse.Namespace) -> None:
-    _print(build_dataset(args.config, dry_run=args.dry_run, overwrite=args.overwrite))
 
 
 def _audit_lengths(args: argparse.Namespace) -> None:
@@ -187,41 +176,6 @@ def _audit_lengths(args: argparse.Namespace) -> None:
     _print(report)
 
 
-def _validate_dataset(args: argparse.Namespace) -> None:
-    _print(
-        validate_dataset_bundle(
-            args.manifest,
-            taxonomy_path=args.taxonomy,
-            datasets_root=args.datasets_root,
-            require_canonical=args.require_canonical,
-        )
-    )
-
-
-def _migrate(args: argparse.Namespace) -> None:
-    _print(
-        migrate_legacy(
-            args.config,
-            dry_run=args.dry_run,
-            overwrite=args.overwrite,
-            selected_job=args.job,
-            selected_family=args.family,
-        )
-    )
-
-
-def _migrate_relations(args: argparse.Namespace) -> None:
-    _print(
-        migrate_relations(
-            datasets_root=args.datasets_root,
-            artifacts_root=args.artifacts_root,
-            taxonomy_path=args.taxonomy,
-            dry_run=args.dry_run,
-            overwrite=args.overwrite,
-        )
-    )
-
-
 def _run(args: argparse.Namespace) -> None:
     validation_checkpoint = getattr(args, "validation_checkpoint", None)
     output_directory = getattr(args, "output_directory", None)
@@ -313,67 +267,6 @@ def _score_process(args: argparse.Namespace) -> None:
     )
 
 
-def _audit_thresholds(args: argparse.Namespace) -> None:
-    _print(run_threshold_decomposition(args.config, overwrite=args.overwrite))
-
-
-def _calibrate_thresholds(args: argparse.Namespace) -> None:
-    _print(run_stratified_calibration(args.config, overwrite=args.overwrite))
-
-
-def _process_dataset(args: argparse.Namespace) -> None:
-    _print(
-        run_dataset_stage(
-            args.manifest,
-            stage=args.stage,
-            config_path=args.config,
-            dry_run=args.dry_run,
-            overwrite=args.overwrite,
-            base_url=args.base_url,
-            api_key=args.api_key,
-        )
-    )
-
-
-def _plan_vllm(args: argparse.Namespace) -> None:
-    result = resolve_vllm_job(
-        args.manifest,
-        args.runtime_config,
-        stage=args.stage,
-        pipeline_config_path=args.pipeline_config,
-    )
-    if args.output is not None:
-        write_json(args.output, result)
-    _print(result)
-
-
-def _judge_batch(args: argparse.Namespace) -> None:
-    _print(
-        run_judge_batch(
-            profile=args.profile,
-            requests_path=args.requests,
-            output_path=args.output,
-            errors_path=args.errors_output,
-            summary_path=args.summary_output,
-            base_url=args.base_url,
-            api_key=args.api_key,
-            dry_run=args.dry_run,
-        )
-    )
-
-
-def _evaluate_vllm_baseline(args: argparse.Namespace) -> None:
-    from .vllm_baseline import run_suite
-
-    result = run_suite(args.config, dry_run=args.dry_run)
-    if args.effective_output is not None:
-        effective = result.get("effective_config")
-        if effective is None:
-            raise ValueError("--effective-output is only available with --dry-run")
-        write_json(args.effective_output, effective)
-    _print(result)
-
-
 def _full_eval(args: argparse.Namespace) -> None:
     if args.action == "materialize":
         if args.model_output is None:
@@ -413,21 +306,6 @@ def parser() -> argparse.ArgumentParser:
     validate.add_argument("--input", type=Path, required=True)
     validate.add_argument("--taxonomy", type=Path, required=True)
     validate.set_defaults(handler=_validate_source)
-
-    validate_dataset = commands.add_parser(
-        "validate-dataset", help="validate a neutral dataset bundle and its canonical pool"
-    )
-    validate_dataset.add_argument("--manifest", type=Path, required=True)
-    validate_dataset.add_argument("--taxonomy", type=Path, required=True)
-    validate_dataset.add_argument("--datasets-root", type=Path, required=True)
-    validate_dataset.add_argument("--require-canonical", action="store_true")
-    validate_dataset.set_defaults(handler=_validate_dataset)
-
-    build = commands.add_parser("build", help="build train or formal-eval queries from YAML")
-    build.add_argument("--config", type=Path, required=True)
-    build.add_argument("--dry-run", action="store_true")
-    build.add_argument("--overwrite", action="store_true")
-    build.set_defaults(handler=_build)
 
     length_audit = commands.add_parser(
         "audit-lengths",
@@ -477,80 +355,6 @@ def parser() -> argparse.ArgumentParser:
     length_audit.add_argument("--output", type=Path)
     length_audit.add_argument("--overwrite", action="store_true")
     length_audit.set_defaults(handler=_audit_lengths)
-
-    migrate = commands.add_parser(
-        "migrate", help="migrate audited legacy sources into canonical records"
-    )
-    migrate.add_argument("--config", type=Path, required=True)
-    migrate.add_argument("--job", choices=("all", "intervention", "process"), default="all")
-    migrate.add_argument("--family", choices=("sycophancy", "sandbagging"))
-    migrate.add_argument("--dry-run", action="store_true")
-    migrate.add_argument("--overwrite", action="store_true")
-    migrate.set_defaults(handler=_migrate)
-
-    relation_migrate = commands.add_parser(
-        "migrate-relations",
-        help="rewrite persisted Factor relation enums from locus, in place",
-    )
-    relation_migrate.add_argument("--datasets-root", type=Path, required=True)
-    relation_migrate.add_argument("--artifacts-root", type=Path, required=True)
-    relation_migrate.add_argument("--taxonomy", type=Path, required=True)
-    relation_migrate.add_argument("--dry-run", action="store_true")
-    relation_migrate.add_argument("--overwrite", action="store_true")
-    relation_migrate.set_defaults(handler=_migrate_relations)
-
-    process = commands.add_parser(
-        "process-dataset", help="run one stage through the adapter in dataset.yaml"
-    )
-    process.add_argument("--manifest", type=Path, required=True)
-    process.add_argument("--stage", required=True)
-    process.add_argument("--config", type=Path)
-    process.add_argument("--base-url")
-    process.add_argument("--api-key")
-    process.add_argument("--dry-run", action="store_true")
-    process.add_argument("--overwrite", action="store_true")
-    process.set_defaults(handler=_process_dataset)
-
-    plan_vllm = commands.add_parser(
-        "plan-vllm", help="resolve and validate a local-vLLM dataset-stage job"
-    )
-    plan_vllm.add_argument("--manifest", type=Path, required=True)
-    plan_vllm.add_argument("--runtime-config", type=Path, required=True)
-    plan_vllm.add_argument("--pipeline-config", type=Path)
-    plan_vllm.add_argument(
-        "--stage",
-        required=True,
-        help="registered dataset stage with a vLLM runtime mapping",
-    )
-    plan_vllm.add_argument("--output", type=Path)
-    plan_vllm.set_defaults(handler=_plan_vllm)
-
-    judge_batch = commands.add_parser(
-        "judge-batch",
-        help="run dataset-built Judge requests through one shared model profile",
-    )
-    judge_batch.add_argument("--profile", type=Path, required=True)
-    judge_batch.add_argument("--requests", type=Path, required=True)
-    judge_batch.add_argument("--output", type=Path, required=True)
-    judge_batch.add_argument("--errors-output", type=Path, required=True)
-    judge_batch.add_argument("--summary-output", type=Path, required=True)
-    judge_batch.add_argument("--base-url")
-    judge_batch.add_argument("--api-key")
-    judge_batch.add_argument("--dry-run", action="store_true")
-    judge_batch.set_defaults(handler=_judge_batch)
-
-    vllm_baseline = commands.add_parser(
-        "evaluate-vllm-baseline",
-        help="run a config-driven zero-shot Factor suite with offline vLLM forced choice",
-    )
-    vllm_baseline.add_argument("--config", type=Path, required=True)
-    vllm_baseline.add_argument("--dry-run", action="store_true")
-    vllm_baseline.add_argument(
-        "--effective-output",
-        type=Path,
-        help="write the resolved effective config during a dry run",
-    )
-    vllm_baseline.set_defaults(handler=_evaluate_vllm_baseline)
 
     full_eval = commands.add_parser(
         "full-eval",
@@ -673,21 +477,6 @@ def parser() -> argparse.ArgumentParser:
     process_score.add_argument("--overwrite", action="store_true")
     process_score.set_defaults(handler=_score_process)
 
-    threshold_audit = commands.add_parser(
-        "audit-thresholds",
-        help="decompose frozen-threshold and ranking/separability error from saved scores",
-    )
-    threshold_audit.add_argument("--config", type=Path, required=True)
-    threshold_audit.add_argument("--overwrite", action="store_true")
-    threshold_audit.set_defaults(handler=_audit_thresholds)
-
-    calibration = commands.add_parser(
-        "calibrate-thresholds",
-        help="fit validation-only hierarchical thresholds and audit saved eval scores",
-    )
-    calibration.add_argument("--config", type=Path, required=True)
-    calibration.add_argument("--overwrite", action="store_true")
-    calibration.set_defaults(handler=_calibrate_thresholds)
     return root
 
 
