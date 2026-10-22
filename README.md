@@ -4,15 +4,25 @@
   <img src="assets/owlsight_logo.png" alt="OwlSight logo" width="60%">
 </p>
 
-**OwlSight** is a CoT monitor built on **Factor**, a monitoring strategy in
-which monitoring requirements are customized directly in the prompt: a single
-monitor covers different tasks by relying on different factors, at both fine
-granularity (e.g., whether a specific email address is leaked) and coarse
-granularity (e.g., privacy leakage in general). Across 15,971 reasoning
-trajectories spanning capability, safety, and trustworthiness, OwlSight
-surpasses general-purpose LLMs by 1.32–30.57 and 11.71–27.81 points at fine
-and coarse granularity respectively, and achieves state-of-the-art results on
-OpenAI's CoT monitorability benchmark.
+Chain-of-Thought (CoT) monitoring offers actionable evidence for oversight AI
+systems, with the potential to enable early detection and intervention.
+However, existing approaches are focused on specific tasks, whereas the
+regulation of AI, particularly reasoning models, requires monitoring a broader
+range of tasks. We introduce *Factor* for CoT monitoring, a strategy that
+supports customizing monitoring requirements in the prompt, which enables a
+single monitor to cover different tasks by relying on different factors.
+Furthermore, we introduce two types of factors, fine-grained and coarse-grained
+(*e.g.*, monitoring whether a specific email address has been leaked versus
+monitoring privacy leakage), to accommodate diverse user monitoring needs.
+Based on this, we develop a CoT monitor named OwlSight that relies solely on
+factor to monitor behaviors related to multiple dimensions, including
+capability, safety, and trustworthiness. Experiments across 15,971 reasoning
+trajectories show that OwlSight surpasses general-purpose LLMs by 1.32–30.57
+and 11.71–27.81 points at fine and coarse granularity, respectively, and
+achieves state-of-the-art results on OpenAI's CoT monitorability benchmark. It
+also generalizes to unseen models' CoTs and remains robust to Factor
+rephrasings, CoT compression, and obfuscation, offering a promising paradigm
+for CoT monitoring that can contribute to the oversight of frontier AI.
 
 This repository contains the source code, frozen configurations, and tests for
 the paper's training and evaluation pipeline. Model adapters and evaluation

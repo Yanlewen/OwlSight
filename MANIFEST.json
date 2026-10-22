@@ -17,9 +17,9 @@
       "sha256": "424c19338d408f502a30f3220fb2495b080ab4bd86f6e7466deefbff5c60d471"
     },
     {
-      "bytes": 4249,
+      "bytes": 5033,
       "path": "README.md",
-      "sha256": "99d7c1c2b74e4f78353e351fe00dd1c02acabfd3c7fe05f5f52d75caa335feca"
+      "sha256": "4d442ca21e8f47a84cb38034a60e594162a6e8ff88da50c3280e5dd3958edd55"
     },
     {
       "bytes": 659708,
@@ -333,5 +333,5 @@
     }
   ],
   "schema_version": 1,
-  "total_bytes": 1729673
+  "total_bytes": 1730457
 }
