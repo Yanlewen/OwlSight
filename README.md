@@ -1,8 +1,32 @@
-# Anonymous Factor Monitor artifact
+# OwlSight: A Panoramic Monitor for Chain-of-Thought Reasoning
+
+<p align="center">
+  <img src="assets/owlsight_logo.png" alt="OwlSight logo" width="60%">
+</p>
+
+**OwlSight** is a CoT monitor built on **Factor**, a monitoring strategy in
+which monitoring requirements are customized directly in the prompt: a single
+monitor covers different tasks by relying on different factors, at both fine
+granularity (e.g., whether a specific email address is leaked) and coarse
+granularity (e.g., privacy leakage in general). Across 15,971 reasoning
+trajectories spanning capability, safety, and trustworthiness, OwlSight
+surpasses general-purpose LLMs by 1.32–30.57 and 11.71–27.81 points at fine
+and coarse granularity respectively, and achieves state-of-the-art results on
+OpenAI's CoT monitorability benchmark.
 
 This repository contains the source code, frozen configurations, and tests for
 the paper's training and evaluation pipeline. Model adapters and evaluation
 data are on Hugging Face.
+
+**Paper**: [OwlSight: A Panoramic Monitor for Chain-of-Thought Reasoning](https://arxiv.org/abs/2610.23670)
+
+**Authors**: Lewen Yan<sup>1,2</sup>, Yanxu Zhu<sup>1</sup>, Jie Zhang<sup>1,\*</sup>, Jing Shao<sup>1,\*</sup>
+
+<sup>1</sup> Shanghai Artificial Intelligence Laboratory, Shanghai, China
+<sup>2</sup> School of Computer Science and Engineering, Beihang University, Beijing, China
+<sup>\*</sup> Corresponding authors
+
+Contact: {yanlewen, zhuyanxu, zhangjie1, shaojing}@pjlab.org.cn
 
 ## Models
 
@@ -62,3 +86,22 @@ PYTHONPATH=factor_monitor_eval/src:factor_monitor/src \
 The active suite has 14 top-level artifacts: 12 standard units across 11
 categories and two Intervention bundles expanding to eight reported tasks.
 Deception uses `mask_qwen`; SycoBench is retained as `sycobench_judge`.
+
+## Citation
+
+If you find OwlSight useful, please cite our paper:
+
+```bibtex
+@article{yan2026owlsight,
+  title={OwlSight: A Panoramic Monitor for Chain-of-Thought Reasoning},
+  author={Yan, Lewen and Zhu, Yanxu and Zhang, Jie and Shao, Jing},
+  journal={arXiv preprint arXiv:2610.23670},
+  year={2026}
+}
+```
+
+## License
+
+This repository is released under the Apache 2.0 license (see `LICENSE`).
+Evaluation data keeps the licenses of its upstream datasets; see
+`DATA_AVAILABILITY.md` for the per-dataset terms.

@@ -1,5 +1,5 @@
 {
-  "file_count": 65,
+  "file_count": 66,
   "files": [
     {
       "bytes": 67,
@@ -12,14 +12,19 @@
       "sha256": "d19cadb9f98c4223a6ad40d969759fb340cdb132b3567d6b4a793e1910736b06"
     },
     {
-      "bytes": 9156,
+      "bytes": 10303,
       "path": "LICENSE",
-      "sha256": "6cf63d87586c7c25c3ab8e62eef5c75bbaa982b0a6f9c00c59e2720255aac9ec"
+      "sha256": "424c19338d408f502a30f3220fb2495b080ab4bd86f6e7466deefbff5c60d471"
     },
     {
-      "bytes": 2479,
+      "bytes": 4249,
       "path": "README.md",
-      "sha256": "abb1198626a68b0eece391dcb51134ee93b943fe5bb19206950c4bf97995ee1d"
+      "sha256": "99d7c1c2b74e4f78353e351fe00dd1c02acabfd3c7fe05f5f52d75caa335feca"
+    },
+    {
+      "bytes": 659708,
+      "path": "assets/owlsight_logo.png",
+      "sha256": "2a1ac2f74f8a39a596e89890c7c87f092c75b520eb20a7821361214b95466ee1"
     },
     {
       "bytes": 701,
@@ -322,11 +327,11 @@
       "sha256": "1113544abf38e8ba6504964b066abfda998d100042ff0b89978301d386e3901f"
     },
     {
-      "bytes": 36387,
+      "bytes": 36322,
       "path": "scripts/prepare_public_eval_release.py",
-      "sha256": "54f0d75551cbf87eeea3a277ebba268166fbd150105b0f3ec893678869809227"
+      "sha256": "482eedeba625a19b5ee2f9fd397dab3e7d9155d606fd1d3cd343fd873a0d1ee3"
     }
   ],
   "schema_version": 1,
-  "total_bytes": 1067113
+  "total_bytes": 1729673
 }
