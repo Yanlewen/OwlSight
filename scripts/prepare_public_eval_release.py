@@ -28,11 +28,8 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE = (
-    REPO_ROOT
-    / "release/iclr2027_anonymous_source/review_required/data/evaluation/core"
-)
-DEFAULT_OUTPUT = REPO_ROOT / "release/iclr2027_eval_public"
+DEFAULT_SOURCE = REPO_ROOT / "release/source/data/evaluation/core"
+DEFAULT_OUTPUT = REPO_ROOT / "release/eval_public"
 EVAL_ROOT = REPO_ROOT.parent / "eval"
 PROBLEM_TOKEN = "[PROBLEM]"
 MIN_PROBLEM_SLICE = 64
@@ -768,7 +765,7 @@ Fetch the statements yourself, then run:
 
 ```bash
 python scripts/prepare_public_eval_release.py hydrate \\
-  --public-dir release/iclr2027_eval_public \\
+  --public-dir release/eval_public \\
   --problems /path/to/locally-fetched-statements.jsonl \\
   --output /path/to/hydrated-eval
 ```
