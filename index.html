@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OwlSight: A Panoramic Monitor for Chain-of-Thought Reasoning</title>
+<meta name="description" content="OwlSight is a factor-promptable CoT monitor covering capability, safety, and trustworthiness behaviors.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1f2933;
+    --muted: #52606d;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --line: #e4e7eb;
+    --card: #f8fafc;
+    --code-bg: #f1f5f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f172a;
+      --fg: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --accent-dark: #3b82f6;
+      --line: #1e293b;
+      --card: #111a2e;
+      --code-bg: #0b1222;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    line-height: 1.65;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 40px 24px 64px; }
+
+  .hero { display: flex; align-items: center; gap: 40px; margin-bottom: 8px; }
+  .hero img.owl {
+    width: 200px; height: 200px; flex: 0 0 auto;
+    filter: drop-shadow(0 6px 18px rgba(37, 99, 235, .18));
+  }
+  .hero h1 { font-size: 30px; line-height: 1.25; margin: 0 0 14px; }
+  .authors { margin: 0 0 6px; font-size: 16.5px; }
+  .authors .corr { color: var(--muted); font-size: 14px; vertical-align: super; }
+  .affil { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .affil sup { color: var(--muted); }
+  .contact { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+  .contact code {
+    background: var(--code-bg); padding: 1px 6px; border-radius: 5px;
+    font-size: 13px;
+  }
+  @media (max-width: 640px) {
+    .hero { flex-direction: column; gap: 18px; text-align: center; }
+    .hero img.owl { width: 150px; height: 150px; }
+  }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 8px; }
+  .links a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px; border-radius: 999px;
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-weight: 600; font-size: 15px;
+    transition: background .15s ease;
+  }
+  .links a:hover { background: var(--accent-dark); }
+  .links a.ghost {
+    background: var(--card); color: var(--fg);
+    border: 1px solid var(--line);
+  }
+  .links a.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  section { margin-top: 44px; }
+  h2 {
+    font-size: 21px; margin: 0 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--line);
+  }
+  .figure { margin: 0; text-align: center; }
+  .figure img { max-width: 100%; height: auto; }
+  .figure figcaption {
+    margin: 12px auto 0; max-width: 760px;
+    color: var(--muted); font-size: 14px; text-align: center;
+  }
+  .abstract p { margin: 0; font-size: 16px; }
+
+  pre.bibtex {
+    background: var(--code-bg); border: 1px solid var(--line);
+    border-radius: 10px; padding: 18px 20px; overflow-x: auto;
+    font-size: 13.5px; line-height: 1.55; margin: 0;
+  }
+  .cite-row { display: flex; justify-content: flex-end; margin-top: 8px; }
+  .cite-row button {
+    background: var(--card); color: var(--muted);
+    border: 1px solid var(--line); border-radius: 8px;
+    padding: 5px 14px; font-size: 13.5px; cursor: pointer;
+  }
+  .cite-row button:hover { color: var(--accent); border-color: var(--accent); }
+
+  .models ul { margin: 0; padding-left: 22px; font-size: 15.5px; }
+  .models li { margin: 4px 0; }
+
+  footer {
+    margin-top: 56px; padding-top: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 13.5px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="hero">
+    <img class="owl" src="assets/owl.png" alt="OwlSight owl mascot">
+    <div>
+      <h1>OwlSight: A Panoramic Monitor for<br>Chain-of-Thought Reasoning</h1>
+      <p class="authors">
+        Lewen&nbsp;Yan<sup>1,2</sup>,&nbsp; Yanxu&nbsp;Zhu<sup>1</sup>,&nbsp;
+        Jie&nbsp;Zhang<sup>1,&#x2217;</sup>,&nbsp; Jing&nbsp;Shao<sup>1,&#x2217;</sup>
+      </p>
+      <p class="affil">
+        <sup>1</sup> Shanghai Artificial Intelligence Laboratory&nbsp;&nbsp;
+        <sup>2</sup> School of Computer Science and Engineering, Beihang University
+      </p>
+      <p class="contact">
+        Contact: <code>{yanlewen, zhuyanxu, zhangjie1, shaojing}@pjlab.org.cn</code>
+      </p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="https://arxiv.org/abs/2610.23670">&#128196; Paper</a>
+    <a class="ghost" href="https://github.com/Yanlewen/OwlSight">&#128187; Code</a>
+    <a class="ghost" href="https://huggingface.co/270vision">&#129313; Models</a>
+    <a class="ghost" href="https://huggingface.co/datasets/270vision/factor-monitor-evaluation">&#129313; Evaluation data</a>
+  </div>
+
+  <section>
+    <figure class="figure">
+      <img src="assets/teaser.png"
+           alt="Radar charts comparing OwlSight with general-purpose LLMs and guard models across 11 factors">
+      <figcaption>
+        Panoramic CoT monitoring with OwlSight. Fine-grained factor-level results
+        (G-Mean<sup>2</sup> &times; 100, higher is better) on shared trajectories:
+        OwlSight (blue) versus four general-purpose LLMs and four guard models
+        across 11 factors and the macro average (bottom-right).
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="abstract">
+    <h2>Abstract</h2>
+    <p>
+      Chain-of-Thought (CoT) monitoring offers actionable evidence for oversight
+      AI systems, with the potential to enable early detection and intervention.
+      However, existing approaches are focused on specific tasks, whereas the
+      regulation of AI, particularly reasoning models, requires monitoring a
+      broader range of tasks. We introduce <em>Factor</em> for CoT monitoring, a
+      strategy that supports customizing monitoring requirements in the prompt,
+      which enables a single monitor to cover different tasks by relying on
+      different factors. Furthermore, we introduce two types of factors,
+      fine-grained and coarse-grained (<em>e.g.</em>, monitoring whether a
+      specific email address has been leaked versus monitoring privacy leakage),
+      to accommodate diverse user monitoring needs. Based on this, we develop a
+      CoT monitor named OwlSight that relies solely on factor to monitor
+      behaviors related to multiple dimensions, including capability, safety,
+      and trustworthiness. Experiments across 15,971 reasoning trajectories show
+      that OwlSight surpasses general-purpose LLMs by 1.32&ndash;30.57 and
+      11.71&ndash;27.81 points at fine and coarse granularity, respectively, and
+      achieves state-of-the-art results on OpenAI&rsquo;s CoT monitorability
+      benchmark. It also generalizes to unseen models&rsquo; CoTs and remains
+      robust to Factor rephrasings, CoT compression, and obfuscation, offering a
+      promising paradigm for CoT monitoring that can contribute to the
+      oversight of frontier AI.
+    </p>
+  </section>
+
+  <section class="models">
+    <h2>Models</h2>
+    <ul>
+      <li><a href="https://huggingface.co/270vision/qwen35-4b-factor-monitor">Qwen3.5-4B factor monitor</a></li>
+      <li><a href="https://huggingface.co/270vision/qwen35-9b-factor-monitor">Qwen3.5-9B factor monitor</a></li>
+      <li><a href="https://huggingface.co/270vision/llama32-3b-factor-monitor">Llama3.2-3B factor monitor</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Citation</h2>
+    <pre class="bibtex" id="bibtex">@article{yan2026owlsight,
+  title={OwlSight: A Panoramic Monitor for Chain-of-Thought Reasoning},
+  author={Yan, Lewen and Zhu, Yanxu and Zhang, Jie and Shao, Jing},
+  journal={arXiv preprint arXiv:2610.23670},
+  year={2026}
+}</pre>
+    <div class="cite-row"><button onclick="copyBibtex(this)">Copy BibTeX</button></div>
+  </section>
+
+  <footer>
+    <span>Code is released under the Apache 2.0 license.</span>
+    <span><a href="https://github.com/Yanlewen/OwlSight">GitHub</a></span>
+  </footer>
+
+</main>
+<script>
+  function copyBibtex(btn) {
+    var text = document.getElementById('bibtex').textContent;
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = 'Copied!';
+      setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1600);
+    });
+  }
+</script>
+</body>
+</html>
