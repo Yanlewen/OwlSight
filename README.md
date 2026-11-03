@@ -28,7 +28,7 @@ This repository contains the source code, frozen configurations, and tests for
 the paper's training and evaluation pipeline. Model adapters and evaluation
 data are on Hugging Face.
 
-**Paper**: [OwlSight: A Panoramic Monitor for Chain-of-Thought Reasoning](https://arxiv.org/abs/2610.23670)
+**Paper**: [OwlSight: A Panoramic Monitor for Chain-of-Thought Reasoning](https://arxiv.org/abs/2610.23670) · **Project page**: [yanlewen.github.io/OwlSight](https://yanlewen.github.io/OwlSight/)
 
 **Authors**: Lewen Yan<sup>1,2</sup>, Yanxu Zhu<sup>1</sup>, Jie Zhang<sup>1,\*</sup>, Jing Shao<sup>1,\*</sup>
 
